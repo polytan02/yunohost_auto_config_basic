@@ -12,11 +12,14 @@ txtgrn=$(tput setaf 2)    # Green
 txtred=$(tput setaf 1)    # Red
 txtcyn=$(tput setaf 6)    # Cyan
 txtrst=$(tput sgr0)       # Text reset
+failed=[${txtred}FAILED${txtrst}]
+ok=[${txtgrn}OK${txtrst}]
+info=[${txtcyn}INFO${txtrst}]
 
 
 # Make sure only root can run our script
 if [[ $EUID -ne 0 ]];
-        then   echo "\n[${txtred}FAILED${txtrst}] This script must be run as root";
+        then   echo -e "\n$failed This script must be run as root\n";
         exit;
 fi
 
@@ -29,9 +32,9 @@ apt-get upgrade
 apt-get dist-upgrade
 apt-get install git
 git clone https://github.com/YunoHost/install_script /tmp/install
-/tmp/install/install_yunohostv2
+/tmp/install/install_yunohostv2;
 apt-get autoremove
 
 
-echo -e "\n[${txtcyn}INFO${txtrst}] Hopefully, all done Well ! :) \n"
+echo -e "\n$info Hopefully, all done Well ! :) \n"
 
