@@ -61,7 +61,7 @@ sed -i "s/# CUSTOM_FROM=\"\"/CUSTOM_FROM=\"$email_receive\"/g" $dest
 echo -e "$ok Adjustment of $cron"
 sed -i "s/8 \*/8 4/g" $cron
 
-
-echo -e "\n$info Hopefully, all done Well ! :) "
+echo -e "\n You can also edit /etc/fail2ban/jail.conf to receive emails from fail2ban too"
+echo -e "\n$info Hopefully, all done Well ! :) \n"
 
 
