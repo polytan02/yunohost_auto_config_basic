@@ -52,7 +52,7 @@ echo -e "$ok key.pem and crt.pem are present"
 
 # Creation of sslcert group
 echo -e "$ok Creating group sslcert"
-addgroup sslcert &
+addgroup sslcert
 for g in amavis dovecot mail metronome mysql openldap postfix postgrey root vmail www-data
 do
 	usermod -G sslcert $g

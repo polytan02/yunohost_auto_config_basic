@@ -49,8 +49,8 @@ echo -e "$ok Domain name specified : $domain"
 
 # We start by installing the right software
 echo -e "$ok Installation of OpenDKIM software"
-apt-get update &
-apt-get install opendkim opendkim-tools &
+apt-get update
+apt-get install opendkim opendkim-tools
 
 # Then we configure opendkim
 echo -e "$ok Copy of opendkim.conf in /etc/ "
@@ -93,9 +93,9 @@ chown -Rv opendkim:opendkim $dest*
 
 # Restart services
 echo -e "\n--- Restarting services \n"
-service opendkim restart &
-service postfix reload &
-yunohost app ssowatconf &
+service opendkim restart
+service postfix reload
+yunohost app ssowatconf
 
 echo -e "\n$info Hopefully, all done Well ! :) "
 

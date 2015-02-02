@@ -63,14 +63,14 @@ echo -e "$ok Copy apt sources.list to use ovh servers"
 cp ./$files/sources.list /etc/apt/
 
 # We add bash-completion, required for bashrc
-apt-get update &
-apt-get upgrade &
-apt-get dist-upgrade &
-apt-get install bash-completion &
+apt-get update
+apt-get upgrade
+apt-get dist-upgrade
+apt-get install bash-completion
 
 # Base user for ssh connection
 echo -e "$info Username specified : $user"
-adduser $user 
+adduser $user
 echo -e "$ok User $user created"
 
 echo -e "ok Copy of root .bashrc"

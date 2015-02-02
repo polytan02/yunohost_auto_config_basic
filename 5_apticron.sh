@@ -48,8 +48,8 @@ echo -e "$ok Receiver's email : $email_receive"
 
 # We start by installing the right software
 echo -e "$ok Installation of apticron software"
-apt-get update &
-apt-get install apticron &
+apt-get update
+apt-get install apticron
 
 # Then we configure apticron
 echo -e "$ok Configuration of apticron.conf "
@@ -61,6 +61,5 @@ sed -i "s/# CUSTOM_FROM=\"\"/CUSTOM_FROM=\"$email_receive\"/g" $dest
 echo -e "$ok Adjustment of $cron"
 sed -i "s/8 \*/8 4/g" $cron
 
-# Simple comment regarding fail2ban automatic email
 echo -e "\n You can also edit /etc/fail2ban/jail.conf to receive emails from fail2ban too"
 echo -e "\n$info Hopefully, all done Well ! :) \n"
