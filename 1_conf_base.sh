@@ -17,7 +17,7 @@ failed=[${txtred}FAILED${txtrst}]
 ok=[${txtgrn}OK${txtrst}]
 info=[${txtcyn}INFO${txtrst}]
 
- Make sure only root can run our script
+# Make sure only root can run our script
 if [[ $EUID -ne 0 ]];
 	then   echo -e "\n$failed his script must be run as root\n";
   	exit;
@@ -42,13 +42,11 @@ port=$2
 files=conf_base
 
 # We check if the user already exists
-getent passwd $1 > /dev/null 2>&1;
-if [ $? -eq 0 ];
-        then echo -e "\n$failed The user $user already exists "
+if getent passwd $1 > /dev/null 2>&1; then
+        echo -e "\n$failed The user $user already exists "
         echo -e "\nAborting before doing anything"
-	exit;
+        exit;
 fi
-
 
 # We check that all necessary files are present
 for i in root.bashrc user.bashrc sshd_config sources.list
@@ -60,16 +58,20 @@ do
         fi
 done
 
-# Base user for ssh connection
-echo -e "$info Username specified : $user"
-adduser $user
-echo -e "$ok User $user created"
+# Update of apt/sources.list to use ovh servers
+echo -e "$ok Copy apt sources.list to use ovh servers"
+cp ./$files/sources.list /etc/apt/
 
 # We add bash-completion, required for bashrc
-apt-get update
-apt-get upgrade
-apt-get dist-upgrade
-apt-get install bash-completion
+apt-get update &
+apt-get upgrade &
+apt-get dist-upgrade &
+apt-get install bash-completion &
+
+# Base user for ssh connection
+echo -e "$info Username specified : $user"
+adduser $user &
+echo -e "$ok User $user created"
 
 echo -e "ok Copy of root .bashrc"
 cp ./$files/root.bashrc /root/.bashrc
@@ -78,17 +80,13 @@ echo -e "$ok Copy of $user .bashrc"
 cp ./$files/user.bashrc /home/$user/.bashrc
 chown $user:$user /home/$user/.bashrc
 
+
 echo -e "$ok Copy of sshd config in /etc "
 cp ./$files/sshd_config /etc/ssh/sshd_config
 echo -e "$info SSH port specified : $port "
 sed -i "s/Port 22/Port $port/g" /etc/ssh/sshd_config
 echo -e "$ok Only allow $user to connect remotely from port $port"
 echo -e "AllowUsers $user" >> /etc/ssh/sshd_config
-echo -e "\n"
+echo -e "\n--- Restarting service ssh\n"
 service ssh restart
-echo -e "\n"
-echo -e "$ok Copy apt sources.list to use ovh servers"
-cp ./$files/sources.list /etc/apt/
-
-
 echo -e "\n$info Ok, hopefully all done Well ! \n"

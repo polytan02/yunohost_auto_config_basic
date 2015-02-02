@@ -48,10 +48,11 @@ do
         exit
         fi
 done
+echo -e "$ok key.pem and crt.pem are present"
 
 # Creation of sslcert group
 echo -e "$ok Creating group sslcert"
-addgroup sslcert
+addgroup sslcert &
 for g in amavis dovecot mail metronome mysql openldap postfix postgrey root vmail www-data
 do
 	usermod -G sslcert $g
@@ -83,11 +84,9 @@ chmod 640 $work/$domain/*.pem
 chown www-data:sslcert $work/yunohost.org/*.pem
 chmod 640 $work/yunohost.org/*.pem
 
-echo -e "$ok Restarting services"
-echo -e "\n"
+echo -e "\n--- Restarting services\n"
 service nginx restart
 service php5-fpm restart
-echo -e "\n"
 
 echo -e "\n$info Hopefully, all done Well ! :) \n"
 

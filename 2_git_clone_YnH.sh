@@ -27,13 +27,13 @@ fi
 # Installation of Yunohost from git
 echo -e "[${txtgrn}STARTING${txtrst}] Installation of Yunohost v2 from git sources "
 
-apt-get update
-apt-get upgrade
-apt-get dist-upgrade
-apt-get install git
-git clone https://github.com/YunoHost/install_script /tmp/install
-/tmp/install/install_yunohostv2;
-apt-get autoremove
+apt-get update &
+apt-get upgrade &
+apt-get dist-upgrade &
+apt-get install git &
+git clone https://github.com/YunoHost/install_script /tmp/install &
+/tmp/install/install_yunohostv2 &
+apt-get autoremove &
 
 
 echo -e "\n$info Hopefully, all done Well ! :) \n"
