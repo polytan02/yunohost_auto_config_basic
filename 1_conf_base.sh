@@ -16,22 +16,22 @@ txtrst=$(tput sgr0)       # Text reset
 
 # Make sure only root can run our script
 if [[ $EUID -ne 0 ]];
-        then   echo "[${txtred}FAILED${txtrst}] This script must be run as root";
-        exit;
+	then   echo "\n[${txtred}FAILED${txtrst}] This script must be run as root";
+  	exit;
 fi
 
 # We check that the user argument is given
 if [ -z $1 ] ;
-        then echo -e "[${txtred}FAILED${txtrst}] You must specifiy a username as first argument";
+	then echo -e "\n[${txtred}FAILED${txtrst}] You must specifiy a username as first argument";
         echo -e "\nAborting before doing anything"
-        exit;
+	exit;
 fi;
 
 # We check that the ssh port is given as a second argument
 if [ -z $2 ] ;
-        then echo -e "[${txtred}FAILED${txtrst}] You must specifiy a ssh port number as second argument";
+	then echo -e "\n[${txtred}FAILED${txtrst}] You must specifiy a ssh port number as second argument";
         echo -e "\nAborting before doing anything"
-        exit;
+	exit;
 fi;
 
 user=$1
@@ -41,10 +41,10 @@ files=conf_base
 # We check that all necessary files are present
 for i in root.bashrc user.bashrc sshd_config sources.list
 do
-        if ! [ -a "./$files/$i" ]
-        then echo -e "[${txtred}FAILED${txtrst}] $i not found in folder $files "
+	if ! [ -a "./$files/$i" ]
+        then echo -e "\n[${txtred}FAILED${txtrst}] $i not found in folder $files "
         echo -e "\nAborting before doing anything"
-        exit
+	exit
         fi
 done
 
@@ -70,11 +70,13 @@ echo -e "[${txtgrn}OK${txtrst}] Copy of sshd config in /etc "
 cp ./$files/sshd_config /etc/ssh/sshd_config
 echo -e "[${txtcyn}INFO${txtrst}] SSH port specified : $port "
 sed -i "s/Port 22/Port $port/g" /etc/ssh/sshd_config
-echo -e "[${txtgrn}OK${txtrst}] Only allow $user to connect remotely from port $port "
+echo -e "[${txtgrn}OK${txtrst}] Only allow $user to connect remotely from port $port"
 echo -e "AllowUsers $user" >> /etc/ssh/sshd_config
+echo -e "\n"
 service ssh restart
-
+echo -e "\n"
 echo -e "[${txtgrn}OK${txtrst}] Copy apt sources.list to use ovh servers"
 cp ./$files/sources.list /etc/apt/
 
-echo -e "[${txtcyn}INFO${txtrst}] Ok, hopefully all done Well ! "
+
+echo -e "\n[${txtcyn}INFO${txtrst}] Ok, hopefully all done Well ! \n"

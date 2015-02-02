@@ -17,7 +17,7 @@ txtrst=$(tput sgr0)       # Text reset
 
 # Make sure only root can run our script
 if [[ $EUID -ne 0 ]];
-        then   echo "[${txtred}FAILED${txtrst}] This script must be run as root";
+        then   echo "\n[${txtred}FAILED${txtrst}] This script must be run as root";
         exit;
 fi
 
@@ -25,9 +25,9 @@ fi
 
 # We check that a domain name is given
 if [ -z $1 ] ;
-        then echo -e "[${txtred}FAILED${txtrst}] You must specify a domain name as first argument";
+	then echo -e "\n[${txtred}FAILED${txtrst}] You must specify a domain name as first argument";
         echo -e "\nAborting before doing anything"
-        exit;
+	exit;
 fi;
 
 domain=$1
@@ -52,8 +52,8 @@ echo -e "[${txtgrn}OK${txtrst}] Creating group sslcert"
 addgroup sslcert
 for g in amavis dovecot mail metronome mysql openldap postfix postgrey root vmail www-data
 do
-        usermod -G sslcert $g
-        echo -e "Added to sslcert group : $g"
+	usermod -G sslcert $g
+	echo -e "Added to sslcert group : $g"
 done
 
 # Backup of yunohost self generated ssl certificates
@@ -72,7 +72,6 @@ cp ./$files/*.pem $work/$domain/
 # Idem with yunohost.org subfolder
 mkdir $work/yunohost.org/$self
 mv $work/yunohost.org/*.pem $work/yunohost.org/$self/
-
 echo -e "[${txtgrn}OK${txtrst}] Copy of ssl key and crt in folder $work/yunohost.org/ "
 cp ./$files/*.pem $work/yunohost.org/
 
@@ -83,9 +82,17 @@ chown www-data:sslcert $work/yunohost.org/*.pem
 chmod 640 $work/yunohost.org/*.pem
 
 echo -e "[${txtgrn}OK${txtrst}] Restarting services"
+echo -e "\n"
 service nginx restart
 service php5-fpm restart
+echo -e "\n"
 
-echo -e "[${txtcyn}INFO${txtrst}] Hopefully, all done Well ! :) "
+echo -e "\n[${txtcyn}INFO${txtrst}] Hopefully, all done Well ! :) \n"
+
+
+
+
+
+
 
 

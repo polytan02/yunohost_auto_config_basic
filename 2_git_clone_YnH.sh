@@ -16,7 +16,7 @@ txtrst=$(tput sgr0)       # Text reset
 
 # Make sure only root can run our script
 if [[ $EUID -ne 0 ]];
-        then   echo "[${txtred}FAILED${txtrst}] This script must be run as root";
+        then   echo "\n[${txtred}FAILED${txtrst}] This script must be run as root";
         exit;
 fi
 
@@ -32,5 +32,6 @@ git clone https://github.com/YunoHost/install_script /tmp/install
 /tmp/install/install_yunohostv2
 apt-get autoremove
 
-echo -e "[${txtcyn}INFO${txtrst}] Hopefully, all done Well ! :) "
+
+echo -e "\n[${txtcyn}INFO${txtrst}] Hopefully, all done Well ! :) \n"
 

@@ -17,15 +17,15 @@ txtrst=$(tput sgr0)       # Text reset
 
 # Make sure only root can run our script
 if [[ $EUID -ne 0 ]];
-        then   echo "[${txtred}FAILED${txtrst}] This script must be run as root";
-        exit;
+	then   echo "\n[${txtred}FAILED${txtrst}] This script must be run as root";
+  	exit;
 fi
 
 # We check that the user argument is given
 if [ -z $1 ] ;
-        then echo -e "[${txtred}FAILED${txtrst}] You must specifiy a domain name from which you send emails on this server as fir$
+	then echo -e "\n[${txtred}FAILED${txtrst}] You must specifiy a domain name from which you send emails on this server as first argument";
         echo -e "\nAborting before doing anything"
-        exit;
+	exit;
 fi;
 
 domain=$1
@@ -35,10 +35,10 @@ dest=/etc/opendkim
 # We check that all necessary files are present
 for i in TrustedHosts etc_default_opendkim etc_postfix_main.cf opendkim.conf
 do
-        if ! [ -a "./$files/$i" ]
-        then echo -e "[${txtred}FAILED${txtrst}] $i not found in folder $files "
+	if ! [ -a "./$files/$i" ]
+        then echo -e "\n[${txtred}FAILED${txtrst}] $i not found in folder $files "
         echo -e "\nAborting before doing anything"
-        exit
+	exit
         fi
 done
 
@@ -90,16 +90,18 @@ chown -Rv opendkim:opendkim $dest*
 
 # Restart services
 echo -e "[${txtgrn}OK${txtrst}] Restart of services  "
+echo -e "\n"
 service opendkim restart
 service postfix reload
 yunohost app ssowatconf
+echo -e "\n"
 
-echo -e "[${txtcyn}INFO${txtrst}] Hopefully, all done Well ! :) "
+echo -e "\n[${txtcyn}INFO${txtrst}] Hopefully, all done Well ! :) "
 
-echo -e "[${txtcyn}INFO${txtrst}] Here is the DKIM key to add in your server :\n"
+echo -e "\n[${txtcyn}INFO${txtrst}] Here is the DKIM key to add in your server :\n"
 
 cat $dest/keys/$domain/mail.txt
 
-echo -e "\n[${txtcyn}INFO${txtrst}] Please remember that DNS propagation can take up to 24h..."
+echo -e "\n[${txtcyn}INFO${txtrst}] Please remember that DNS propagation can take up to 24h...\n"
 
 
