@@ -70,7 +70,7 @@ apt-get install bash-completion &
 
 # Base user for ssh connection
 echo -e "$info Username specified : $user"
-adduser $user &
+adduser $user 
 echo -e "$ok User $user created"
 
 echo -e "ok Copy of root .bashrc"

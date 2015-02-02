@@ -93,9 +93,9 @@ chown -Rv opendkim:opendkim $dest*
 
 # Restart services
 echo -e "\n--- Restarting services \n"
-service opendkim restart
-service postfix reload
-yunohost app ssowatconf
+service opendkim restart &
+service postfix reload &
+yunohost app ssowatconf &
 
 echo -e "\n$info Hopefully, all done Well ! :) "
 
@@ -108,5 +108,3 @@ echo -e "\n$info You can also add a SPF key in your DNS zone :\n"
 echo -e "$domain 300 TXT \"v=spf1 a:$domain mx ?all\""
 
 echo -e "\n$info Please remember that DNS propagation can take up to 24h...\n"
-
-

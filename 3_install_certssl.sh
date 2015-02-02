@@ -90,10 +90,3 @@ service php5-fpm restart
 
 echo -e "\n$info Hopefully, all done Well ! :) \n"
 
-
-
-
-
-
-
-
