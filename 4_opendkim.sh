@@ -102,6 +102,10 @@ echo -e "\n[${txtcyn}INFO${txtrst}] Here is the DKIM key to add in your server :
 
 cat $dest/keys/$domain/mail.txt
 
+echo -e "\n[${txtcyn}INFO${txtrst}] You can also add a SPF key in your DNS zone :\n"
+
+echo -e "$domain 300 TXT \"v=spf1 a:$domain mx ?all\""
+
 echo -e "\n[${txtcyn}INFO${txtrst}] Please remember that DNS propagation can take up to 24h...\n"
 
 
