@@ -27,7 +27,7 @@ if [[ $EUID -ne 0 ]];
 fi;
 
 # We check that all necessary files are present
-for i in 3_conf_base.sh 4_install_certssl.sh 5_opendkim.sh 6_apticron_jail2ban_email_reports.sh;
+for i in 3_conf_base.sh 4_install_certssl.sh 5_opendkim.sh 6_apticron_email_reports.sh 7_jail2ban_email_reports.sh;
 do
         if ! [ -a "$i" ];
 	then echo -e "\n$failed $i not found in folder $files ";
@@ -65,11 +65,20 @@ if [ $s5 == 'y' ];
 	read -e -p "Hit ENTER to end this script...  ";
 fi;
 
-# We run script 6_apticron_jail2ban_email_reports.sh
-echo -e "\n$script 6_CONFIGURATION OF APTICRON and FAIL2BAN\n";
+# We run script 6_apticron_email_reports.sh
+echo -e "\n$script 6_INSTALLATION and CONFIGURATION OF APTICRON\n";
 read -e -p "Do you want to pursue with this part of the script ? (yn) : " -i "y" s6;
 if [ $s6 == 'y' ];
-	then ./6_apticron_jail2ban_email_reports.sh;
+	then ./6_apticron_email_reports.sh;
+	else echo -e "\nSkipping Apticron and Jail2ban configuration\n";
+	read -e -p "Hit ENTER to end this script...  ";
+fi;
+
+# We run script 7_jail2ban_email_reports.sh
+echo -e "\n$script 7_CONFIGURATION OF FAIL2BAN\n";
+read -e -p "Do you want to pursue with this part of the script ? (yn) : " -i "y" s7;
+if [ $s7 == 'y' ];
+	then ./7_jail2ban_email_reports.sh;
 	else echo -e "\nSkipping Apticron and Jail2ban configuration\n";
 	read -e -p "Hit ENTER to end this script...  ";
 fi;
