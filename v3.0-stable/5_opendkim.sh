@@ -25,6 +25,10 @@ if [[ $EUID -ne 0 ]];
   	exit;
 fi
 
+echo -e "\n$info OpenDKIM is a software which authenticate the emails you send."
+echo -e "$info This is to avoid your emails to be considered as SPAM."
+echo -e "$info Don't forget that it requires a line to be added in your DNS Zone.\n"
+
 read -e -p "Do you want to install opendkim ? (yn) : " -i "y" dkim;
 if ! [ $dkim == 'y' ]; then exit; fi;
 
