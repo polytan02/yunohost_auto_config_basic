@@ -63,6 +63,10 @@ do
         fi
 done
 
+# We adjust time zone
+echo -e "$ok Adjusting timezone"
+dpkg-reconfigure tzdata
+
 # Base user for ssh connection
 echo -e "$info Username specified : $user"
 adduser $user
