@@ -11,11 +11,12 @@ set -e
 txtgrn=$(tput setaf 2)    # Green
 txtred=$(tput setaf 1)    # Red
 txtcyn=$(tput setaf 6)    # Cyan
+txtpur=$(tput setaf 5)    # Purple
 txtrst=$(tput sgr0)       # Text reset
 failed=[${txtred}FAILED${txtrst}]
 ok=[${txtgrn}OK${txtrst}]
-start=[${txtgrn}starting${txtrst}]
 info=[${txtcyn}INFO${txtrst}]
+script=[${txtpur}SCRIPT${txtrst}]
 
 
 # Make sure only root can run our script
@@ -24,6 +25,8 @@ if [[ $EUID -ne 0 ]];
 	read -p "Hit ENTER to end this script...  ";
         exit;
 fi;
+
+echo "\n$script INSTALLTION OF YUNOHOST\n"
 
 # Update of sources.list
 sources=conf_base/sources.list
