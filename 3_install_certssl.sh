@@ -25,13 +25,21 @@ fi
 
 # We check that a domain name is given
 if [ -z $1 ] ;
-        then echo -e "\n" ; read -e -p "Indicate the domain name of the ssl certificates to install : " domain;
+        then echo -e "Indicate the domain name of the ssl certificates to install :"
+	current_host=`cat /etc/yunohost/current_host`
+        echo -e "\n" ; read -e -p "(if you don't specify one, we will use $current_host) : " domain;
+        if [ -z $domain ] ;
+                then domain=$current_host;
+                if [ -z $domain ] ;
+                        then echo -e "\n$failed You must specifiy a domain name as first argument or when requested"
+                        echo -e "\nAborting before doing anything"
+                        exit;
+                fi;
+        fi;
         else domain=$1;
-fi; if [ -z $domain ] ;
-	then echo -e "\n$failed You must specify a domain name as first argument";
-        echo -e "\nAborting before doing anything"
-        exit;
 fi;
+
+
 
 work=/etc/yunohost/certs
 self=self_generated
