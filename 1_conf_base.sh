@@ -43,7 +43,7 @@ fi
 
 # We check that the ssh port is given as a second argument
 if [ -z $2 ] ;
-	then echo -e "\n" ; read -e -p "Indicate new ssh port :" port;
+	then echo -e "\n" ; read -e -p "Indicate new ssh port : " port;
 	else port=$2;
 fi; if [ -z $port ] ;
 	then echo -e "$failed You must specifiy a ssh port number as second argument";
