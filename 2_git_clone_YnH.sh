@@ -14,6 +14,7 @@ txtcyn=$(tput setaf 6)    # Cyan
 txtrst=$(tput sgr0)       # Text reset
 failed=[${txtred}FAILED${txtrst}]
 ok=[${txtgrn}OK${txtrst}]
+start=[${txtgrn}starting${txtrst}]
 info=[${txtcyn}INFO${txtrst}]
 
 
@@ -25,7 +26,7 @@ fi
 
 
 # Installation of Yunohost from git
-echo -e "[${txtgrn}STARTING${txtrst}] Installation of Yunohost v2 from git sources "
+echo -e "$start Installation of Yunohost v2 from git sources "
 
 apt-get update
 apt-get upgrade
