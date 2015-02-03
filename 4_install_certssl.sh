@@ -20,19 +20,20 @@ info=[${txtcyn}INFO${txtrst}]
 # Make sure only root can run our script
 if [[ $EUID -ne 0 ]];
         then   echo -e "\n$failed This script must be run as root\n";
+        read -p "Hit ENTER to end this script...  "
         exit;
 fi
 
 # We check that a domain name is given
+current_host=`cat /etc/yunohost/current_host`
 if [ -z $1 ] ;
-        then echo -e "Indicate the domain name of the ssl certificates to install :"
-	current_host=`cat /etc/yunohost/current_host`
-        echo -e "\n" ; read -e -p "(if you don't specify one, we will use $current_host) : " domain;
+        then echo -e "\n" ; read -e -p "Indicate the domain name of the ssl certificates to install : " -i "$current_host" domain;
         if [ -z $domain ] ;
                 then domain=$current_host;
                 if [ -z $domain ] ;
                         then echo -e "\n$failed You must specifiy a domain name as first argument or when requested"
-                        echo -e "\nAborting before doing anything"
+                        echo -e "\nAborting before doing anything\n"
+		        read -p "Hit ENTER to end this script...  "
                         exit;
                 fi;
         fi;
@@ -52,7 +53,8 @@ for i in key.pem crt.pem
 do
         if ! [ -a "./$files/$i" ]
         then echo -e "$failed $i not found in folder $files "
-        echo -e "\nAborting before doing anything"
+        echo -e "\nAborting before doing anything\n"
+        read -p "Hit ENTER to end this script...  "
         exit
         fi
 done

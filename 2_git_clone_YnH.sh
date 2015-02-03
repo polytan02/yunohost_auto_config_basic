@@ -21,6 +21,7 @@ info=[${txtcyn}INFO${txtrst}]
 # Make sure only root can run our script
 if [[ $EUID -ne 0 ]];
         then   echo -e "\n$failed This script must be run as root\n";
+	read -p "Hit ENTER to end this script...  "
         exit;
 fi
 

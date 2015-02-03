@@ -20,6 +20,7 @@ info=[${txtcyn}INFO${txtrst}]
 # Make sure only root can run our script
 if [[ $EUID -ne 0 ]];
 	then   echo -e "\n$failed his script must be run as root\n";
+        read -p "Hit ENTER to end this script...  "
   	exit;
 fi
 
@@ -29,14 +30,16 @@ if [ -z $1 ] ;
 	else user=$1;
 fi; if [ -z $user ] ;
         then echo -e "\n$failed You must specifiy a username as first argument";
-       	echo -e "\nAborting before doing anything";
+       	echo -e "\nAborting before doing anything\n";
+	read -p "Hit ENTER to end this script...  "
         exit;
 fi;
 
 # We check if the user already exists
 if getent passwd $user > /dev/null 2>&1; then
         echo -e "\n$failed The user $user already exists "
-        echo -e "\nAborting before doing anything"
+        echo -e "\nAborting before doing anything\n"
+	read -p "Hit ENTER to end this script...  "
         exit;
 fi
 
@@ -47,7 +50,8 @@ if [ -z $2 ] ;
 	else port=$2;
 fi; if [ -z $port ] ;
 	then echo -e "$failed You must specifiy a ssh port number as second argument";
-        echo -e "\nAborting before doing anything";
+        echo -e "\nAborting before doing anything\n";
+	read -p "Hit ENTER to end this script...  "
        	exit;
 fi;
 
