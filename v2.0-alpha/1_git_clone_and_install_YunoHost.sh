@@ -27,7 +27,7 @@ fi;
 
 # Update of sources.list
 sources=conf_base/sources.list
-if [ -a "$source" ];
+if [ -a "$sources" ];
 	then read -e -p "Do you want to use OVH Debian mirrors ? (yn) : " -i "y" ovh;
 	if [ $ovh == 'y' ]
         	then echo -e "\n$ok Copy apt sources.list to use ovh servers";
@@ -39,7 +39,7 @@ fi;
 
 # Update of timezone
 zone=`cat /etc/timezone`
-echo -e "\n$info Current timezone : $zone"
+echo -e "\n$info Current timezone : $zone\n"
 read -e -p "Do you want to change your timezone ? (yn) : " -i "y" zone
 if [ $zone == 'y' ]
         then dpkg-reconfigure tzdata
