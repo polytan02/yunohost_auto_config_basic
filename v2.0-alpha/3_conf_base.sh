@@ -61,6 +61,8 @@ cp -v ./$files/sshd_config /etc/ssh/sshd_config;
 
 # Creation of a SSH user instead of admin
 echo -e "\n$info Default SSH user : admin\n";
+echo -e "$info Please note that the user MUST be DIFFERENT from one created by yunohost itself";
+echo -e "$info You will not be able to create a user with the same name later on with yunohost\n";
 read -e -p "Do you want to create a new user to connect via ssh ? (yn) : " -i "y" user;
 if [ $user == 'y' ];
 	then echo -e "\n" ; read -e -p "Indicate new username to connect via ssh : " user;
