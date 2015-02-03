@@ -1,0 +1,4 @@
+deb ftp://mirror.ovh.net/debian wheezy main contrib non-free
+deb http://security.debian.org/ wheezy/updates main contrib non-free
+deb http://repo.yunohost.org/ megusta main
+
