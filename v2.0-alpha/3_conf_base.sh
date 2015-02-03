@@ -103,7 +103,7 @@ if [ $bash == 'y' ];
 	then echo -e "$ok Copy of .bashrc to $user";
 	cp -v ./$files/user.bashrc /home/$user/.bashrc;
 	chown -v $user:$user /home/$user/.bashrc;
-	echo -e "\n"; read -e -p "Do you want to activate bashc-completion ? (yn) : " -i "y" bash_comp;
+	echo -e "\n"; read -e -p "Do you want to activate bash-completion ? (yn) : " -i "y" bash_comp;
 	if [ $bash_comp == 'y' ];
 		then apt-get update;
 		apt-get install bash-completion;
