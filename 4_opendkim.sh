@@ -25,14 +25,19 @@ fi
 
 # We check that the domain argument is given
 if [ -z $1 ] ;
-        then echo -e "\n" ; read -e -p "Indicate the domain name sending emails on this server : " domain;
+        then echo -e "Indicate the domain name sending emails on this server :"
+        current_host=`cat /etc/yunohost/current_host`
+        echo -e "\n" ; read -e -p "(if you don't specify one, we will use $current_host) : " domain;
+        if [ -z $domain ] ;
+                then domain=$current_host;
+                if [ -z $domain ] ;
+                        then echo -e "\n$failed You must specifiy a domain name as first argument or when requested"
+                        echo -e "\nAborting before doing anything"
+                        exit;
+                fi;
+        fi;
         else domain=$1;
-fi; if [ -z $domain ] ;
-	then echo -e "\n$failed You must specifiy a domain name from which you send emails on this server as first argument";
-        echo -e "\nAborting before doing anything"
-        exit;
 fi;
-
 
 files=conf_opendkim
 dest=/etc/opendkim
