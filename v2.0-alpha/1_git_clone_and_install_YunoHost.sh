@@ -26,7 +26,7 @@ if [[ $EUID -ne 0 ]];
         exit;
 fi;
 
-echo "\n$script INSTALLTION OF YUNOHOST\n"
+echo -e "\n$script INSTALLTION OF YUNOHOST\n";
 
 # Update of sources.list
 sources=conf_base/sources.list
