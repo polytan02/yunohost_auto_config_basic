@@ -33,20 +33,20 @@ jail=/etc/fail2ban/jail.conf
 # We check that jail2ban needs is to be tuned
 echo -e "\n$info jail2ban can also send you emails as soon as an IP is blocked or a service is stopped/started.";
 echo -e "\n$info It is installed by default in Yunohost, this only activates emails.\n";
-read -e -p "Do you want to install jail2ban ? (yn) : " -i "y" inst_jail;
+read -e -p "Do you want to activate jail2ban emails ? (yn) : " -i "y" inst_jail;
 if ! [ $inst_jail == 'y' ]; then exit; fi;
 echo -e "\n$ok Proceeding with configuration then\n";
 
 read -e -p "Define fail2ban destination email address : " -i "$email_default" email_fail2ban;
 
-echo -e "$ok fail2ban Receiver's email : $email_fail2ban"
+echo -e "$ok fail2ban Receiver's email : $email_fail2ban";
 
 # We edit jail.conf
-echo -e "$ok Configuring fail2ban to send emails to $email_fail2ban"
-sed -i "s/destemail = root@localhost/destemail = $email_fail2ban/g" $jail
-sed -i "s/action = %(action_)s/action = %(action_mwl)s/g" $jail
+echo -e "\n$ok Configuring fail2ban to send emails to $email_fail2ban";
+sed -i "s/destemail = root@localhost/destemail = $email_fail2ban/g" $jail;
+sed -i "s/action = %(action_)s/action = %(action_mwl)s/g" $jail;
 
-echo -e "\n--- Restarting service fail2ban\n"
+echo -e "\n--- Restarting service fail2ban\n";
 service fail2ban restart
 
-echo -e "\n$info Hopefully, all done Well ! :) \n"
+echo -e "\n$info Hopefully, all done Well ! :) \n";

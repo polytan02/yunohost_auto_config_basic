@@ -43,10 +43,10 @@ apti=/etc/apticron/apticron.conf;
 cron=/etc/cron.d/apticron;
 
 echo -e "$ok apticron Sender's email : $email_apti_s";
-echo -e "$ok apticron Receiver's email : $email_apti_r";
+echo -e "$ok apticron Receiver's email : $email_apti_r\n";
 
 # We start by installing the right software;
-echo -e "$ok Installation of apticron software";
+echo -e "$ok Installation of apticron software\n";
 apt-get update;
 apt-get install apticron;
 
@@ -61,4 +61,4 @@ sed -i "s/# CUSTOM_FROM=\"\"/CUSTOM_FROM=\"$email_apti_r\"/g" $apti;
 echo -e "$ok Adjustment of $cron";
 sed -i "s/\* \* \* \*/4 \* \* \*/g" $cron;
 
-echo -e "\n$info Hopefully, all done Well ! :) \n"
+echo -e "\n$info Hopefully, all done Well ! :) \n";
