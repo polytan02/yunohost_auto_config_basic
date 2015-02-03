@@ -20,87 +20,100 @@ info=[${txtcyn}INFO${txtrst}]
 # Make sure only root can run our script
 if [[ $EUID -ne 0 ]];
 	then   echo -e "\n$failed his script must be run as root\n";
-        read -p "Hit ENTER to end this script...  "
+        read -p "Hit ENTER to end this script...  ";
   	exit;
-fi
-
-# We check that the user argument is given
-if [ -z $1 ] ;
-	then echo -e "\n" ; read -e -p "Indicate new username to connect via ssh : " user;
-	else user=$1;
-fi; if [ -z $user ] ;
-        then echo -e "\n$failed You must specifiy a username as first argument";
-       	echo -e "\nAborting before doing anything\n";
-	read -p "Hit ENTER to end this script...  "
-        exit;
 fi;
 
-# We check if the user already exists
-if getent passwd $user > /dev/null 2>&1; then
-        echo -e "\n$failed The user $user already exists "
-        echo -e "\nAborting before doing anything\n"
-	read -p "Hit ENTER to end this script...  "
-        exit;
-fi
-
-
-# We check that the ssh port is given as a second argument
-if [ -z $2 ] ;
-	then echo -e "\n" ; read -e -p "Indicate new ssh port : " port;
-	else port=$2;
-fi; if [ -z $port ] ;
-	then echo -e "$failed You must specifiy a ssh port number as second argument";
-        echo -e "\nAborting before doing anything\n";
-	read -p "Hit ENTER to end this script...  "
-       	exit;
-fi;
-
-files=conf_base
-
+files=conf_base;
 # We check that all necessary files are present
-for i in root.bashrc user.bashrc sshd_config sources.list
+for i in root.bashrc user.bashrc sshd_config sources.list_yuno;
 do
-	if ! [ -a "./$files/$i" ]
-        then echo -e "\n$failed $i not found in folder $files "
-        echo -e "\nAborting before doing anything"
-	exit
-        fi
-done
+	if ! [ -a "./$files/$i" ];
+        then echo -e "\n$failed $i not found in folder $files";
+        echo -e "\nAborting before doing anything\n";
+	exit;
+        fi;
+done;
 
-# We adjust time zone
-echo -e "$ok Adjusting timezone"
-dpkg-reconfigure tzdata
+# Update of sources.list
+sources=conf_base/sources.list_yuno;
+read -e -p "Do you want to use OVH Debian mirrors ? (yn) : " -i "y" ovh;
+if [ $ovh == 'y' ];
+	then echo -e "\n$ok Copy apt sources.list to use ovh servers";
+	cp ./$sources /etc/apt/;
+	else echo -e "\n$info Ok, we don't change apt/sources.list\n";
+        read -e -p "Hit ENTER to pursue...  ";
+fi;
 
-# Base user for ssh connection
-echo -e "$info Configuration of user : $user\n"
-adduser $user
-echo -e "$ok User $user created"
+# Update of timezone
+zone=`cat /etc/timezone`;
+echo -e "\n$info Current timezone : $zone";
+read -e -p "Do you want to change your timezone ? (yn) : " -i "y" zone;
+if [ $zone == 'y' ];
+        then dpkg-reconfigure tzdata;
+        echo -e "\n$ok timezone updated\n";
+        else echo -e "\n$info Ok, we don't change the timezone\n";
+        read -e -p "Hit ENTER to pursue... ";
+fi;
 
-echo -e "$ok Copy of root .bashrc"
-cp ./$files/root.bashrc /root/.bashrc
+echo -e "\n$ok Copy of sshd config in /etc ";
+cp -v ./$files/sshd_config /etc/ssh/sshd_config;
 
-echo -e "$ok Copy of $user .bashrc"
-cp ./$files/user.bashrc /home/$user/.bashrc
-chown $user:$user /home/$user/.bashrc
+# Creation of a SSH user instead of admin
+echo -e "\n$info Default SSH user : admin\n";
+read -e -p "Do you want to create a new user to connect via ssh ? (yn) : " -i "y" user;
+if [ $user == 'y' ];
+	then echo -e "\n" ; read -e -p "Indicate new username to connect via ssh : " user;
+	if getent passwd $user > /dev/null 2>&1;
+		then echo -e "\n$info The user $user already exists";
+		else adduser $user;
+		echo -e "$ok User $user created\n";
+	fi;
+	else exit;
+fi;
+
+# Change of standard SSH port
+echo -e "\n$info Default SSH port : 22\n";
+read -e -p "Do you want to change the default port ? (yn) : " -i "y" port;
+if [ $port == 'y' ];
+	then echo -e "\n" ; read -e -p "Indicate new SSH port : " -i "4242" port;
+	sed -i "s/Port 22/Port $port/g" /etc/ssh/sshd_config;
+	echo -e "\n$ok SSH port changed to $port\n";
+	else exit;
+fi;
+
+read -e -p "Do you want SSH to ONLY accept connections from $user ? (yn) : " -i "y" allow_user;
+if [ $allow_user == 'y' ];
+	then echo -e "$ok Only allow $user to connect remotely from port $port";
+	echo -e "AllowUsers $user" >> /etc/ssh/sshd_config;
+	else exit;
+fi;
 
 
-# Update of apt/sources.list to use ovh servers
-echo -e "$ok Copy apt sources.list to use ovh servers"
-cp ./$files/sources.list /etc/apt/
+# We restart SSH service
+echo -e "\n--- Restarting service ssh\n";
+service ssh restart;
+echo -e "\n";
 
-# We add bash-completion, required for bashrc
-apt-get update
-apt-get upgrade
-apt-get dist-upgrade
-apt-get install bash-completion
+# Speccial .bashrc files
+read -e -p "Do you want GREAT colours in bash for user $user ? (yn) : " -i "y" bash;
+if [ $bash == 'y' ];
+	then echo -e "$ok Copy of .bashrc to $user";
+	cp -v ./$files/user.bashrc /home/$user/.bashrc;
+	chown -v $user:$user /home/$user/.bashrc;
+	echo -e "\n"; read -e -p "Do you want to activate bashc-completion ? (yn) : " -i "y" bash_comp;
+	if [ $bash_comp == 'y' ];
+		then apt-get update;
+		apt-get install bash-completion;
+		echo -e "\n$ok bash-completion installed\n";
+	else exit;
+	fi;
+	read -e -p "Do you want GREAT colours for ROOT as well ? (yn) : " -i "y" bash_root;
+	if [ $bash_root == 'y' ];
+		then echo -e "$ok Copy of .bashrc to root";
+		cp -v ./$files/root.bashrc /root/.bashrc;
+	fi;
+fi;
 
+echo -e "\n$info Ok, hopefully all done Well ! \n";
 
-echo -e "$ok Copy of sshd config in /etc "
-cp ./$files/sshd_config /etc/ssh/sshd_config
-echo -e "$info SSH port specified : $port "
-sed -i "s/Port 22/Port $port/g" /etc/ssh/sshd_config
-echo -e "$ok Only allow $user to connect remotely from port $port"
-echo -e "AllowUsers $user" >> /etc/ssh/sshd_config
-echo -e "\n--- Restarting service ssh\n"
-service ssh restart
-echo -e "\n$info Ok, hopefully all done Well ! \n"
