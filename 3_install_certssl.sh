@@ -4,7 +4,7 @@
 #
 #
 # polytan02@mcgva.org
-# 02/02/2015
+# 03/02/2015
 #
 
 # Setup of colours for error codes
@@ -22,8 +22,6 @@ if [[ $EUID -ne 0 ]];
         then   echo -e "\n$failed This script must be run as root\n";
         exit;
 fi
-
-
 
 # We check that a domain name is given
 if [ -z $1 ] ;
