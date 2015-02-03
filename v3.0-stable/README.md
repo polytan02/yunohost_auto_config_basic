@@ -1,7 +1,7 @@
 # Basic auto config files for Yunohost single domain
 
 
-This is v2.0 alpha<br/>
+This is v3.0 stable<br/>
 <br/>
 
 
@@ -9,7 +9,7 @@ To copy these files on your server, simply do :<br\>
 apt-get update<br/>
 apt-get install git<br/>
 git clone https://github.com/polytan02/yunohost_auto_config_basic <br/>
-cd yunohost_auto_config_basic/v2.0-alpha<br/>
+cd yunohost_auto_config_basic/v3.0-stable<br/>
 <br/>
 <br/>
 <br/>
