@@ -15,6 +15,7 @@ txtrst=$(tput sgr0)       # Text reset
 failed=[${txtred}FAILED${txtrst}]
 ok=[${txtgrn}OK${txtrst}]
 info=[${txtcyn}INFO${txtrst}]
+warning=[${txtred}WARNING${txtrst}]
 
 
 # Make sure only root can run our script
@@ -100,16 +101,16 @@ service opendkim restart
 service postfix reload
 yunohost app ssowatconf
 
-echo -e "\n$info Hopefully, all done Well ! :) "
-
-echo -e "\n$info Here is the DKIM key to add in your server :\n"
+echo -e "\n$warning Here is the DKIM key to add in your server :\n"
 
 cat $dest/keys/$domain/mail.txt
+echo -e "\n$info DKIM key location : $dest/keys/$domain/mail.txt\n"
 
-echo -e "\n$info You can also add a SPF key in your DNS zone :\n"
+echo -e "\n$warning You can also add a SPF key in your DNS zone :\n"
 
 echo -e "$domain 300 TXT \"v=spf1 a:$domain mx ?all\""
 
 echo -e "\n$info Please remember that DNS propagation can take up to 24h...\n"
+
 
 read -p "Hit ENTER to end this script... Don't forget to update your DNS accordingly ! ";
