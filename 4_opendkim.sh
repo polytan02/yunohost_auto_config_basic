@@ -1,7 +1,6 @@
 #!/bin/bash
 #
-# This script aims to configure the base system for ssh, create a user and simple bashrc with great colours
-# It also specifies to use ovh mirrors
+# This script aims to configure opendkim automatically
 #
 # polytan02@mcgva.org
 # 02/02/2015
@@ -24,14 +23,17 @@ if [[ $EUID -ne 0 ]];
   	exit;
 fi
 
-# We check that the user argument is given
+# We check that the domain argument is given
 if [ -z $1 ] ;
+        then echo -e "\n" ; read -e -p "Indicate the domain name sending emails on this server : " domain;
+        else domain=$1;
+fi; if [ -z $domain ] ;
 	then echo -e "\n$failed You must specifiy a domain name from which you send emails on this server as first argument";
         echo -e "\nAborting before doing anything"
-	exit;
+        exit;
 fi;
 
-domain=$1
+
 files=conf_opendkim
 dest=/etc/opendkim
 

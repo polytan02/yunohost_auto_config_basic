@@ -25,28 +25,33 @@ fi
 
 # We check that the user argument is given
 if [ -z $1 ] ;
-	then echo -e "\n$failed You must specifiy a username as first argument";
-        echo -e "\nAborting before doing anything"
-	exit;
+	then echo -e "\n" ; read -e -p "Indicate new username to connect via ssh : " user;
+	else user=$1;
+fi; if [ -z $user ] ;
+        then echo -e "\n$failed You must specifiy a username as first argument";
+       	echo -e "\nAborting before doing anything";
+        exit;
 fi;
-
-# We check that the ssh port is given as a second argument
-if [ -z $2 ] ;
-	then echo -e "\n$failed You must specifiy a ssh port number as second argument";
-        echo -e "\nAborting before doing anything"
-	exit;
-fi;
-
-user=$1
-port=$2
-files=conf_base
 
 # We check if the user already exists
-if getent passwd $1 > /dev/null 2>&1; then
+if getent passwd $user > /dev/null 2>&1; then
         echo -e "\n$failed The user $user already exists "
         echo -e "\nAborting before doing anything"
         exit;
 fi
+
+
+# We check that the ssh port is given as a second argument
+if [ -z $2 ] ;
+	then echo -e "\n" ; read -e -p "Indicate new ssh port :" port;
+	else port=$2;
+fi; if [ -z $port ] ;
+	then echo -e "$failed You must specifiy a ssh port number as second argument";
+        echo -e "\nAborting before doing anything";
+       	exit;
+fi;
+
+files=conf_base
 
 # We check that all necessary files are present
 for i in root.bashrc user.bashrc sshd_config sources.list
@@ -58,6 +63,19 @@ do
         fi
 done
 
+# Base user for ssh connection
+echo -e "$info Username specified : $user"
+adduser $user
+echo -e "$ok User $user created"
+
+echo -e "$ok Copy of root .bashrc"
+cp ./$files/root.bashrc /root/.bashrc
+
+echo -e "$ok Copy of $user .bashrc"
+cp ./$files/user.bashrc /home/$user/.bashrc
+chown $user:$user /home/$user/.bashrc
+
+
 # Update of apt/sources.list to use ovh servers
 echo -e "$ok Copy apt sources.list to use ovh servers"
 cp ./$files/sources.list /etc/apt/
@@ -67,18 +85,6 @@ apt-get update
 apt-get upgrade
 apt-get dist-upgrade
 apt-get install bash-completion
-
-# Base user for ssh connection
-echo -e "$info Username specified : $user"
-adduser $user
-echo -e "$ok User $user created"
-
-echo -e "ok Copy of root .bashrc"
-cp ./$files/root.bashrc /root/.bashrc
-
-echo -e "$ok Copy of $user .bashrc"
-cp ./$files/user.bashrc /home/$user/.bashrc
-chown $user:$user /home/$user/.bashrc
 
 
 echo -e "$ok Copy of sshd config in /etc "

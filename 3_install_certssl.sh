@@ -27,12 +27,14 @@ fi
 
 # We check that a domain name is given
 if [ -z $1 ] ;
+        then echo -e "\n" ; read -e -p "Indicate the domain name of the ssl certificates to install : " domain;
+        else domain=$1;
+fi; if [ -z $domain ] ;
 	then echo -e "\n$failed You must specify a domain name as first argument";
         echo -e "\nAborting before doing anything"
-	exit;
+        exit;
 fi;
 
-domain=$1
 work=/etc/yunohost/certs
 self=self_generated
 files=conf_ssl

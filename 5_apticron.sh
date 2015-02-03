@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-# This script aims to configure the base system for ssh, create a user and simple bashrc with great colours
-# It also specifies to use ovh mirrors
+# This script aims to configure apticron automatically and indicate to look at jail2ban
+#
 #
 # polytan02@mcgva.org
 # 02/02/2015
@@ -26,20 +26,25 @@ fi
 
 # We check that the email_send argument is given
 if [ -z $1 ] ;
+        then echo -e "\n" ; read -e -p "apticron sender's email address : " email_send;
+        else email_send=$1;
+fi; if [ -z $email_send ] ;
 	then echo -e "\n$failed You must specifiy a sende's email address for apticron as first argument";
         echo -e "\nAborting before doing anything"
-	exit;
+        exit;
 fi;
+
 
 # We check that the email_receive argument is given
 if [ -z $2 ] ;
+        then echo -e "\n" ; read -e -p "apticron reports receiving email address : " email_receive;
+        else email_receive=$2;
+fi; if [ -z $email_receive ] ;
 	then echo -e "\n$failed You must specifiy a receving email address for apticron reports as second argument";
         echo -e "\nAborting before doing anything"
-	exit;
+        exit;
 fi;
 
-email_send=$1
-email_receive=$2
 dest=/etc/apticron/apticron.conf
 cron=/etc/cron.d/apticron
 

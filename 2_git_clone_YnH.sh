@@ -32,7 +32,7 @@ apt-get upgrade
 apt-get dist-upgrade
 apt-get install git
 git clone https://github.com/YunoHost/install_script /tmp/install
-/tmp/install/install_yunohostv2;
+/tmp/install/install_yunohostv2;;
 apt-get autoremove
 
 
