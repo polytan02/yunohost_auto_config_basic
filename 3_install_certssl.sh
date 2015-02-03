@@ -76,7 +76,7 @@ cp ./$files/*.pem $work/$domain/
 
 # Idem with yunohost.org subfolder
 mkdir $work/yunohost.org/$self
-mv $work/yunohost.org/*.pem $work/yunohost.org/$self/
+mv $work/yunohost.org/{key,crt}.pem $work/yunohost.org/$self/
 echo -e "$ok Copy of ssl key and crt in folder $work/yunohost.org/ "
 cp ./$files/*.pem $work/yunohost.org/
 
