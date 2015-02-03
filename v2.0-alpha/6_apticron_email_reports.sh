@@ -30,7 +30,7 @@ current_host=`cat /etc/yunohost/current_host`;
 email_default=admin@$current_host;
 
 # We check if apticron is to be installed
-echo -e "\n$info APTicron is a simple cron job which send you and email daily to let you know if there is an update available\n";
+echo -e "\n$info APTicron is a simple cron job which send you a daily email to let you know of any system update\n";
 read -e -p "Do you want to install apticron ? (yn) : " -i "y" inst_apti;
 if ! [ $inst_apti == 'y' ]; then exit; fi;
 echo -e "\n$ok Proceeding with installation and configuration then\n";
