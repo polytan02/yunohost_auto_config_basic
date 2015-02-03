@@ -68,7 +68,7 @@ echo -e "$ok Adjusting timezone"
 dpkg-reconfigure tzdata
 
 # Base user for ssh connection
-echo -e "$info Username specified : $user"
+echo -e "$info Configuration of user : $user\n"
 adduser $user
 echo -e "$ok User $user created"
 
