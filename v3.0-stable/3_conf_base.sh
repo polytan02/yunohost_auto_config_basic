@@ -73,6 +73,7 @@ if [ $user == 'y' ];
 		else adduser $user;
 		echo -e "$ok User $user created\n";
 	fi;
+	user=admin
 fi;
 
 # Change of standard SSH port
@@ -85,6 +86,8 @@ if [ $port == 'y' ];
 	else echo -e "\n$info We skip this part then";
 	read -e -p "Hit ENTER to pursue...  ";
 fi;
+
+
 
 read -e -p "Do you want SSH to ONLY accept connections from $user ? (yn) : " -i "y" allow_user;
 if [ $allow_user == 'y' ];
