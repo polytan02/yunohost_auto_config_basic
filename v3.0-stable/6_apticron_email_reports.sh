@@ -32,12 +32,15 @@ email_default=admin@$current_host;
 # We check if apticron is to be installed
 echo -e "\n$info APTicron is a simple cron job which send you a daily email to let you know of any system update\n";
 read -e -p "Do you want to install apticron ? (yn) : " -i "y" inst_apti;
-if ! [ $inst_apti == 'y' ]; then exit; fi;
+if ! [ $inst_apti == 'y' ];
+	then echo -e "\n$info Ok, we skip this script then\n";
+        read -p "Hit ENTER to end this script...  \n";
+fi;
 echo -e "\n$ok Proceeding with installation and configuration then\n";
 
 # We defnie sender's and receiver's email address
-read -e -p "Define apticron sender's email address : " -i "$email_default" email_apti_s;
-read -e -p "Define receiving email address of apticron's reports : " -i "$email_apti_s" email_apti_r;
+echo -e "\n" ; read -e -p "Define apticron sender's email address : " -i "$email_default" email_apti_s;
+echo -e "\n" ; read -e -p "Define receiving email address of apticron's reports : " -i "$email_apti_s" email_apti_r;
 
 apti=/etc/apticron/apticron.conf;
 cron=/etc/cron.d/apticron;
