@@ -23,21 +23,28 @@ if [[ $EUID -ne 0 ]];
 	then   echo -e "\n$failed This script must be run as root\n";
         read -p "Hit ENTER to end this script...  "
   	exit;
-fi
+fi;
 
-echo -e "\n$info OpenDKIM is a software which authenticate the emails you send."
-echo -e "$info This is to avoid your emails to be considered as SPAM."
-echo -e "$info Don't forget that it requires a line to be added in your DNS Zone.\n"
+echo -e "\n$info OpenDKIM is a software which authenticate the emails you send.";
+echo -e "$info This is to avoid your emails to be considered as SPAM.";
+echo -e "$info Don't forget that it requires a line to be added in your DNS Zone.\n";
 
 read -e -p "Do you want to install opendkim ? (yn) : " -i "y" dkim;
-if ! [ $dkim == 'y' ]; then exit; fi;
+if ! [ $dkim == 'y' ];
+	then echo -e "\n$info Ok, we skip this part\n";
+        read -p "Hit ENTER to end this script...  ";
+	exit;
+fi;
 
 
-
-# 
+# We check the name of the server sending emails
 current_host=`cat /etc/yunohost/current_host`
 echo -e "\n"; read -e -p "Indicate the domain name sending emails on this server : " -i "$current_host" domain;
-if [ -z $domain ] ; then exit; fi;
+if [ -z $domain ] ;
+	then echo -e "\n$failed You must indicate a domain name for OpenDKIM to be configured\n";
+        read -p "Hit ENTER to end this script...  ";
+	exit;
+fi;
 
 files=conf_opendkim;
 dest=/etc/opendkim;
