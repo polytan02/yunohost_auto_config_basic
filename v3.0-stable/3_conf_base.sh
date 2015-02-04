@@ -91,9 +91,9 @@ fi;
 
 
 echo -e "\n$info Limit connections to a single user\n";
-read -e -p "Do you want SSH to ONLY accept connections from $user ? (yn) : " -i "y" allow_user;
+read -e -p "Do you want SSH to ONLY accept connections from user \" $user \" ? (yn) : " -i "y" allow_user;
 if [ $allow_user == 'y' ];
-	then echo -e "$ok Only allow user \" $user \" to connect remotely from port $port";
+	then echo -e "\n$ok Only allow user \" $user \" to connect remotely from port $port";
 	echo -e "AllowUsers $user" >> /etc/ssh/sshd_config;
 	else echo -e "\n$info We skip this part then\n";
 	read -e -p "Hit ENTER to pursue...  ";
