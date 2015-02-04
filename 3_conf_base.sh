@@ -26,7 +26,7 @@ fi;
 
 files=conf_base;
 # We check that all necessary files are present
-for i in root.bashrc user.bashrc sshd_config sources.list_yuno;
+for i in root.bashrc user.bashrc sshd_config sources.list;
 do
 	if ! [ -a "./$files/$i" ];
         then echo -e "\n$failed $i not found in folder $files";
@@ -37,11 +37,12 @@ do
 done;
 
 # Update of sources.list
-sources=conf_base/sources.list_yuno;
+sources=conf_base/sources.list;
 read -e -p "Do you want to use OVH Debian mirrors ? (yn) : " -i "y" ovh;
 if [ $ovh == 'y' ];
 	then echo -e "\n$ok Copy apt sources.list to use ovh servers";
 	cp ./$sources /etc/apt/;
+	echo "deb http://repo.yunohost.org/ megusta main" >> /etc/apt/sources.list;
 	else echo -e "\n$info Ok, we don't change apt/sources.list\n";
         read -e -p "Hit ENTER to pursue...  ";
 fi;
