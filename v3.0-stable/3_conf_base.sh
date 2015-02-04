@@ -31,6 +31,7 @@ do
 	if ! [ -a "./$files/$i" ];
         then echo -e "\n$failed $i not found in folder $files";
         echo -e "\nAborting before doing anything\n";
+        read -p "Hit ENTER to end this script...  ";
 	exit;
         fi;
 done;
@@ -83,7 +84,7 @@ if [ $port == 'y' ];
 	then echo -e "\n" ; read -e -p "Indicate new SSH port : " -i "4242" port;
 	sed -i "s/Port 22/Port $port/g" /etc/ssh/sshd_config;
 	echo -e "\n$ok SSH port changed to $port\n";
-	else echo -e "\n$info We skip this part then";
+	else echo -e "\n$info We skip this part then\n";
 	read -e -p "Hit ENTER to pursue...  ";
 fi;
 
@@ -91,9 +92,9 @@ fi;
 
 read -e -p "Do you want SSH to ONLY accept connections from $user ? (yn) : " -i "y" allow_user;
 if [ $allow_user == 'y' ];
-	then echo -e "$ok Only allow $user to connect remotely from port $port";
+	then echo -e "$ok Only allow user \" $user \" to connect remotely from port $port";
 	echo -e "AllowUsers $user" >> /etc/ssh/sshd_config;
-	else echo -e "\n$info We skip this part then";
+	else echo -e "\n$info We skip this part then\n";
 	read -e -p "Hit ENTER to pursue...  ";
 fi;
 
@@ -113,17 +114,17 @@ if [ $bash == 'y' ];
 		then apt-get update;
 		apt-get install bash-completion;
 		echo -e "\n$ok bash-completion installed\n";
-		else echo -e "\n$info We skip this part then";
+		else echo -e "\n$info We skip this part then\n";
 		read -e -p "Hit ENTER to pursue...  ";
 	fi;
 	read -e -p "Do you want GREAT colours for ROOT as well ? (yn) : " -i "y" bash_root;
 	if [ $bash_root == 'y' ];
 		then echo -e "$ok Copy of .bashrc to root";
 		cp -v ./$files/root.bashrc /root/.bashrc;
-		else echo -e "\n$info We skip this part then";
+		else echo -e "\n$info We skip this part then\n";
 		read -e -p "Hit ENTER to pursue...  ";
 	fi;
-	else echo -e "\n$info We skip this part then";
+	else echo -e "\n$info We skip this part then\n";
 	read -e -p "Hit ENTER to pursue...  ";
 fi;
 
