@@ -109,7 +109,7 @@ echo -e "\n$info Special bashrc configuration\n";
 read -e -p "Do you want GREAT colours in bash for user $user ? (yn) : " -i "y" bash;
 if [ $bash == 'y' ];
 	then if [ $user == 'admin' ];
-		then echo "\n$failed Not possible for admin, it has to be for a different name\n";
+		then echo -e "\n$failed Not possible for admin, it has to be for a different name\n";
 		else echo -e "$ok Copy of .bashrc to $user";
 		cp -v ./$files/user.bashrc /home/$user/.bashrc;
 		chown -v $user:$user /home/$user/.bashrc;
@@ -127,13 +127,13 @@ if [ $bash_root == 'y' ];
 fi;
 
 echo -e "\n"; read -e -p "Do you want to activate bash-completion ? (yn) : " -i "y" bash_comp;
-	if [ $bash_comp == 'y' ];
-		then apt-get update;
-		apt-get install bash-completion;
-		echo -e "\n$ok bash-completion installed\n";
-		else echo -e "\n$info We skip this part then\n";
-		read -e -p "Hit ENTER to pursue...  ";
-	fi;
+if [ $bash_comp == 'y' ];
+	then apt-get update;
+	apt-get install bash-completion;
+	echo -e "\n$ok bash-completion installed\n";
+	else echo -e "\n$info We skip this part then\n";
+	read -e -p "Hit ENTER to pursue...  ";
+fi;
 
 
 
