@@ -15,6 +15,7 @@ txtrst=$(tput sgr0)       # Text reset
 failed=[${txtred}FAILED${txtrst}]
 ok=[${txtgrn}OK${txtrst}]
 info=[${txtcyn}INFO${txtrst}]
+warning=[${txtred}WARNING${txtrst}]
 
 
 # Make sure only root can run our script
@@ -22,39 +23,44 @@ if [[ $EUID -ne 0 ]];
 	then   echo -e "\n$failed This script must be run as root\n";
         read -p "Hit ENTER to end this script...  "
   	exit;
-fi
-
-# We check that the domain argument is given
-current_host=`cat /etc/yunohost/current_host`
-if [ -z $1 ] ;
-        then echo -e "\n"; read -e -p "Indicate the domain name sending emails on this server : " -i "$current_host" domain;
-        if [ -z $domain ] ;
-                then domain=$current_host;
-                if [ -z $domain ] ;
-                        then echo -e "\n$failed You must specifiy a domain name as first argument or when requested"
-                        echo -e "\nAborting before doing anything\n"
-		        read -p "Hit ENTER to end this script...  "
-                        exit;
-                fi;
-        fi;
-        else domain=$1;
 fi;
 
-files=conf_opendkim
-dest=/etc/opendkim
+echo -e "\n$info OpenDKIM is a software which authenticate the emails you send.";
+echo -e "$info This is to avoid your emails to be considered as SPAM.";
+echo -e "$info Don't forget that it requires a line to be added in your DNS Zone.\n";
+
+read -e -p "Do you want to install opendkim ? (yn) : " -i "y" dkim;
+if ! [ $dkim == 'y' ];
+	then echo -e "\n$info Ok, we skip this part\n";
+        read -p "Hit ENTER to end this script...  ";
+	exit;
+fi;
+
+
+# We check the name of the server sending emails
+current_host=`cat /etc/yunohost/current_host`
+echo -e "\n"; read -e -p "Indicate the domain name sending emails on this server : " -i "$current_host" domain;
+if [ -z $domain ] ;
+	then echo -e "\n$failed You must indicate a domain name for OpenDKIM to be configured\n";
+        read -p "Hit ENTER to end this script...  ";
+	exit;
+fi;
+
+files=conf_opendkim;
+dest=/etc/opendkim;
 
 # We check that all necessary files are present
-for i in TrustedHosts etc_default_opendkim etc_postfix_main.cf opendkim.conf
+for i in TrustedHosts etc_default_opendkim etc_postfix_main.cf opendkim.conf;
 do
-	if ! [ -a "./$files/$i" ]
-        then echo -e "\n$failed $i not found in folder $files "
-        echo -e "\nAborting before doing anything\n"
-        read -p "Hit ENTER to end this script...  "
-	exit
-        fi
-done
+	if ! [ -a "./$files/$i" ];
+        then echo -e "\n$failed $i not found in folder $files ";
+        echo -e "\nAborting before doing anything wrong\n";
+        read -p "Hit ENTER to end this script...  ";
+	exit;
+        fi;
+done;
 
-echo -e "$ok Domain name specified : $domain"
+echo -e "\n$ok Domain name specified : $domain"
 
 # We start by installing the right software
 echo -e "$ok Installation of OpenDKIM software"
@@ -106,14 +112,16 @@ service opendkim restart
 service postfix reload
 yunohost app ssowatconf
 
-echo -e "\n$info Hopefully, all done Well ! :) "
-
-echo -e "\n$info Here is the DKIM key to add in your server :\n"
+echo -e "\n$warning Here is the DKIM key to add in your server :\n"
 
 cat $dest/keys/$domain/mail.txt
+echo -e "\n$info DKIM key location : $dest/keys/$domain/mail.txt\n"
 
-echo -e "\n$info You can also add a SPF key in your DNS zone :\n"
+echo -e "\n$warning You can also add a SPF key in your DNS zone :\n"
 
 echo -e "$domain 300 TXT \"v=spf1 a:$domain mx ?all\""
 
 echo -e "\n$info Please remember that DNS propagation can take up to 24h...\n"
+
+
+read -p "Hit ENTER to end this script... Don't forget to update your DNS accordingly ! ";
