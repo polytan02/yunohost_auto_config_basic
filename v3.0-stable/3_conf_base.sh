@@ -47,7 +47,7 @@ fi;
 
 # Update of timezone
 zone=`cat /etc/timezone`;
-echo -e "\n$info Current timezone : $zone";
+echo -e "\n$info Current timezone : $zone\n";
 read -e -p "Do you want to change your timezone ? (yn) : " -i "y" zone;
 if [ $zone == 'y' ];
         then dpkg-reconfigure tzdata;
@@ -68,10 +68,11 @@ if [ $user == 'y' ];
 	then echo -e "\n" ; read -e -p "Indicate new username to connect via ssh : " user;
 	if getent passwd $user > /dev/null 2>&1;
 		then echo -e "\n$info The user $user already exists";
+		echo -e "\n$info We skip this part then";
+	        read -e -p "Hit ENTER to pursue...  ";
 		else adduser $user;
 		echo -e "$ok User $user created\n";
 	fi;
-	else exit;
 fi;
 
 # Change of standard SSH port
@@ -81,16 +82,17 @@ if [ $port == 'y' ];
 	then echo -e "\n" ; read -e -p "Indicate new SSH port : " -i "4242" port;
 	sed -i "s/Port 22/Port $port/g" /etc/ssh/sshd_config;
 	echo -e "\n$ok SSH port changed to $port\n";
-	else exit;
+	else echo -e "\n$info We skip this part then";
+	read -e -p "Hit ENTER to pursue...  ";
 fi;
 
 read -e -p "Do you want SSH to ONLY accept connections from $user ? (yn) : " -i "y" allow_user;
 if [ $allow_user == 'y' ];
 	then echo -e "$ok Only allow $user to connect remotely from port $port";
 	echo -e "AllowUsers $user" >> /etc/ssh/sshd_config;
-	else exit;
+	else echo -e "\n$info We skip this part then";
+	read -e -p "Hit ENTER to pursue...  ";
 fi;
-
 
 # We restart SSH service
 echo -e "\n--- Restarting service ssh\n";
@@ -108,13 +110,18 @@ if [ $bash == 'y' ];
 		then apt-get update;
 		apt-get install bash-completion;
 		echo -e "\n$ok bash-completion installed\n";
-	else exit;
+		else echo -e "\n$info We skip this part then";
+		read -e -p "Hit ENTER to pursue...  ";
 	fi;
 	read -e -p "Do you want GREAT colours for ROOT as well ? (yn) : " -i "y" bash_root;
 	if [ $bash_root == 'y' ];
 		then echo -e "$ok Copy of .bashrc to root";
 		cp -v ./$files/root.bashrc /root/.bashrc;
+		else echo -e "\n$info We skip this part then";
+		read -e -p "Hit ENTER to pursue...  ";
 	fi;
+	else echo -e "\n$info We skip this part then";
+	read -e -p "Hit ENTER to pursue...  ";
 fi;
 
 echo -e "\n$info Ok, hopefully all done Well ! \n";
