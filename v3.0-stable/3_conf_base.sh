@@ -60,20 +60,20 @@ echo -e "\n$ok Copy of sshd config in /etc ";
 cp -v ./$files/sshd_config /etc/ssh/sshd_config;
 
 # Creation of a SSH user instead of admin
-echo -e "\n$info Default SSH user : admin\n";
+user=admin
+echo -e "\n$info Default SSH user : $user\n";
 echo -e "$info Please note that the user MUST be DIFFERENT from one created by yunohost itself";
 echo -e "$info You will not be able to create a user with the same name later on with yunohost\n";
-read -e -p "Do you want to create a new user to connect via ssh ? (yn) : " -i "y" user;
-if [ $user == 'y' ];
+read -e -p "Do you want to create a new user to connect via ssh ? (yn) : " -i "y" create_user;
+if [ $create_user == 'y' ];
 	then echo -e "\n" ; read -e -p "Indicate new username to connect via ssh : " user;
 	if getent passwd $user > /dev/null 2>&1;
 		then echo -e "\n$info The user $user already exists";
-		echo -e "\n$info We skip this part then";
+		echo -e "\n$info We don't create it and skip this part then\n";
 	        read -e -p "Hit ENTER to pursue...  ";
 		else adduser $user;
 		echo -e "$ok User $user created\n";
 	fi;
-	user=admin
 fi;
 
 # Change of standard SSH port
