@@ -104,13 +104,29 @@ echo -e "\n--- Restarting service ssh\n";
 service ssh restart;
 echo -e "\n";
 
-# Speccial .bashrc files
+# Special .bashrc files for $user and root
+echo -e "\n$info Special bashrc configuration\n";
 read -e -p "Do you want GREAT colours in bash for user $user ? (yn) : " -i "y" bash;
 if [ $bash == 'y' ];
-	then echo -e "$ok Copy of .bashrc to $user";
-	cp -v ./$files/user.bashrc /home/$user/.bashrc;
-	chown -v $user:$user /home/$user/.bashrc;
-	echo -e "\n"; read -e -p "Do you want to activate bash-completion ? (yn) : " -i "y" bash_comp;
+	then if [ user == 'admin' ];
+		then echo "\n$failed Not possible for admin, it has to be for a different name\n";
+		else echo -e "$ok Copy of .bashrc to $user";
+		cp -v ./$files/user.bashrc /home/$user/.bashrc;
+		chown -v $user:$user /home/$user/.bashrc;
+	fi;
+        else echo -e "\n$info We skip this part then\n";
+        read -e -p "Hit ENTER to pursue...  ";
+fi;
+
+echo -e "\n"; read -e -p "Do you want GREAT bash colours for ROOT ? (yn) : " -i "y" bash_root;
+if [ $bash_root == 'y' ];
+	then echo -e "$ok Copy of .bashrc to root";
+	cp -v ./$files/root.bashrc /root/.bashrc;
+	else echo -e "\n$info We skip this part then\n";
+	read -e -p "Hit ENTER to pursue...  ";
+fi;
+
+echo -e "\n"; read -e -p "Do you want to activate bash-completion ? (yn) : " -i "y" bash_comp;
 	if [ $bash_comp == 'y' ];
 		then apt-get update;
 		apt-get install bash-completion;
@@ -118,16 +134,8 @@ if [ $bash == 'y' ];
 		else echo -e "\n$info We skip this part then\n";
 		read -e -p "Hit ENTER to pursue...  ";
 	fi;
-	read -e -p "Do you want GREAT colours for ROOT as well ? (yn) : " -i "y" bash_root;
-	if [ $bash_root == 'y' ];
-		then echo -e "$ok Copy of .bashrc to root";
-		cp -v ./$files/root.bashrc /root/.bashrc;
-		else echo -e "\n$info We skip this part then\n";
-		read -e -p "Hit ENTER to pursue...  ";
-	fi;
-	else echo -e "\n$info We skip this part then\n";
-	read -e -p "Hit ENTER to pursue...  ";
-fi;
+
+
 
 echo -e "\n$info Ok, hopefully all done Well ! \n";
 
