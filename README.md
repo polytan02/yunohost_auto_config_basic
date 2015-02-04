@@ -1,7 +1,7 @@
 # Basic auto config files for Yunohost single domain
 
 
-This is v3.0 stable<br/>
+This is v4.0<br/>
 <br/>
 
 
