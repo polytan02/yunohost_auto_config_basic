@@ -1,5 +1,8 @@
 # Basic auto config files for Yunohost single domain
-
+<br\>
+<br\>
+# Latest release : v3.0
+<br\>
 
 To copy these files on your server, simply do :<br\>
 apt-get update<br/>
