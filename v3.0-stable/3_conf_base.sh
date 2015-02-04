@@ -108,7 +108,7 @@ echo -e "\n";
 echo -e "\n$info Special bashrc configuration\n";
 read -e -p "Do you want GREAT colours in bash for user $user ? (yn) : " -i "y" bash;
 if [ $bash == 'y' ];
-	then if [ user == 'admin' ];
+	then if [ $user == 'admin' ];
 		then echo "\n$failed Not possible for admin, it has to be for a different name\n";
 		else echo -e "$ok Copy of .bashrc to $user";
 		cp -v ./$files/user.bashrc /home/$user/.bashrc;
