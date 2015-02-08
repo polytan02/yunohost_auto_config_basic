@@ -1,7 +1,7 @@
 # Basic auto config files for Yunohost single domain
 
 
-This is v5.0<br>
+This is v5.1<br>
 <br>
 
 
@@ -31,6 +31,5 @@ in subfolder "conf_ssl"  <br>
 and name it ==> crt.pem <br>
 <br>
 <br>
-Lastly, if you already have your OpenDKIM key (mail.txt and mail.private), simply place them in conf_opendkim/DOMAIN.TLD/ <br>
-Replace DOMAIN.TLD by your own domain. <br>
+Lastly, if you already have your OpenDKIM key (mail.txt and mail.private) for DOMAIN.TLD, simply place them in folder ./conf_opendkim/ <br>
 DOMAIN.TLD has to be an existing domain configured by yunohost.<br>
