@@ -98,11 +98,11 @@ echo "*@$domain mail._domainkey.$domain" >> $dest/SigningTable
 
 
 # Now we generate the keys ! If keys are existing, they will be used
-for i in mail.txt mail.private;
 key=0;
+for i in mail.txt mail.private;
 do
 	if [ -a "./$files/$domain/$i" ];
-        then ((key++))
+        then key=$((key+1))
         fi;
 done;
 
