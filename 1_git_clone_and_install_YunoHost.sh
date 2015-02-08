@@ -51,6 +51,15 @@ if [ $zone == 'y' ]
         read -e -p "Hit ENTER to pursue to apt-get update and YnH Installation...  ";
 fi;
 
+# Update of locales
+read -e -p "Do you want to change your locale ? (yn) : " -i "y" locales
+if [ $locales == 'y' ]
+        then dpkg-reconfigure locales
+	echo -e "\n$ok timezone updated\n";
+        else echo -e "\n$info Ok, we don't change the locale\n";
+        read -e -p "Hit ENTER to pursue to apt-get update and YnH Installation...  ";
+fi;
+
 
 # Update of packages list
 echo -e "$info Update of packages list\n";

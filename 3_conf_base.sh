@@ -14,6 +14,7 @@ txtred=$(tput setaf 1)    # Red
 txtcyn=$(tput setaf 6)    # Cyan
 txtrst=$(tput sgr0)       # Text reset
 failed=[${txtred}FAILED${txtrst}]
+warning=[${txtred}WARNING${txtrst}]
 ok=[${txtgrn}OK${txtrst}]
 info=[${txtcyn}INFO${txtrst}]
 
@@ -58,6 +59,18 @@ if [ $zone == 'y' ];
         read -e -p "Hit ENTER to pursue... ";
 fi;
 
+
+# Update of locales
+read -e -p "Do you want to change your locale ? (yn) : " -i "y" locales
+if [ $locales == 'y' ]
+        then dpkg-reconfigure locales
+        echo -e "\n$ok timezone updated\n";
+        else echo -e "\n$info Ok, we don't change the locales\n";
+        read -e -p "Hit ENTER to pursue to SSH configuration...  ";
+fi;
+
+
+
 echo -e "\n$ok Copy of sshd config in /etc ";
 cp -v ./$files/sshd_config /etc/ssh/sshd_config;
 
@@ -75,8 +88,16 @@ if [ $create_user == 'y' ];
 	        read -e -p "Hit ENTER to pursue...  ";
 		else adduser $user;
 		echo -e "$ok User $user created\n";
+		read -e -p "Add user $user to sudo group ? (yn) : " -i "y" sudo_user;
+		if [ $sudo_user == 'y' ];
+				then adduser $user sudo;
+				echo -e "\n$ok User \" $user \" added to sudo group";
+			        else echo -e "\n$ok We skip this part then";
+		fi;
+
 	fi;
 fi;
+
 
 # Change of standard SSH port
 echo -e "\n$info Default SSH port : 22\n";
@@ -90,13 +111,16 @@ if [ $port == 'y' ];
 fi;
 
 
-
+# We limit the connection to a single user
 echo -e "\n$info Limit connections to a single user\n";
-read -e -p "Do you want SSH to ONLY accept connections from user \" $user \" ? (yn) : " -i "y" allow_user;
+read -e -p "Do you want SSH to ONLY accept connections from user \" $user \" on port $port ? (yn) : " -i "y" allow_user;
 if [ $allow_user == 'y' ];
 	then echo -e "\n$ok Only allow user \" $user \" to connect remotely from port $port";
 	echo -e "AllowUsers $user" >> /etc/ssh/sshd_config;
 	else echo -e "\n$info We skip this part then\n";
+	echo -e "$warning As you said NO to previous questions, SSH is configured to allow root to connect on port $port";
+	echo -e "$warning This should NOT be the case and you will have to manually correct this !\n";
+        sed -i "s/PermitRootLogin no/PermitRootLogin yes/g" /etc/ssh/sshd_config;
 	read -e -p "Hit ENTER to pursue...  ";
 fi;
 
@@ -105,7 +129,7 @@ echo -e "\n--- Restarting service ssh\n";
 service ssh restart;
 echo -e "\n";
 
-# Special .bashrc files for $user and root
+# Special .bashrc files for $user
 echo -e "\n$info Special bashrc configuration\n";
 read -e -p "Do you want GREAT colours in bash for user $user ? (yn) : " -i "y" bash;
 if [ $bash == 'y' ];
@@ -119,6 +143,7 @@ if [ $bash == 'y' ];
         read -e -p "Hit ENTER to pursue...  ";
 fi;
 
+# Special .bashrc for root
 echo -e "\n"; read -e -p "Do you want GREAT bash colours for ROOT ? (yn) : " -i "y" bash_root;
 if [ $bash_root == 'y' ];
 	then echo -e "$ok Copy of .bashrc to root";
@@ -127,6 +152,7 @@ if [ $bash_root == 'y' ];
 	read -e -p "Hit ENTER to pursue...  ";
 fi;
 
+# Activation of bash-completion
 echo -e "\n"; read -e -p "Do you want to activate bash-completion ? (yn) : " -i "y" bash_comp;
 if [ $bash_comp == 'y' ];
 	then apt-get update;
