@@ -88,6 +88,7 @@ fi
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
+alias gitcp='git commit -a && git push --all'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -109,8 +110,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Because we love nice colours in shell !
+# export PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[0;35m\]'
+export PS1="\[\e[00;37m\][\[\e[0m\]\[\e[00;36m\]\H\[\e[0m\]\[\e[00;37m\]] \[\e[0m\]\[\e[00;32m\]\u\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;34m\]\w\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;32m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\] \[\e[0;35m\]"
 
-PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[0;35m\]'
 trap 'echo -ne "\e[0m"' DEBUG
 
