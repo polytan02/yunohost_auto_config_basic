@@ -48,7 +48,7 @@ if [ $zone == 'y' ]
         then dpkg-reconfigure tzdata
 	echo -e "\n$ok timezone updated\n";
         else echo -e "\n$info Ok, we don't change the timezone\n";
-        read -e -p "Hit ENTER to pursue to apt-get update and YnH Installation...  ";
+        read -e -p "Hit ENTER to pursue...  ";
 fi;
 
 # Update of locales
@@ -62,7 +62,7 @@ fi;
 
 
 # Update of packages list and installation of git
-echo -e "$info Update of packages list\n";
+echo -e "\n$info Update of packages list\n";
 apt-get update;
 apt-get upgrade;
 apt-get dist-upgrade;
