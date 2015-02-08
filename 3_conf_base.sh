@@ -61,7 +61,7 @@ fi;
 
 
 # Update of locales
-read -e -p "Do you want to change your locale ? (yn) : " -i "y" locales
+echo -e "\n"; read -e -p "Do you want to change your locale ? (yn) : " -i "y" locales
 if [ $locales == 'y' ]
         then dpkg-reconfigure locales
         echo -e "\n$ok timezone updated\n";
@@ -87,8 +87,8 @@ if [ $create_user == 'y' ];
 		echo -e "\n$info We don't create it and skip this part then\n";
 	        read -e -p "Hit ENTER to pursue...  ";
 		else adduser $new_user;
-		echo -e "$ok User $user created\n";
-		read -e -p "Add user $user to sudo group ? (yn) : " -i "y" sudo_user;
+		echo -e "$\nok User $new_user created\n";
+		read -e -p "Add user $new_user to sudo group ? (yn) : " -i "y" sudo_user;
 		if [ $sudo_user == 'y' ];
 				then adduser $new_user sudo;
 				echo -e "\n$ok User \" $new_user \" added to sudo group";
@@ -115,9 +115,7 @@ fi;
 echo -e "\n$info Limit connections to a single user\n";
 read -e -p "Do you want SSH to ONLY accept connections from user \" $user \" on port $port ? (yn) : " -i "y" allow_user;
 if [ $allow_user == 'y' ];
-	then if [ -z $new_user ];
-                then user=$new_user;
-                fi;
+        then user=$new_user;
 	echo -e "\n$ok Only allow user \" $user \" to connect remotely from port $port";
 	echo -e "AllowUsers $user" >> /etc/ssh/sshd_config;
         sed -i "s/PermitRootLogin yes/PermitRootLogin no/g" /etc/ssh/sshd_config;
