@@ -61,7 +61,7 @@ if [ $locales == 'y' ]
 fi;
 
 
-# Update of packages list
+# Update of packages list and installation of git
 echo -e "$info Update of packages list\n";
 apt-get update;
 apt-get upgrade;

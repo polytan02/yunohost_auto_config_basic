@@ -70,7 +70,7 @@ if [ $locales == 'y' ]
 fi;
 
 
-
+# SSH configuration with standard Yunohost file with root allowed to connect
 echo -e "\n$ok Copy of sshd config in /etc ";
 cp -v ./$files/sshd_config /etc/ssh/sshd_config;
 
@@ -117,10 +117,10 @@ read -e -p "Do you want SSH to ONLY accept connections from user \" $user \" on 
 if [ $allow_user == 'y' ];
 	then echo -e "\n$ok Only allow user \" $user \" to connect remotely from port $port";
 	echo -e "AllowUsers $user" >> /etc/ssh/sshd_config;
+        sed -i "s/PermitRootLogin yes/PermitRootLogin no/g" /etc/ssh/sshd_config;
 	else echo -e "\n$info We skip this part then\n";
-	echo -e "$warning As you said NO to previous questions, SSH is configured to allow root to connect on port $port";
+	echo -e "$warning As you said NO to previous question, SSH is configured to allow root to connect on port $port";
 	echo -e "$warning This should NOT be the case and you will have to manually correct this !\n";
-        sed -i "s/PermitRootLogin no/PermitRootLogin yes/g" /etc/ssh/sshd_config;
 	read -e -p "Hit ENTER to pursue...  ";
 fi;
 

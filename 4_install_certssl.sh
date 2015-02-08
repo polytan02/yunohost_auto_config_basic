@@ -49,6 +49,7 @@ for i in key.pem crt.pem ;
 done;
 echo -e "$ok key.pem and crt.pem are present";
 
+# We grab the domain name on which the file needs to be installed
 echo -e "\n" ; read -e -p "Indicate the domain name of the ssl certificates to install : " -i "$current_host" domain;
 if [ -z $domain ] ;
 	then domain=$current_host;
@@ -60,7 +61,15 @@ if [ -z $domain ] ;
        	fi;
 fi;
 
-echo -e "$ok Domain name : $domain";
+# We validate that the domain name indicated has been created by yunohost and exists
+destination_exists=$work/$domain
+if [ ! -d "$destination_exists" ];
+	then echo -e "\n$failed the domain name is not recognised in the yunohost system"
+        echo -e "\nAborting before doing anything\n";
+	read -p "Hit ENTER to end this script...  ";
+        exit;
+	else echo -e "$ok Domain name : $domain";
+fi
 
 # Creation of sslcert group
 echo -e "$ok Creating group sslcert"
