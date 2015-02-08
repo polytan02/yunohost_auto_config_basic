@@ -97,13 +97,26 @@ echo -e "$ok Update of Signing Table "
 echo "*@$domain mail._domainkey.$domain" >> $dest/SigningTable
 
 
-# Now we generate the keys !
-echo -e "$ok Generation of OpenDKIM keys "
-opendkim-genkey -D $dest/keys/$domain -s mail -d $domain
+# Now we generate the keys ! If keys are existing, they will be used
+for i in mail.txt mail.private;
+key=0;
+do
+	if [ -a "./$files/$domain/$i" ];
+        then ((key++))
+        fi;
+done;
+
+if [ $key == 2 ];
+	then echo -e "\n$info OpenDKIM mail.private and mail.txt have been found in $files/$domain/ and will be used instead of generating a new key\n";
+	cp $files/$domain/mail.{txt,private} $dest/keys/$domain/;
+	echo -e "\n$ok mail.txt and mail.private have been copied to $dest/keys/$domain/";
+	else echo -e "\n$ok Generation of OpenDKIM keys\n";
+	opendkim-genkey -D $dest/keys/$domain -s mail -d $domain;
+fi;
 
 
 # Right parameters to the files created
-echo -e "$ok Adjustment of rights "
+echo -e "\n$ok Adjustment of rights\n"
 chown -Rv opendkim:opendkim $dest*
 
 # Restart services
