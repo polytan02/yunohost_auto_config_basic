@@ -87,7 +87,7 @@ if [ $create_user == 'y' ];
 		echo -e "\n$info We don't create it and skip this part then\n";
 	        read -e -p "Hit ENTER to pursue...  ";
 		else adduser $new_user;
-		echo -e "$\nok User $new_user created\n";
+		echo -e "\n$ok User $new_user created\n";
 		user=$new_user;
 		read -e -p "Add user $user to sudo group ? (yn) : " -i "y" sudo_user;
 		if [ $sudo_user == 'y' ];
