@@ -52,7 +52,7 @@ if [ $zone == 'y' ]
 fi;
 
 # Update of locales
-read -e -p "Do you want to change your locale ? (yn) : " -i "y" locales
+echo -e "\n" ; read -e -p "Do you want to change your locale ? (yn) : " -i "y" locales
 if [ $locales == 'y' ]
         then dpkg-reconfigure locales
 	echo -e "\n$ok timezone updated\n";

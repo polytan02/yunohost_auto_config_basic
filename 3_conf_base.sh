@@ -39,7 +39,7 @@ done;
 
 # Update of sources.list
 sources=conf_base/sources.list;
-read -e -p "Do you want to use OVH Debian mirrors ? (yn) : " -i "y" ovh;
+echo -e "\n" ; read -e -p "Do you want to use OVH Debian mirrors ? (yn) : " -i "y" ovh;
 if [ $ovh == 'y' ];
 	then echo -e "\n$ok Copy apt sources.list to use ovh servers";
 	cp ./$sources /etc/apt/;
@@ -91,7 +91,7 @@ if [ $create_user == 'y' ];
 		user=$new_user;
 		read -e -p "Add user $user to sudo group ? (yn) : " -i "y" sudo_user;
 		if [ $sudo_user == 'y' ];
-				then adduser $user sudo;
+				then echo -e "\n" ; adduser $user sudo;
 				echo -e "\n$ok User \" $user \" added to sudo group";
 			        else echo -e "\n$ok We skip this part then";
 		fi;
