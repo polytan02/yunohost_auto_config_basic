@@ -126,7 +126,6 @@ chown -Rv opendkim:opendkim $dest*
 echo -e "\n--- Restarting services \n"
 service opendkim restart
 service postfix reload
-yunohost app ssowatconf
 
 echo -e "\n$warning Here is the DKIM key to add in your server :\n"
 
