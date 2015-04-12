@@ -12,13 +12,10 @@ git clone https://github.com/polytan02/yunohost_auto_config_basic <br>
 cd yunohost_auto_config_basic/<br>
 <br>
 <br>
+If you want to install Yunohost on a fresh Debian 7, start from script 1 and then run script 2.
 <br>
-We can assume that you already just installed a fresh Yunohost on a fresh Debian<br>
-If yes, then you can start from the master script (number 2)<br>
+If you already installed a fresh Yunohost on a fresh Debian 7 then you can start from the master script (number 2)<br>
 <br>
-<br>
-Otherwise, you can also use these scripts to install yunohost first on a fresh Debian<br>
-and then proceed with the master script<br>
 
 
 If you choose to run the SSL script, note the following : <br\>
