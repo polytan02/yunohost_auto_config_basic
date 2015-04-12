@@ -28,6 +28,23 @@ fi;
 
 echo -e "\n$script INSTALLTION OF YUNOHOST\n";
 
+# Update of hostname
+hostname=$(cat /etc/hostname)
+echo -e "\n$info Current hostname : $hostname\n"
+read -e -p "Do you want to change the hostname of this server ? (yn) : " -i "y" change_hostname
+if [ $change_hostname == 'y' ]
+        then echo -e "\n" ; read -e -p "Indicate the new hostname : " new_hostname;
+        if [ ! -z "$new_hostname"];
+		then cat $new_hostname > /etc/hostname
+		echo -e "\n$ok hostname updated to $new_hostname\n";
+                else echo -e "\n$failed The hostname seems empty, we don't change it !";
+                echo -e "\n$info /etc/hostname : $hostname\n";
+                read -e -p "Hit ENTER to pursue...  ";
+	fi;
+fi;
+
+
+
 # Update of sources.list
 sources=conf_base/sources.list
 if [ -a "$sources" ];
@@ -41,10 +58,10 @@ if [ -a "$sources" ];
 fi;
 
 # Update of timezone
-zone=`cat /etc/timezone`
-echo -e "\n$info Current timezone : $zone\n"
-read -e -p "Do you want to change your timezone ? (yn) : " -i "y" zone
-if [ $zone == 'y' ]
+timezone=$(cat /etc/timezone)
+echo -e "\n$info Current timezone : $timezone\n"
+read -e -p "Do you want to change your timezone ? (yn) : " -i "y" change_timezone
+if [ $change_timezone == 'y' ]
         then dpkg-reconfigure tzdata
 	echo -e "\n$ok timezone updated\n";
         else echo -e "\n$info Ok, we don't change the timezone\n";
