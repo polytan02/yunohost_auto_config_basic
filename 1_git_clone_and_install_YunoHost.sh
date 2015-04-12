@@ -29,21 +29,21 @@ fi;
 echo -e "\n$script INSTALLTION OF YUNOHOST\n";
 
 # Update of hostname
-hostname=$(cat /etc/hostname)
-echo -e "\n$info Current hostname : $hostname\n"
-read -e -p "Do you want to change the hostname of this server ? (yn) : " -i "y" change_hostname
-if [ $change_hostname == 'y' ]
+hostname=`cat /etc/hostname`;
+echo -e "\n$info Current hostname : $hostname \n";
+read -e -p "Do you want to change the hostname of this server ? (yn) : " -i "y" change_hostname;
+if [ $change_hostname == 'y' ];
         then echo -e "\n" ; read -e -p "Indicate the new hostname : " new_hostname;
-        if [ ! -z "$new_hostname"];
-		then cat $new_hostname > /etc/hostname
-		echo -e "\n$ok hostname updated to $new_hostname\n";
+        if [ ! -z $new_hostname ];
+                then echo $new_hostname > /etc/hostname
+                echo -e "\n$ok hostname updated to $new_hostname \n";
                 else echo -e "\n$failed The hostname seems empty, we don't change it !";
-                echo -e "\n$info /etc/hostname : $hostname\n";
+                echo -e "\n$info current hostname : $hostname \n";
                 read -e -p "Hit ENTER to pursue...  ";
-	fi;
+        fi;
+        else echo -e "\n$info Ok, we don't change the hostname\n";
+        read -e -p "Hit ENTER to pursue to Debian mirrors configuration...  ";
 fi;
-
-
 
 # Update of sources.list
 sources=conf_base/sources.list
