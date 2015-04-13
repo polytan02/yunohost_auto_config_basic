@@ -82,12 +82,12 @@ do
 	echo -e "Added to sslcert group : $g"
 done
 
-# Backup of yunohost self generated ssl certificates
-echo -e "$ok Backup of folder $work"
-mkdir -p backup_certs_$domain
-cp -a $work/* ./backup_certs_$domain/
+# Local backup of yunohost self generated ssl certificates
+echo -e "$ok Backup of folder $work in current location in folder backup_ssl_certs"
+mkdir -p backup_ssl_certs
+cp -a $work/* ./backup_ssl_certs/
 
-# local backup of self generated files as per Yunohost documentation
+# Backup of self generated files as per Yunohost documentation
 mkdir -p $work/$domain/$self
 mv $work/$domain/{*.pem,*.cnf} $work/$domain/$self/ || true;
 
