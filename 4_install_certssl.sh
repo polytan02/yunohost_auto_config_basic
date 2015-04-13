@@ -74,7 +74,7 @@ fi
 
 # Creation of sslcert group if it doesn't exists
 echo -e "$ok Creating group sslcert"
-id -u sslcerts &>/dev/null || groupadd sslcerts
+getent group somegroupname || groupadd sslcerts
 for g in amavis dovecot mail metronome mysql openldap postfix postgrey root vmail www-data
 do
 	usermod -G sslcert $g
@@ -83,11 +83,11 @@ done
 
 # Backup of yunohost self generated ssl certificates
 echo -e "$ok Backup of folder $work"
-mkdir backup_certs_$domain
+mkdir -p backup_certs_$domain
 cp -a $work/* ./backup_certs_$domain/
 
 # local backup of slef generated files as per Yunohost documentation
-mkdir $work/$domain/$self
+mkdir -p $work/$domain/$self
 mv $work/$domain/{*.pem,*.cnf} $work/$domain/$self/
 
 # Copy of private key and crt
@@ -96,7 +96,7 @@ cp ./$files/$domain/*.pem $work/$domain/
 
 
 # Idem with yunohost.org subfolder
-mkdir $work/yunohost.org/$self
+mkdir -p $work/yunohost.org/$self
 mv $work/yunohost.org/{key,crt}.pem $work/yunohost.org/$self/
 echo -e "$ok Copy of ssl key and crt in folder $work/yunohost.org/ "
 cp ./$files/$domain/*.pem $work/yunohost.org/
