@@ -34,21 +34,6 @@ current_host=`cat /etc/yunohost/current_host`
 read -e -p "Do you want to use your own ssl certificate instead of a self generated one ? (yn) : " -i "y" ssl;
 if ! [ $ssl == 'y' ]; then exit; fi;
 
-echo -e "\n$info Don't forget to place key.pem and crt.pem in subfolder conf_ssl\n";
-read -e -p "Should we pursue ? (yn) : " -i "y" ssl;
-if ! [ $ssl == 'y' ]; then exit; fi;
-
-# We check that all necessary files are present
-for i in key.pem crt.pem ;
-	do if ! [ -a "./$files/$domain/$i" ];
-		then echo -e "$failed $i not found in folder $files/$domain ";
-		echo -e "\nAborting before doing anything\n";
-		read -p "Hit ENTER to end this script...  ";
-		exit;
-	fi;
-done;
-echo -e "$ok key.pem and crt.pem are present";
-
 # We grab the domain name on which the file needs to be installed
 echo -e "\n" ; read -e -p "Indicate the domain name of the ssl certificates to install : " -i "$current_host" domain;
 if [ -z $domain ] ;
@@ -60,6 +45,22 @@ if [ -z $domain ] ;
                 exit;
        	fi;
 fi;
+
+
+echo -e "\n$info Don't forget to place key.pem and crt.pem in subfolder conf_ssl/$domain/ \n";
+read -e -p "Should we pursue ? (yn) : " -i "y" ssl;
+if ! [ $ssl == 'y' ]; then exit; fi;
+
+# We check that all necessary files are present
+for i in key.pem crt.pem ;
+	do if ! [ -a "./$files/$domain/$i" ];
+		then echo -e "$failed $i not found in folder $files/$domain/ ";
+		echo -e "\nAborting before doing anything\n";
+		read -p "Hit ENTER to end this script...  ";
+		exit;
+	fi;
+done;
+echo -e "$ok key.pem and crt.pem are present";
 
 # We validate that the domain name indicated has been created by yunohost and exists
 destination_exists=$work/$domain
