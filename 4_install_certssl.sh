@@ -86,9 +86,9 @@ echo -e "$ok Backup of folder $work"
 mkdir -p backup_certs_$domain
 cp -a $work/* ./backup_certs_$domain/
 
-# local backup of slef generated files as per Yunohost documentation
+# local backup of self generated files as per Yunohost documentation
 mkdir -p $work/$domain/$self
-mv $work/$domain/{*.pem,*.cnf} $work/$domain/$self/
+mv $work/$domain/{*.pem,*.cnf} $work/$domain/$self/ || true;
 
 # Copy of private key and crt
 echo -e "$ok Copy of ssl key and crt in folder $work/$domain/ "
@@ -97,7 +97,7 @@ cp ./$files/$domain/*.pem $work/$domain/
 
 # Idem with yunohost.org subfolder
 mkdir -p $work/yunohost.org/$self
-mv $work/yunohost.org/{key,crt}.pem $work/yunohost.org/$self/
+mv $work/yunohost.org/{key,crt}.pem $work/yunohost.org/$self/ || true;
 echo -e "$ok Copy of ssl key and crt in folder $work/yunohost.org/ "
 cp ./$files/$domain/*.pem $work/yunohost.org/
 
