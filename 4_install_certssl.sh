@@ -75,7 +75,7 @@ echo -e "$ok key.pem and crt.pem are present in $files/$domain/";
 
 # Creation of sslcert group if it doesn't exists
 echo -e "$ok Creating group sslcert"
-getent group sslcerts  || groupadd sslcerts
+getent group sslcert  || groupadd sslcert
 for g in amavis dovecot mail metronome mysql openldap postfix postgrey root vmail www-data
 do
 	usermod -G sslcert $g
