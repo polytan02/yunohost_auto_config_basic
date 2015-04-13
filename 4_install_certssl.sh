@@ -60,7 +60,7 @@ for i in key.pem crt.pem ;
 		exit;
 	fi;
 done;
-echo -e "$ok key.pem and crt.pem are present";
+echo -e "$ok key.pem and crt.pem are present in $files/$domain/";
 
 # We validate that the domain name indicated has been created by yunohost and exists
 destination_exists=$work/$domain
@@ -74,7 +74,7 @@ fi
 
 # Creation of sslcert group if it doesn't exists
 echo -e "$ok Creating group sslcert"
-id -u sslcerts &>/dev/null || addgroup sslcerts
+id -u sslcerts &>/dev/null || groupadd sslcerts
 for g in amavis dovecot mail metronome mysql openldap postfix postgrey root vmail www-data
 do
 	usermod -G sslcert $g
