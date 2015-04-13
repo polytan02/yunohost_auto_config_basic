@@ -74,7 +74,7 @@ fi
 
 # Creation of sslcert group if it doesn't exists
 echo -e "$ok Creating group sslcert"
-getent group somegroupname || groupadd sslcerts
+getent group sslcerts  || groupadd sslcerts
 for g in amavis dovecot mail metronome mysql openldap postfix postgrey root vmail www-data
 do
 	usermod -G sslcert $g
