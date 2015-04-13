@@ -73,10 +73,20 @@ cp -v ./$files/opendkim.conf /etc/
 
 # Connect the milter to Postfix :
 echo -e "$ok Update of /etc/default/opendkim "
+# Cleaning before addition of data
+sed -i '/SOCKET=\"inet:8891@localhost\"/d' /etc/default/opendkim
+# Addition of milter
 cat ./$files/etc_default_opendkim >> /etc/default/opendkim
 
 # Configure postfix to use this milter :
 echo -e "$ok Update of /etc/postfix/main.cf "
+# Removal of the milter in postfix main.cf (unknown at this stage)
+sed -i '/# Opendkim milter configuration/d' /etc/postfix/main.cf
+sed -i '/milter_protocol = 2/d' /etc/postfix/main.cf
+sed -i '/milter_default_action = accept/d' /etc/postfix/main.cf
+sed -i '/smtpd_milters = inet:127.0.0.1:8891/d' /etc/postfix/main.cf
+sed -i '/non_smtpd_milters = inet:127.0.0.1:8891/d' /etc/postfix/main.cf
+# Addition of milter after cleaning
 cat ./$files/etc_postfix_main.cf >> /etc/postfix/main.cf
 
 # Create a directory structure that will hold the trusted hosts, key tables, signing tables and crypto keys :
@@ -85,8 +95,12 @@ mkdir -pv $dest/keys/$domain
 
 # Specify trusted hosts
 echo -e "$ok Update of TrustedHosts  "
-cp -v ./$files/TrustedHosts $dest/TrustedHosts
-echo "*.$domain" >> $dest/TrustedHosts
+
+if [ -z $dest/TrustedHosts ];
+	then cp -v ./$files/TrustedHosts >> $dest/TrustedHosts;
+	echo "*.$domain" >> $dest/TrustedHosts;
+	else echo "*.$domain" >> $dest/TrustedHosts;
+fi;
 
 # Create a key table
 echo -e "$ok Update of KeyTable "
@@ -102,16 +116,16 @@ echo -e "\n$info OpenDKIM keys\n";
 key=0;
 for i in mail.txt mail.private;
 do
-	if [ -a "./$files/$i" ];
+	if [ -a "./$files/$domain/$i" ];
         then key=$((key+1))
-	echo -e "$ok $i found in folder $files";
-	else echo -e "$info $i not found in $files";
+	echo -e "$ok $i found in folder $files/$domain";
+	else echo -e "$info $i not found in $files/$domain";
         fi;
 done;
 
 if [ $key == 2 ];
 	then echo -e "\n$info OpenDKIM mail.private and mail.txt have been found in $files/$domain/ and will be used instead of generating a new key\n";
-	cp $files/mail.{txt,private} $dest/keys/$domain/;
+	cp $files/$domain/mail.{txt,private} $dest/keys/$domain/;
 	echo -e "\n$ok mail.txt and mail.private have been copied to $dest/keys/$domain/";
 	else echo -e "\n$ok Generation of OpenDKIM keys\n";
 	opendkim-genkey -D $dest/keys/$domain -s mail -d $domain;
