@@ -40,8 +40,8 @@ if ! [ $ssl == 'y' ]; then exit; fi;
 
 # We check that all necessary files are present
 for i in key.pem crt.pem ;
-	do if ! [ -a "./$files/$i" ];
-		then echo -e "$failed $i not found in folder $files ";
+	do if ! [ -a "./$files/$domain/$i" ];
+		then echo -e "$failed $i not found in folder $files/$domain ";
 		echo -e "\nAborting before doing anything\n";
 		read -p "Hit ENTER to end this script...  ";
 		exit;
@@ -71,9 +71,9 @@ if [ ! -d "$destination_exists" ];
 	else echo -e "$ok Domain name : $domain";
 fi
 
-# Creation of sslcert group
+# Creation of sslcert group if it doesn't exists
 echo -e "$ok Creating group sslcert"
-addgroup sslcert
+id -u sslcerts &>/dev/null || addgroup sslcerts
 for g in amavis dovecot mail metronome mysql openldap postfix postgrey root vmail www-data
 do
 	usermod -G sslcert $g
