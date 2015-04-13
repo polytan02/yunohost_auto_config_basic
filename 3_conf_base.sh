@@ -122,8 +122,18 @@ echo -e "\n$info Default SSH port : 22\n";
 read -e -p "Do you want to change the default port ? (yn) : " -i "y" port;
 if [ $port == 'y' ];
 	then echo -e "\n" ; read -e -p "Indicate new SSH port : " -i "4242" port;
-	sed -i "s/Port 22/Port $port/g" /etc/ssh/sshd_config;
-	echo -e "\n$ok SSH port changed to $port\n";
+	# Check port availability
+	yunohost app checkport $port;
+	if [[ ! $? -eq 0 ]];
+		then echo -e "\n$failed The port $port is already used";
+		echo -e "\n$info We don't change the default SSH port and skip this part then\n";
+	        read -e -p "Hit ENTER to pursue...  ";
+		else
+		# Open port in firewall
+		yunohost firewall allow TCP $port;
+		sed -i "s/Port 22/Port $port/g" /etc/ssh/sshd_config;
+		echo -e "\n$ok SSH port changed to $port\n";
+	fi;
 	else echo -e "\n$info We skip this part then\n";
 	read -e -p "Hit ENTER to pursue...  ";
 fi;
