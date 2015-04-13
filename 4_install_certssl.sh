@@ -46,6 +46,17 @@ if [ -z $domain ] ;
        	fi;
 fi;
 
+# We validate that the domain name indicated has been created by yunohost and exists
+destination_exists=$work/$domain
+if [ ! -d "$destination_exists" ];
+	then echo -e "\n$failed the domain name is not recognised in the yunohost system"
+        echo -e "\nAborting before doing anything\n";
+	read -p "Hit ENTER to end this script...  ";
+        exit;
+	else echo -e "$ok Domain name : $domain";
+fi
+
+
 
 echo -e "\n$info Don't forget to place key.pem and crt.pem in subfolder conf_ssl/$domain/ \n";
 read -e -p "Should we pursue ? (yn) : " -i "y" ssl;
@@ -61,16 +72,6 @@ for i in key.pem crt.pem ;
 	fi;
 done;
 echo -e "$ok key.pem and crt.pem are present in $files/$domain/";
-
-# We validate that the domain name indicated has been created by yunohost and exists
-destination_exists=$work/$domain
-if [ ! -d "$destination_exists" ];
-	then echo -e "\n$failed the domain name is not recognised in the yunohost system"
-        echo -e "\nAborting before doing anything\n";
-	read -p "Hit ENTER to end this script...  ";
-        exit;
-	else echo -e "$ok Domain name : $domain";
-fi
 
 # Creation of sslcert group if it doesn't exists
 echo -e "$ok Creating group sslcert"
