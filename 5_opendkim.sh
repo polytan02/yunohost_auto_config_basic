@@ -1,9 +1,13 @@
 #!/bin/bash
 #
 # This script aims to configure opendkim automatically
+# It can be rerunned independantly to configure opendkim for other domains created via yunohost
+#
+# If you want to reuse existing keys, the files mail.txt and mail.private needs to
+# be placed in a correct subfolder such as conf_opendkim/$domain/
 #
 # polytan02@mcgva.org
-# 02/02/2015
+# 12/02/2015
 #
 
 # Setup of colours for error codes
