@@ -4,7 +4,7 @@
 #
 #
 # polytan02@mcgva.org
-# 03/02/2015
+# 14/04/2015
 #
 
 # Setup of colours for error codes
@@ -48,10 +48,10 @@ if [ $s3 == 'y' ];
 fi;
 
 # We run script 4_install_certssl.sh
-echo -e "\n$script 4_CONFIGURATION OF SSL\n";
+echo -e "\n$script 4_CONFIGURATION OF NGINX and YUNOHOST SSL\n";
 read -e -p "Do you want to pursue with this part of the script ? (yn) : " -i "y" s4;
 if [ $s4 == 'y' ];
-	then ./4_install_certssl.sh;
+	then ./4_adjust_ssl_conf.sh;
 	else echo -e "\nSkipping SSL configuration\n";
 	read -e -p "Hit ENTER to end this script...  ";
 fi;
