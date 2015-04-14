@@ -1,10 +1,11 @@
 #!/bin/bash
 #
-# This script aims to configure the base system for ssh, create a user and simple bashrc with great colours
-# It also specifies to use ovh mirrors
+# This script aims to configure the base system for ssh (checking that the port is available),
+# creates a user and simple bashrc with great colours
+# It also specifies to use ovh mirrors, locale, timezone and hostname
 #
 # polytan02@mcgva.org
-# 02/02/2015
+# 13/04/2015
 #
 
 # Setup of colours for error codes
