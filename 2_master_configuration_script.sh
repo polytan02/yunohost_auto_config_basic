@@ -27,7 +27,7 @@ if [[ $EUID -ne 0 ]];
 fi;
 
 # We check that all necessary files are present
-for i in 3_conf_base.sh 4_install_certssl.sh 5_opendkim.sh 6_apticron_email_reports.sh 7_jail2ban_email_reports.sh;
+for i in 3_conf_base.sh 4_adjust_ssl_conf.sh 5_opendkim.sh 6_apticron_email_reports.sh 7_jail2ban_email_reports.sh;
 do
         if ! [ -a "$i" ];
 	then echo -e "\n$failed $i not found in folder $files ";
