@@ -3,7 +3,7 @@
 # This script aims to install yunohost v2 from git
 #
 # polytan02@mcgva.org
-# 03/02/2015
+# 10/04/2015
 #
 
 # Setup of colours for error codes
