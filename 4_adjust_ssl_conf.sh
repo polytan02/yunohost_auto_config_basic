@@ -34,7 +34,7 @@ current_host=`cat /etc/yunohost/current_host`
 
 
 # Installation of ssl certificates
-read -e -p "Do you want to adjust ssl parameters for nginx and yunohost ? (yn) : " -i "y" ssl;
+echo -e "\n" ; read -e -p "Do you want to adjust ssl parameters for nginx and yunohost ? (yn) : " -i "y" ssl;
 if ! [ $ssl == 'y' ]; then exit; fi;
 
 # We grab the domain name on which the file needs to be installed
