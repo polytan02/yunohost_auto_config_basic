@@ -25,6 +25,9 @@ Also, place your combined crt file in PEM format in subfolder "conf_ssl"  <br>
 and name it ==> crt.pem <br>
 <br>
 <br>
+Please note that the ssl script can also let you enable dhparam for nginx (and generates the pem file, which can take some time depending on your CPU)<br>
+<br>
+<br>
 Lastly, if you already have your OpenDKIM key (mail.txt and mail.private) for DOMAIN.TLD, simply place them in folder ./conf_opendkim/ <br>
 DOMAIN.TLD has to be an existing domain configured by yunohost.<br>
 <br>
