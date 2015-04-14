@@ -132,7 +132,7 @@ if [ $port == 'y' ];
 	        read -e -p "Hit ENTER to pursue...  ";
 		else
 		# Open port in firewall
-		yunohost firewall allow TCP $port;
+		echo -e "\n" ; yunohost firewall allow TCP $port;
 		sed -i "s/Port 22/Port $port/g" /etc/ssh/sshd_config;
 		echo -e "\n$ok SSH port changed to $port\n";
 	fi;

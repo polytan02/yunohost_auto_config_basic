@@ -66,17 +66,16 @@ if [ $nginx == 'y' ];
         then echo -e "\n" ; read -e -p "Indicate dhparam value (2048 or 4096) : " -i "2048" param;
 		if [[ $param =~ ^[-+]?[0-9]+$ ]];
 			then openssl dhparam -out /etc/ssl/private/dh$param$domain.pem -outform PEM -2 $param;
-		        echo -e "\n$ok dhparam$param$domain.pem generated";
+		        echo -e "\n$ok dh$param$domain.pem generated";
 			# Adjustment of ngingx.conf for domain
 			dom_nginx=/etc/nginx/conf.d/$domain.conf;
 			sed -i "s|#ssl_dhparam|ssl_dhparam|g" $dom_nginx;
 			sed -i "s|private/dh2048|private/dh$param$domain|g" $dom_nginx;
-			echo -e "\n$ok Configuring nginx to use dhparam$param$domain.pem";
+			echo -e "\n$ok Configuring nginx to use dh$param$domain.pem";
 			else
 			echo -e "\n$failed Value must be an integer (multiple of 2) \n";
 			echo -e "\nAborting before doing anything\n";
-			read -p "Hit ENTER to end this script...  ";
-			exit ;
+			read -p "Hit ENTER to skip to next step...  ";
 		fi;
 	else echo -e "\n$info Aborting before doing anything\n";
 	read -p "Hit ENTER to end this script...  ";
