@@ -38,7 +38,7 @@ echo -e "\n" ; read -e -p "Do you want to adjust ssl parameters for nginx and yu
 if ! [ $ssl == 'y' ]; then exit; fi;
 
 # We grab the domain name on which the file needs to be installed
-echo -e "\n" ; read -e -p "Indicate the domain name to adjust : " -i "$current_host" domain;
+echo -e "\n" ; read -e -p "Indicate the domain name to work on : " -i "$current_host" domain;
 if [ -z $domain ] ;
 	then domain=$current_host;
         if [ -z $domain ];
@@ -56,7 +56,7 @@ if [ ! -d "$destination_exists" ];
         echo -e "\nAborting before doing anything\n";
 	read -p "Hit ENTER to end this script...  ";
         exit;
-	else echo -e "$ok Domain name : $domain";
+	else echo -e "\n$ok Domain name : $domain";
 fi
 
 # Activate dhparam for nginx
