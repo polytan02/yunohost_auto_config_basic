@@ -69,7 +69,7 @@ echo -e "\n$ok Domain name specified : $domain"
 # We start by installing the right software
 echo -e "$ok Installation of OpenDKIM software"
 apt-get update
-apt-get install opendkim opendkim-tools
+apt-get install opendkim opendkim-tools -y
 
 # Then we configure opendkim
 echo -e "$ok Copy of opendkim.conf in /etc/ "
