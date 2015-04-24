@@ -78,7 +78,7 @@ if [ $nginx == 'y' ];
 			read -p "Hit ENTER to skip to next step...  ";
 		fi;
 	else echo -e "\n$info Aborting before doing anything\n";
-	read -p "Hit ENTER to end this script...  ";
+	read -p "Hit ENTER to continue this script...  ";
 fi;
 
 echo -e "\n$info Don't forget to place key.pem and crt.pem in subfolder conf_ssl/$domain/ \n";
