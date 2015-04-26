@@ -64,7 +64,8 @@ echo -e "\n$info Depending on your server's CPU, this can take some time !\n";
 read -e -p "Do you want to activate dhparam for nginx ? (yn) : " -i "y" nginx;
 if [ $nginx == 'y' ];
         then echo -e "\n" ; read -e -p "Indicate dhparam value (2048 or 4096) : " -i "2048" param;
-		if [[ $param =~ ^[-+]?[0-9]+$ ]];
+		# Test if it is integer : if [[ $param =~ ^[-+]?[0-9]+$ ]];
+		if [ $param == '2048' -o $param == '4096' ];
 			then dhdom=dh$param.$domain.pem;
 			openssl dhparam -out /etc/ssl/private/$dhdom -outform PEM -2 $param;
 		        echo -e "\n$ok $dhdom generated";
@@ -73,7 +74,7 @@ if [ $nginx == 'y' ];
 			sed -i "s|^.*\bssl_dhparam\b.*$|    ssl_dhparam /etc/ssl/private/$dhdom;|" $dom_nginx;
 			echo -e "\n$ok Configuring nginx to use $dhdom";
 			else
-			echo -e "\n$failed Value must be an integer (multiple of 2) \n";
+			echo -e "\n$failed Value must be 2048 or 4096 \n";
 			echo -e "\nAborting before doing anything\n";
 			read -p "Hit ENTER to skip to next step...  ";
 		fi;
