@@ -92,4 +92,5 @@ if [ $s8 == 'y' ];
 	read -e -p "Hit ENTER to end this script...  ";
 fi;
 
-
+echo -e "\n$script END OF YUNOHOST CONFIGURATION SCRIPT\n";
+echo -e "\n$info Thank you for using this !\n";
