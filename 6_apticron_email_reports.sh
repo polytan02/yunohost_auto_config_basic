@@ -35,23 +35,24 @@ read -e -p "Do you want to install apticron ? (yn) : " -i "y" inst_apti;
 if ! [ $inst_apti == 'y' ];
 	then echo -e "\n$info Ok, we skip this script then\n";
         read -p "Hit ENTER to end this script...  \n";
+	exit;
 fi;
 echo -e "\n$ok Proceeding with installation and configuration then\n";
 
 # We defnie sender's and receiver's email address
 echo -e "\n" ; read -e -p "Define apticron sender's email address : " -i "$email_default" email_apti_s;
-echo -e "\n" ; read -e -p "Define receiving email address of apticron's reports : " -i "$email_apti_s" email_apti_r;
+read -e -p "Define receiving email address of apticron's reports : " -i "$email_apti_s" email_apti_r;
 
 apti=/etc/apticron/apticron.conf;
 cron=/etc/cron.d/apticron;
 
-echo -e "$ok apticron Sender's email : $email_apti_s";
+echo -e "\n$ok apticron Sender's email : $email_apti_s";
 echo -e "$ok apticron Receiver's email : $email_apti_r\n";
 
 # We start by installing the right software;
 echo -e "$ok Installation of apticron software\n";
-apt-get update;
-apt-get install apticron;
+apt-get update -qq > /dev/null 2>&1;
+apt-get install -qq -y apticron > /dev/null 2>&1;
 
 # Then we configure apticron
 echo -e "$ok Configuring apticron to send emails from $email_apti_s ";

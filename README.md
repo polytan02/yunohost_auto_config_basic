@@ -25,6 +25,10 @@ Also, place your combined crt file in PEM format in subfolder "conf_ssl"  <br>
 and name it ==> crt.pem <br>
 <br>
 <br>
+Lastly, place your combined ca.crt file in PEM format in subfolder "conf_ssl"  <br>
+and name it ==> ca.pem <br>
+(ca.pem is made of your signing authority root and intermediate certificates)<br>
+<br>
 Please note that the ssl script can also let you enable dhparam for nginx (and generates the pem file, which can take some time depending on your CPU)<br>
 <br>
 <br>

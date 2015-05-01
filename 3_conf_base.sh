@@ -52,7 +52,6 @@ if [ $change_hostname == 'y' ];
                 read -e -p "Hit ENTER to pursue...  ";
         fi;
         else echo -e "\n$info Ok, we don't change the hostname\n";
-        read -e -p "Hit ENTER to pursue to Debian mirrors configuration...  ";
 fi;
 
 # Update of sources.list
@@ -63,18 +62,16 @@ if [ $ovh == 'y' ];
 	cp ./$sources /etc/apt/;
 	echo "deb http://repo.yunohost.org/ megusta main" >> /etc/apt/sources.list;
 	else echo -e "\n$info Ok, we don't change apt/sources.list\n";
-        read -e -p "Hit ENTER to pursue...  ";
 fi;
 
 # Update of timezone
 zone=`cat /etc/timezone`;
-echo -e "\n$info Current timezone : $zone\n";
+echo -e "\n\n$info Current timezone : $zone\n";
 read -e -p "Do you want to change your timezone ? (yn) : " -i "y" zone;
 if [ $zone == 'y' ];
         then dpkg-reconfigure tzdata;
         echo -e "\n$ok timezone updated\n";
         else echo -e "\n$info Ok, we don't change the timezone\n";
-        read -e -p "Hit ENTER to pursue... ";
 fi;
 
 
@@ -84,13 +81,12 @@ if [ $locales == 'y' ]
         then dpkg-reconfigure locales
         echo -e "\n$ok timezone updated\n";
         else echo -e "\n$info Ok, we don't change the locales\n";
-        read -e -p "Hit ENTER to pursue to SSH configuration...  ";
 fi;
 
 
 # SSH configuration with standard Yunohost file with root allowed to connect
-echo -e "\n$ok Copy of sshd config in /etc ";
-cp -v ./$files/sshd_config /etc/ssh/sshd_config;
+echo -e "\n\n$ok Copy of sshd config in /etc ";
+cp ./$files/sshd_config /etc/ssh/sshd_config;
 
 # Creation of a SSH user instead of admin
 user=admin
@@ -104,15 +100,14 @@ if [ $create_user == 'y' ];
 	if getent passwd $new_user > /dev/null 2>&1;
 		then echo -e "\n$info The user $new_user already exists";
 		echo -e "\n$info We don't create it and skip this part then\n";
-	        read -e -p "Hit ENTER to pursue...  ";
 		else adduser $new_user;
 		echo -e "\n$ok User $new_user created\n";
 		user=$new_user;
 		read -e -p "Add user $user to sudo group ? (yn) : " -i "y" sudo_user;
 		if [ $sudo_user == 'y' ];
 				then echo -e "\n" ; adduser $user sudo;
-				echo -e "\n$ok User \" $user \" added to sudo group";
-			        else echo -e "\n$ok We skip this part then";
+				echo -e "\n$ok User \" $user \" added to sudo group\n";
+			        else echo -e "\n$ok We skip this part then\n";
 		fi;
 
 	fi;
@@ -123,9 +118,9 @@ fi;
 echo -e "\n$info Default SSH port : 22\n";
 read -e -p "Do you want to change the default port ? (yn) : " -i "y" port;
 if [ $port == 'y' ];
-	then echo -e "\n" ; read -e -p "Indicate new SSH port : " -i "4242" port;
+	then read -e -p "Indicate new SSH port : " -i "4242" port;
 	# Check port availability
-	yunohost app checkport $port;
+	echo -e "\n" ; yunohost app checkport $port;
 	if [[ ! $? -eq 0 ]];
 		then echo -e "\n$failed The port $port is already used";
 		echo -e "\n$info We don't change the default SSH port and skip this part then\n";
@@ -134,10 +129,9 @@ if [ $port == 'y' ];
 		# Open port in firewall
 		echo -e "\n" ; yunohost firewall allow TCP $port;
 		sed -i "s/Port 22/Port $port/g" /etc/ssh/sshd_config;
-		echo -e "\n$ok SSH port changed to $port\n";
+		echo -e "\n$ok SSH port changed to $port in sshd_config\n";
 	fi;
 	else echo -e "\n$info We skip this part then\n";
-	read -e -p "Hit ENTER to pursue...  ";
 fi;
 
 
@@ -151,7 +145,6 @@ if [ $allow_user == 'y' ];
 	else echo -e "\n$info We skip this part then\n";
 	echo -e "$warning As you said NO to previous question, SSH is configured to allow root to connect on port $port";
 	echo -e "$warning This should NOT be the case and you will have to manually correct this !\n";
-	read -e -p "Hit ENTER to pursue...  ";
 fi;
 
 # We restart SSH service
@@ -166,30 +159,27 @@ if [ $bash == 'y' ];
 	then if [ $user == 'admin' ];
 		then echo -e "\n$failed Not possible for admin, it has to be for a different name\n";
 		else echo -e "$ok Copy of .bashrc to $user";
-		cp -v ./$files/user.bashrc /home/$user/.bashrc;
-		chown -v $user:$user /home/$user/.bashrc;
+		cp ./$files/user.bashrc /home/$user/.bashrc;
+		chown $user:$user /home/$user/.bashrc;
 	fi;
         else echo -e "\n$info We skip this part then\n";
-        read -e -p "Hit ENTER to pursue...  ";
 fi;
 
 # Special .bashrc for root
 echo -e "\n"; read -e -p "Do you want GREAT bash colours for ROOT ? (yn) : " -i "y" bash_root;
 if [ $bash_root == 'y' ];
 	then echo -e "$ok Copy of .bashrc to root";
-	cp -v ./$files/root.bashrc /root/.bashrc;
+	cp ./$files/root.bashrc /root/.bashrc;
 	else echo -e "\n$info We skip this part then\n";
-	read -e -p "Hit ENTER to pursue...  ";
 fi;
 
 # Activation of bash-completion
 echo -e "\n"; read -e -p "Do you want to activate bash-completion ? (yn) : " -i "y" bash_comp;
 if [ $bash_comp == 'y' ];
-	then apt-get update;
-	apt-get install bash-completion;
-	echo -e "\n$ok bash-completion installed\n";
+	then apt-get update -qq > /dev/null 2>&1;
+	apt-get install bash-completion -y > /dev/null 2>&1;
+	echo -e "$ok bash-completion installed\n";
 	else echo -e "\n$info We skip this part then\n";
-	read -e -p "Hit ENTER to pursue...  ";
 fi;
 
 

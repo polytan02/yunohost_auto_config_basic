@@ -68,51 +68,51 @@ echo -e "\n$ok Domain name specified : $domain"
 
 # We start by installing the right software
 echo -e "$ok Installation of OpenDKIM software"
-apt-get update
-apt-get install opendkim opendkim-tools
+apt-get update -qq > /dev/null 2>&1;
+apt-get install -y opendkim opendkim-tools > /dev/null 2>&1;
 
 # Then we configure opendkim
-echo -e "$ok Copy of opendkim.conf in /etc/ "
-cp -v ./$files/opendkim.conf /etc/
+echo -e "$ok Copy of opendkim.conf in /etc/ ";
+cp ./$files/opendkim.conf /etc/;
 
 # Connect the milter to Postfix :
-echo -e "$ok Update of /etc/default/opendkim "
+echo -e "$ok Update of /etc/default/opendkim ";
 # Cleaning before addition of data
-sed -i '/SOCKET=\"inet:8891@localhost\"/d' /etc/default/opendkim
+sed -i '/SOCKET=\"inet:8891@localhost\"/d' /etc/default/opendkim;
 # Addition of milter
-cat ./$files/etc_default_opendkim >> /etc/default/opendkim
+cat ./$files/etc_default_opendkim >> /etc/default/opendkim;
 
 # Configure postfix to use this milter :
-echo -e "$ok Update of /etc/postfix/main.cf "
+echo -e "$ok Update of /etc/postfix/main.cf ";
 # Removal of the milter in postfix main.cf (unknown at this stage)
-sed -i '/# Opendkim milter configuration/d' /etc/postfix/main.cf
-sed -i '/milter_protocol = 2/d' /etc/postfix/main.cf
-sed -i '/milter_default_action = accept/d' /etc/postfix/main.cf
-sed -i '/smtpd_milters = inet:127.0.0.1:8891/d' /etc/postfix/main.cf
-sed -i '/non_smtpd_milters = inet:127.0.0.1:8891/d' /etc/postfix/main.cf
+sed -i '/# Opendkim milter configuration/d' /etc/postfix/main.cf;
+sed -i '/milter_protocol = 2/d' /etc/postfix/main.cf;
+sed -i '/milter_default_action = accept/d' /etc/postfix/main.cf;
+sed -i '/smtpd_milters = inet:127.0.0.1:8891/d' /etc/postfix/main.cf;
+sed -i '/non_smtpd_milters = inet:127.0.0.1:8891/d' /etc/postfix/main.cf;
 # Addition of milter after cleaning
-cat ./$files/etc_postfix_main.cf >> /etc/postfix/main.cf
+cat ./$files/etc_postfix_main.cf >> /etc/postfix/main.cf;
 
 # Create a directory structure that will hold the trusted hosts, key tables, signing tables and crypto keys :
-echo -e "$ok Creation of directory structure for opendkim "
-mkdir -pv $dest/keys/$domain
+echo -e "$ok Creation of directory structure for opendkim ";
+mkdir -p $dest/keys/$domain;
 
 # Specify trusted hosts
-echo -e "$ok Update of TrustedHosts  "
+echo -e "$ok Update of TrustedHosts  ";
 
 if [ -z $dest/TrustedHosts ];
-	then cp -v ./$files/TrustedHosts >> $dest/TrustedHosts;
+	then cp ./$files/TrustedHosts >> $dest/TrustedHosts;
 	echo "*.$domain" >> $dest/TrustedHosts;
 	else echo "*.$domain" >> $dest/TrustedHosts;
 fi;
 
 # Create a key table
-echo -e "$ok Update of KeyTable "
-echo "mail._domainkey.$domain $domain:mail:$dest/keys/$domain/mail.private" >> $dest/KeyTable
+echo -e "$ok Update of KeyTable ";
+echo "mail._domainkey.$domain $domain:mail:$dest/keys/$domain/mail.private" >> $dest/KeyTable;
 
 # Create a signing table
-echo -e "$ok Update of Signing Table "
-echo "*@$domain mail._domainkey.$domain" >> $dest/SigningTable
+echo -e "$ok Update of Signing Table ";
+echo "*@$domain mail._domainkey.$domain" >> $dest/SigningTable;
 
 
 # Now we generate the keys ! If keys are existing, they will be used
@@ -137,25 +137,25 @@ fi;
 
 
 # Right parameters to the files created
-echo -e "\n$ok Adjustment of rights\n"
-chown -Rv opendkim:opendkim $dest*
+echo -e "\n$ok Adjustment of rights\n";
+chown -R opendkim:opendkim $dest*
 
 # Restart services
-echo -e "\n--- Restarting services \n"
+echo -e "\n--- Restarting services \n";
 service opendkim restart
 service postfix reload
 
-echo -e "\n$warning Here is the DKIM key to add in your server :\n"
+echo -e "\n$warning Here is the DKIM key to add in your server :\n";
 
 cat $dest/keys/$domain/mail.txt
-echo -e "\n$info DKIM key location : $dest/keys/$domain/mail.txt\n"
+echo -e "\n$info DKIM key location : $dest/keys/$domain/mail.txt\n";
 
-echo -e "\n$warning You can also add a SPF key in your DNS zone :\n"
+echo -e "\n$warning You can also add a SPF key in your DNS zone :\n";
 
-echo -e "$domain 300 TXT \"v=spf1 a:$domain mx ?all\""
+echo -e "$domain 300 TXT \"v=spf1 a:$domain mx ?all\"";
 
-echo -e "\n$info Please remember that DNS propagation can take up to 24h..."
-echo -e "\n$info Don't forget to update your DNS accordingly ! \n"
+echo -e "\n$info Please remember that DNS propagation can take up to 24h...";
+echo -e "\n$info Don't forget to update your DNS accordingly ! \n";
 
 
 read -p "Hit ENTER to end this script...";

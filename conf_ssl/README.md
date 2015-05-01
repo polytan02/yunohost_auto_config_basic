@@ -1,9 +1,11 @@
-Place key.pem and crt.pem in a subfolder of this folder named DOMAIN.TLD.
+Place key.pem, crt.pem and ca.pem in a subfolder of this folder named DOMAIN.TLD.
 
-The crt file must contain all intermediate authorities, starting from yourt own crt.
+The crt file must contain all intermediate authorities, starting from your own crt.
 
-Both files must be in .PEM format 
+The ca file must needs to containg all the intermediate authorities
 
-Both files must be in the right subfolder
+All files must be in .PEM format 
+
+All files must be in the right subfolder
 
 

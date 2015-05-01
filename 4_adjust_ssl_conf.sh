@@ -44,7 +44,6 @@ if [ -z $domain ] ;
         if [ -z $domain ];
         	then echo -e "\n$failed You must specifiy a domain name";
                 echo -e "\nAborting before doing anything\n";
-		read -p "Hit ENTER to end this script...  ";
                 exit;
        	fi;
 fi;
@@ -60,7 +59,8 @@ if [ ! -d "$destination_exists" ];
 fi
 
 # Activate dhparam for nginx
-echo -e "\n$info Depending on your server's CPU, this can take some time !\n";
+echo -e "\n\n$info Activation of DHPARAM";
+echo -e "$info Depending on your server's CPU, this can take some time !\n";
 read -e -p "Do you want to activate dhparam for nginx ? (yn) : " -i "y" nginx;
 if [ $nginx == 'y' ];
         then echo -e "\n" ; read -e -p "Indicate dhparam value (2048 or 4096) : " -i "2048" param;
@@ -72,16 +72,15 @@ if [ $nginx == 'y' ];
 			# Adjustment of ngingx.conf for domain
 			dom_nginx=/etc/nginx/conf.d/$domain.conf;
 			sed -i "s|^.*\bssl_dhparam\b.*$|    ssl_dhparam /etc/ssl/private/$dhdom;|" $dom_nginx;
-			echo -e "\n$ok Configuring nginx to use $dhdom";
+			echo -e "\n$ok NGINX configured to use $dhdom";
 			else
 			echo -e "\n$failed Value must be 2048 or 4096 \n";
 			echo -e "\nAborting before doing anything\n";
-			read -p "Hit ENTER to skip to next step...  ";
 		fi;
 	else echo -e "\n$info Aborting before doing anything\n";
-	read -p "Hit ENTER to continue this script...  ";
 fi;
 
+echo -e "\n\n$info Installation of SSL key signed crt";
 echo -e "\n$info Don't forget to place key.pem and crt.pem in subfolder conf_ssl/$domain/ \n";
 read -e -p "Should we pursue ? (yn) : " -i "y" ssl;
 if ! [ $ssl == 'y' ]; then exit; fi;
@@ -109,22 +108,26 @@ done
 # Local backup of yunohost self generated ssl certificates
 echo -e "$ok Backup of folder $work in current location in folder backup_ssl_certs"
 mkdir -p backup_ssl_certs
-cp -va $work/* ./backup_ssl_certs/
+cp -a $work/* ./backup_ssl_certs/
 
 # Backup of self generated files as per Yunohost documentation
+echo -e "$ok Backup of files as per Yunohost documentation in $work/$domain/$self ";
 mkdir -p $work/$domain/$self
-mv $work/$domain/{*.pem,*.cnf} $work/$domain/$self/ || true;
+mv $work/$domain/*.{pem,cnf} $work/$domain/$self/ || true;
+# We keep ca.pem in the folder
+cp -a $work/yunohost.org/ca.pem $work/$domain/
 
 # Copy of private key and crt
 echo -e "$ok Copy of ssl key and crt in folder $work/$domain/ "
-cp -v ./$files/$domain/*.pem $work/$domain/
+cp ./$files/$domain/{key,crt}.pem $work/$domain/
 
 
 # Idem with yunohost.org subfolder
+echo -e "$ok Backup of files as per Yunohost documentation in $work/yunohost.org/$self ";
 mkdir -p $work/yunohost.org/$self
 mv $work/yunohost.org/{key,crt}.pem $work/yunohost.org/$self/ || true;
 echo -e "$ok Copy of ssl key and crt in folder $work/yunohost.org/ "
-cp -v ./$files/$domain/*.pem $work/yunohost.org/
+cp ./$files/$domain/{key,crt}.pem $work/yunohost.org/
 
 
 

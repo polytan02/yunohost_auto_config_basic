@@ -42,18 +42,18 @@ if [ $change_hostname == 'y' ];
                 read -e -p "Hit ENTER to pursue...  ";
         fi;
         else echo -e "\n$info Ok, we don't change the hostname\n";
-        read -e -p "Hit ENTER to pursue to Debian mirrors configuration...  ";
+#        read -e -p "Hit ENTER to pursue to Debian mirrors configuration...  ";
 fi;
 
 # Update of sources.list
 sources=conf_base/sources.list
 if [ -a "$sources" ];
-	then read -e -p "Do you want to use OVH Debian mirrors ? (yn) : " -i "y" ovh;
+	then echo -e "\n" ; read -e -p "Do you want to use OVH Debian mirrors ? (yn) : " -i "y" ovh;
 	if [ $ovh == 'y' ]
-        	then echo -e "\n$ok Copy apt sources.list to use ovh servers";
+        	then echo -e "\n$ok Copy apt sources.list to use ovh servers\n";
 		cp ./$sources /etc/apt/;
 	        else echo -e "\n$info Ok, we don't change apt/sources.list\n";
-        	read -e -p "Hit ENTER to pursue...  ";
+#        	read -e -p "Hit ENTER to pursue...  ";
 	fi;
 fi;
 
@@ -65,28 +65,27 @@ if [ $change_timezone == 'y' ]
         then dpkg-reconfigure tzdata
 	echo -e "\n$ok timezone updated\n";
         else echo -e "\n$info Ok, we don't change the timezone\n";
-        read -e -p "Hit ENTER to pursue...  ";
+#        read -e -p "Hit ENTER to pursue...  ";
 fi;
 
 # Update of locales
 echo -e "\n" ; read -e -p "Do you want to change your locale ? (yn) : " -i "y" locales
 if [ $locales == 'y' ]
         then dpkg-reconfigure locales
-	echo -e "\n$ok timezone updated\n";
-        else echo -e "\n$info Ok, we don't change the locale\n";
+	echo -e "\n$ok locales updated\n";
+        else echo -e "\n$info Ok, we don't change the locale\n\n";
         read -e -p "Hit ENTER to pursue to apt-get update and YnH Installation...  ";
 fi;
 
 
 # Update of packages list and installation of git
 echo -e "\n$info Update of packages list\n";
-apt-get update;
-apt-get upgrade;
-apt-get dist-upgrade;
-apt-get install git;
+apt-get update -qq > /dev/null 2>&1;
+apt-get dist-upgrade -qq > /dev/null 2>&1;
+apt-get install git -y > /dev/null 2>&1;
 
 # Installation of Yunohost from git
-echo -e "\n$start Installation of Yunohost v2 from git sources\n"
+echo -e "\n$script Installation of Yunohost v2 from git sources\n"
 
 git clone https://github.com/YunoHost/install_script /tmp/install;
 /tmp/install/install_yunohostv2;
