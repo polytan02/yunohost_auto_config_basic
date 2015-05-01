@@ -37,7 +37,7 @@ if ! [ $inst_apti == 'y' ];
         read -p "Hit ENTER to end this script...  \n";
 	exit;
 fi;
-echo -e "\n$ok Proceeding with installation and configuration then\n";
+echo -e "\n$ok Proceeding with installation and configuration ... \n";
 
 # We defnie sender's and receiver's email address
 echo -e "\n" ; read -e -p "Define apticron sender's email address : " -i "$email_default" email_apti_s;
