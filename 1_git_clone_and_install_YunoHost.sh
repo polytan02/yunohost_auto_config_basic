@@ -42,7 +42,6 @@ if [ $change_hostname == 'y' ];
                 read -e -p "Hit ENTER to pursue...  ";
         fi;
         else echo -e "\n$info Ok, we don't change the hostname\n";
-#        read -e -p "Hit ENTER to pursue to Debian mirrors configuration...  ";
 fi;
 
 # Update of sources.list
@@ -53,7 +52,6 @@ if [ -a "$sources" ];
         	then echo -e "\n$ok Copy apt sources.list to use ovh servers\n";
 		cp ./$sources /etc/apt/;
 	        else echo -e "\n$info Ok, we don't change apt/sources.list\n";
-#        	read -e -p "Hit ENTER to pursue...  ";
 	fi;
 fi;
 
@@ -65,7 +63,6 @@ if [ $change_timezone == 'y' ]
         then dpkg-reconfigure tzdata
 	echo -e "\n$ok timezone updated\n";
         else echo -e "\n$info Ok, we don't change the timezone\n";
-#        read -e -p "Hit ENTER to pursue...  ";
 fi;
 
 # Update of locales
