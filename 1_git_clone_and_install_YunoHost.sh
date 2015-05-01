@@ -59,7 +59,7 @@ fi;
 
 # Update of timezone
 timezone=$(cat /etc/timezone)
-echo -e "\n$info Current timezone : $timezone\n"
+echo -e "\n\n$info Current timezone : $timezone\n"
 read -e -p "Do you want to change your timezone ? (yn) : " -i "y" change_timezone
 if [ $change_timezone == 'y' ]
         then dpkg-reconfigure tzdata
@@ -79,7 +79,7 @@ fi;
 
 
 # Update of packages list and installation of git
-echo -e "\n$info Update of packages list\n";
+echo -e "\n$info Updating apt packages list\n";
 apt-get update -qq > /dev/null 2>&1;
 apt-get dist-upgrade -qq > /dev/null 2>&1;
 apt-get install git -y > /dev/null 2>&1;
