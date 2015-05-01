@@ -27,7 +27,7 @@ if [[ $EUID -ne 0 ]];
 fi;
 
 # We check that all necessary files are present
-for i in 3_conf_base.sh 4_adjust_ssl_conf.sh 5_opendkim.sh 6_apticron_email_reports.sh 7_jail2ban_email_reports.sh;
+for i in 3_conf_base.sh 4_adjust_ssl_conf.sh 5_opendkim.sh 6_apticron_email_reports.sh 7_jail2ban_email_reports.sh 8_cleaning.sh ;
 do
         if ! [ -a "$i" ];
 	then echo -e "\n$failed $i not found in folder $files ";
@@ -79,6 +79,15 @@ echo -e "\n$script 7_CONFIGURATION OF FAIL2BAN\n";
 read -e -p "Do you want to pursue with this part of the script ? (yn) : " -i "y" s7;
 if [ $s7 == 'y' ];
 	then ./7_jail2ban_email_reports.sh;
+	else echo -e "\nSkipping Apticron and Jail2ban configuration\n";
+	read -e -p "Hit ENTER to end this script...  ";
+fi;
+
+# We run script 8_cleaning.sh
+echo -e "\n$script 8_APT-GET CLEANING\n";
+read -e -p "Do you want to pursue with this part of the script ? (yn) : " -i "y" s8;
+if [ $s8 == 'y' ];
+	then ./8_cleaning.sh;
 	else echo -e "\nSkipping Apticron and Jail2ban configuration\n";
 	read -e -p "Hit ENTER to end this script...  ";
 fi;
