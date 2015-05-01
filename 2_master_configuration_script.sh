@@ -30,7 +30,7 @@ fi;
 for i in 3_conf_base.sh 4_adjust_ssl_conf.sh 5_opendkim.sh 6_apticron_email_reports.sh 7_jail2ban_email_reports.sh 8_cleaning.sh ;
 do
         if ! [ -a "$i" ];
-	then echo -e "\n$failed $i not found in folder $files ";
+	then echo -e "\n$failed $i not found in current folder";
         echo -e "\nAborting before doing anything\n";
 	read -e -p "Hit ENTER to end this script...  ";
 	exit;
