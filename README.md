@@ -23,21 +23,17 @@ If you already installed a fresh Yunohost on a fresh Debian 7 then you can start
 <br><br>
 
 If you choose to run the SSL script, note the following : <br\>
-Place your ssl private key in PEM format in subfolder "conf_ssl"  <br\>
+Place your ssl private key in PEM format in subfolder "conf_ssl/DOMAIN.TLD/"  <br\>
 and name it ==> key.pem <br\>
 
-Also, place your combined crt file in PEM format in subfolder "conf_ssl"  <br>
+Also, place your combined crt file in PEM format in subfolder "conf_ssl/DOMAIN.TLD/"  <br>
 and name it ==> crt.pem <br>
 <br>
-<br>
-Lastly, place your combined ca.crt file in PEM format in subfolder "conf_ssl"  <br>
-and name it ==> ca.pem <br>
-(ca.pem is made of your signing authority root and intermediate certificates)<br>
 <br>
 Please note that the ssl script can also let you enable dhparam for nginx (and generates the pem file, which can take some time depending on your CPU)<br>
 <br>
 <br>
-Lastly, if you already have your OpenDKIM key (mail.txt and mail.private) for DOMAIN.TLD, simply place them in folder ./conf_opendkim/ <br>
+Lastly, if you already have your OpenDKIM key (mail.txt and mail.private) for DOMAIN.TLD, simply place them in folder ./conf_opendkim/DOMAIN.TLD/ <br>
 DOMAIN.TLD has to be an existing domain configured by yunohost.<br>
 <br>
 <br>
@@ -66,16 +62,19 @@ Deatils of the scripts :
 <br>Only allow the user to connect from ssh
 <br><br>
 <br>4 installation of your ssl certificates
+<br>activate dhparam for nginx
 <br>You HAVE TO copy the ssl key and crt into the folder conf_ssl so that they would be automatically installed in /etc/yunohost/certs
 <br>Give the right permissions
 <br>Please note that the files MUST be in PEM format
 <br>Please note that the files MUST be name key.pem and crt.pem and placed in the folder conf_ssl
+<br><br> ==> This script can be re-runned multiple times to add other domains
 <br><br>
 <br>5 opendkim
 <br>Install opendkim
 <br>Configure opendkim with your domain name
 <br>Indicate the DKIM key to put in your DNS
 <br>Indicate the SPF key to put in your DNS
+<br><br> ==> This script can be re-runned multiple times to add other domains
 <br><br>
 <br>6 Apticron.sh
 <br>Install apticron
@@ -84,4 +83,8 @@ Deatils of the scripts :
 <br><br>
 <br>7 Jail2Ban
 <br>We simply activate emails to be sent once an IP has been blocked
+<br>
+<br>8 Cleaning
+<br>Simple script to launch apt-get autoremove and apt-get autoclean 
+<br>
 <br>
