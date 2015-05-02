@@ -1,8 +1,13 @@
 # Basic auto config files for Yunohost single domain
 
 
-This is v5.1<br>
+This is v9.0<br>
 <br>
+<br> Now available in french ! Maintenant aussi disponible en français ! 
+<br> Indiquez simplement fr lors de la demande de la langue
+<br>
+<br> 
+
 
 
 To copy these files on your server, simply do :<br\>
