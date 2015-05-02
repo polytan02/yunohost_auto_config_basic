@@ -48,13 +48,17 @@ msgAllDone () { if [ $lang == 'fr' ]
         fi; }
 
 msg701 () { if [ $lang == 'fr' ]
-        then echo "Jail2Ban peut vous envoyer un email des qu'une IP est bannie ou qu'un service systeme est relance";
-        else echo "Jail2Ban can send you emails as soon as an IP is blocked or a service is stopped/started.";
+        then echo "Jail2Ban peut vous envoyer un email";
+		echo -e "$info des qu'une IP est bannie ou qu'un service systeme est relance";
+        else echo "Jail2Ban can send you emails as soon as";
+		echo -e "$info an IP is blocked or a service is stopped/started.";
         fi; }
 
 msg702 () { if [ $lang == 'fr' ]
-        then echo "Fail2Ban est installe par defaut dans Yunohost. Ce script active uniquement l'envoi des courriels";
-        else echo "Fail2Ban is installed by default in Yunohost, this script only activates emails.";
+        then echo "Fail2Ban est installe par defaut dans Yunohost.";
+		echo -e "$info Ce script active uniquement l'envoi des courriels";
+        else echo "Fail2Ban is installed by default in Yunohost.":
+		echo -e "$info This script only activates emails.";
         fi; }
 
 msg703 () { if [ $lang == 'fr' ]
@@ -76,8 +80,3 @@ msg706 () { if [ $lang == 'fr' ]
         then echo "Configuration de fail.conf pour que $1 recoive les courriels";
         else echo "Configuring jail.conf to send emails to $1";
         fi; }
-
-#msg707 () { if [ $lang == 'fr' ]
-#        then echo "Redemarrage du daemon Fail2Ban";
-#        else echo "Restarting service Fail2Ban";
-#        fi; }

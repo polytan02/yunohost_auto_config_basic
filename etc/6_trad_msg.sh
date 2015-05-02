@@ -44,10 +44,10 @@ msgAllDone () { if [ $lang == 'fr' ]
 
 msg601 () { if [ $lang == 'fr' ]
         then echo "APTicron est une tache cron toute simple qui vous envoie";
-		echo "$info un courriel hebdomadaire indiquant ";
-		echo "$info s'il y a une mise a jour systeme de disponible";
+		echo -e "$info un courriel hebdomadaire indiquant ";
+		echo -e "$info s'il y a une mise a jour systeme de disponible";
         else echo "APTicron is a simple cron job which sends you ";
-		echo "$info a daily email to let you know of any system update";
+		echo -e "$info a daily email to let you know of any system update";
         fi; }
 
 msg602 () { if [ $lang == 'fr' ]

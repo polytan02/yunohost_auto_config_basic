@@ -48,213 +48,124 @@ msgAllDone () { if [ $lang == 'fr' ]
         fi; }
 
 msg401 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Voulez-vous ajuster les parametres SSL de NGINX et YUNOHOST";
+        else echo "Do you want to adjust ssl parameters for nginx and yunohost ?";
         fi; }
 
 msg402 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Renseignez le nom de domaine de travail";
+        else echo "Indicate the domain name to work on";
         fi; }
 
 msg403 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Vous devez renseigner un nom de domaine";
+        else echo "You must specifiy a domain name";
         fi; }
 
 msg404 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Le nom de domaine n'est pas disponible dans le systeme YunoHost";
+        else echo "The domain name is not recognised in the YunoHost system";
         fi; }
 
 msg405 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Nom de domaine";
+        else echo "Domain name";
         fi; }
 
 msg406 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Activation de DHPARAM";
+        else echo "Activation of DHPARAM";
         fi; }
 
 msg407 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "En fonction du processeur de votre serveur, ceci peut prendre longtemps !";
+        else echo "Depending on your server's CPU, this can take some time !";
         fi; }
 
 msg408 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Activer DHPARAM pour NGINX";
+        else echo "Do you want to activate DHPARAM for NGINX ?";
         fi; }
 
 msg409 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Renseigner une valeur pour DHPARAM (2048 ou 4096)";
+        else echo "Indicate dhparam value (2048 or 4096)";
         fi; }
 
 msg410 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "$dhdom genere";
+        else echo "$dhdom generated";
         fi; }
 
 msg411 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "NGINX configure pour utiliser $dhdom";
+        else echo "NGINX configured to use $dhdom";
         fi; }
 
 msg412 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "La valeur DOIT etre 2048 ou 4096";
+        else echo "Value MUST be 2048 or 4096";
         fi; }
 
 msg413 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Installation de la cle SSL et du certificat crt signe";
+        else echo "Installation of SSL key and signed crt certificate";
         fi; }
 
 msg414 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "N'oubliez pas de placer les fichiers key.pem et crt.pem ";
+		echo -e "$info dans le sous-dossier conf_ssl/$domain";
+        else echo "Don't forget to place files key.pem and crt.pem ";
+		echo -e "$info in subfolder conf_ssl/$domain/";
         fi; }
 
 msg415 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Le dossier $files/$domain/ ne contient pas $i";
+        else echo "$i not found in folder $files/$domain/";
         fi; }
 
 msg416 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Le dossier $files/$domain/ contient key.pem et crt.pem";
+        else echo "key.pem and crt.pem are present in $files/$domain/";
         fi; }
 
 msg417 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Creation du groupe sslcert";
+        else echo "Creating group sslcert";
         fi; }
 
 msg418 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Ajoute au groupe sslcert : $1";
+        else echo "Added to sslcert group : $1";
         fi; }
 
 msg419 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Sauvegarde du dossier $work dans le sous-dossier backup_ssl_certs";
+        else echo "Backup of folder $work in subfolder backup_ssl_certs";
         fi; }
 
 msg420 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Sauvegarde des fichiers en accord avec la doc YunoHost dans $work/$domain/$self";
+        else echo "Backup of files as per Yunohost documentation in $work/$domain/$self";
         fi; }
 
 msg421 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Copie de la cle SSL et du certificat dans le dossier $work/$domain/";
+        else echo "Copy of SSL key and certificate in folder $work/$domain/";
         fi; }
 
 msg422 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Sauvegarde des fichiers en accord avec la doc YunoHost dans $work/yunohost.org/$self";
+        else echo "Backup of files as per Yunohost documentation in $work/yunohost.org/$self";
         fi; }
 
 msg423 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Copie de la cle SSL et du certificat dans le dossier $work/yunohost.org/";
+        else echo "Copy of SSL key and certificate in folder $work/yunohost.org/";
         fi; }
 
 msg424 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
+        then echo "Ajustement des droits d'acces aux fichiers key.pem et crt.pem";
+        else echo "Adjustment of access right for key.pem and crt.pem files";
         fi; }
-
-msg425 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
-        fi; }
-
-msg426 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
-        fi; }
-
-msg427 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
-        fi; }
-
-msg428 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
-        fi; }
-
-msg429 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
-        fi; }
-
-msg430 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
-        fi; }
-
-msg431 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
-        fi; }
-
-msg432 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
-        fi; }
-
-msg433 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
-        fi; }
-
-msg434 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
-        fi; }
-
-msg435 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
-        fi; }
-
-msg436 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
-        fi; }
-
-msg437 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
-        fi; }
-
-msg438 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
-        fi; }
-
-msg439 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
-        fi; }
-
-msg440 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
-        fi; }
-
-msg441 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
-        fi; }
-
-msg442 () { if [ $lang == 'fr' ]
-        then echo "";
-        else echo "";
-        fi; }
-
 

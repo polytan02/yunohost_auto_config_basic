@@ -138,11 +138,11 @@ msg318 () { if [ $lang == 'fr' ]
         fi; }
 
 msg319 () { if [ $lang == 'fr' ]
-        then echo "Utilisateur SSH par defaut : $user\n";
+        then echo -e "Utilisateur SSH par defaut : $user\n";
 		echo -e "$info Veuillez noter que cet utilisateur doit avoir un login DIFFERENT des utilisateurs YunoHost";
 		echo -e "$info Vous ne pourrez pas creer un utilisateur avec le meme nom via l'interface web";
 		echo -e "$info Je n'aime pas utiliser admin, d'ou la creation d'un utilisateur ssh dedie";
-        else echo "Default SSH user : $user\n";
+        else echo -e "Default SSH user : $user\n";
 		echo -e "$info Please note that the user MUST be DIFFERENT from one created by yunohost itself";
 		echo -e "$info You will not be able to create a user with the same name later on with yunohost";
 		echo -e "$info I don't like using admin, hence the creation of a dedicated ssh user";
