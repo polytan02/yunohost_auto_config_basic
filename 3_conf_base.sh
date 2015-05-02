@@ -5,109 +5,159 @@
 # It also specifies to use ovh mirrors, locale, timezone and hostname
 #
 # polytan02@mcgva.org
-# 13/04/2015
+# 02/05/2015
 #
 
-# Setup of colours for error codes
-set -e
-txtgrn=$(tput setaf 2)    # Green
-txtred=$(tput setaf 1)    # Red
-txtcyn=$(tput setaf 6)    # Cyan
-txtrst=$(tput sgr0)       # Text reset
-failed=[${txtred}FAILED${txtrst}]
-warning=[${txtred}WARNING${txtrst}]
-ok=[${txtgrn}OK${txtrst}]
-info=[${txtcyn}INFO${txtrst}]
+# We setup $lang if parameter not given at startup
+if [ -z $1 ];
+        then echo -e "\nVeuillez choisir la langue (en/fr) :";
+        read -e -p "Please choose the language (en/fr) : " -i "fr" lang;
+        if [ $lang != "en" ];
+                then if [ $lang != "fr" ];
+                        then echo -e "\nLanguage not recognised, reverting to English";
+                        lang="en"
+                fi;
+        fi;
+        else lang="$1";
+fi;
+
+# We check that all necessary files are present
+for i in couleurs.sh 3_trad_msg.sh ;
+do
+        if ! [ -a "etc/$i" ];
+        then if [ $lang == "fr" ];
+                then echo -e "\n $i n'est pas present dans le sous dossier etc";
+                echo -e "\nOn arrete avant d'aller plus loin\n";
+                read -e -p "Presser ENTREE pour arreter ce script...  ";
+                else
+                echo -e "\n $i not found in subfolder etc ";
+                echo -e "\nAborting before doing anything\n";
+                read -e -p "Hit ENTER to end this script...  ";
+                fi;
+        exit;
+        fi;
+done;
+
+source etc/couleurs.sh
+source etc/3_trad_msg.sh;
 
 # Make sure only root can run our script
 if [[ $EUID -ne 0 ]];
-	then   echo -e "\n$failed his script must be run as root\n";
-        read -p "Hit ENTER to end this script...  ";
-  	exit;
+        then   echo -e "\n$failed $(msgNoRoot) \n";
+        read -e -p "$(msgHitEnterEnd)";
+        exit;
 fi;
 
 files=conf_base;
 # We check that all necessary files are present
+# msg301 : $i not found in folder $files
 for i in root.bashrc user.bashrc sshd_config sources.list;
 do
 	if ! [ -a "./$files/$i" ];
-        then echo -e "\n$failed $i not found in folder $files";
-        echo -e "\nAborting before doing anything\n";
-        read -p "Hit ENTER to end this script...  ";
+        then echo -e "\n$failed $(msg301 $i $files)";
+        echo -e "\n$(msgAbort) \n";
+        read -p "$(msgHitEnterEnd)";
 	exit;
         fi;
 done;
 
 # Update of hostname
 hostname=`cat /etc/hostname`;
-echo -e "\n$info Current hostname : $hostname \n";
-read -e -p "Do you want to change the hostname of this server ? (yn) : " -i "y" change_hostname;
+# msg302 : Current hostname
+echo -e "\n$info $(msg302) : $hostname \n";
+# msg303 : Do you want to change the hostname of this server ?
+read -e -p "$(msg303) (yn) : " -i "y" change_hostname;
 if [ $change_hostname == 'y' ];
-        then echo -e "\n" ; read -e -p "Indicate the new hostname : " new_hostname;
+        then # msg304 : Indicate the new hostname
+	echo -e "\n" ; read -e -p "$(msg304) : " new_hostname;
         if [ ! -z $new_hostname ];
                 then echo $new_hostname > /etc/hostname
-                echo -e "\n$ok hostname updated to $new_hostname \n";
-                else echo -e "\n$failed The hostname seems empty, we don't change it !";
-                echo -e "\n$info current hostname : $hostname \n";
-                read -e -p "Hit ENTER to pursue...  ";
+		# msg305 : hostname updated to $new_hostname
+                echo -e "\n$ok $(msg305 $new_hostname) \n";
+                else # msg306 : The hostname seems empty, we don't change it !
+		echo -e "\n$failed $(msg306)";
+		# msg302 : Current hostname
+                echo -e "\n$info $(msg302) : $hostname \n";
+                read -e -p "$(msgHitEnterNext)";
         fi;
-        else echo -e "\n$info Ok, we don't change the hostname\n";
+        else # msg307 : Ok, we don't change the hostname
+	echo -e "\n$info $(msg307) \n";
 fi;
 
 # Update of sources.list
 sources=conf_base/sources.list;
-echo -e "\n" ; read -e -p "Do you want to use OVH Debian mirrors ? (yn) : " -i "y" ovh;
+# msg308 : Do you want to use OVH Debian mirrors ?
+echo -e "\n" ; read -e -p "$(msg308) (yn) : " -i "y" ovh;
 if [ $ovh == 'y' ];
-	then echo -e "\n$ok Copy apt sources.list to use ovh servers";
+	then # msg309 : Copy apt sources.list to use ovh servers
+	echo -e "\n$ok $(msg309)";
 	cp ./$sources /etc/apt/;
 	echo "deb http://repo.yunohost.org/ megusta main" >> /etc/apt/sources.list;
-	else echo -e "\n$info Ok, we don't change apt/sources.list\n";
+	else # msg310 : Ok, we don't change apt/sources.list
+	echo -e "\n$info $(msg310) \n";
 fi;
 
 # Update of timezone
 zone=`cat /etc/timezone`;
-echo -e "\n\n$info Current timezone : $zone\n";
-read -e -p "Do you want to change your timezone ? (yn) : " -i "y" zone;
+# msg311 : Current timezone
+echo -e "\n\n$info $(msg311) : $zone\n";
+# msg312 : Do you want to change your timezone ?
+read -e -p "$(msg312) (yn) : " -i "y" zone;
 if [ $zone == 'y' ];
         then dpkg-reconfigure tzdata;
-        echo -e "\n$ok timezone updated\n";
-        else echo -e "\n$info Ok, we don't change the timezone\n";
+	# msg313 : timezone updated
+        echo -e "\n$ok $(msg313) \n";
+        else # msg314 : Ok, we don't change the timezone
+	echo -e "\n$info $(msg314) \n";
 fi;
 
 
 # Update of locales
-echo -e "\n"; read -e -p "Do you want to change your locale ? (yn) : " -i "y" locales
+# msg315 : Do you want to change your locale ?
+echo -e "\n"; read -e -p "$(msg315) (yn) : " -i "y" locales
 if [ $locales == 'y' ]
         then dpkg-reconfigure locales
-        echo -e "\n$ok timezone updated\n";
-        else echo -e "\n$info Ok, we don't change the locales\n";
+	# msg316 : locale updated
+        echo -e "\n$ok $(msg316) \n";
+	# msg317 : Ok, we don't change the locales
+        else echo -e "\n$info $(msg317) \n";
 fi;
 
 
 # SSH configuration with standard Yunohost file with root allowed to connect
-echo -e "\n\n$ok Copy of sshd config in /etc ";
+# msg318 : Copy of sshd config in /etc
+echo -e "\n\n$ok $(msg318) ";
 cp ./$files/sshd_config /etc/ssh/sshd_config;
 
 # Creation of a SSH user instead of admin
 user=admin
-echo -e "\n$info Default SSH user : $user\n";
-echo -e "$info Please note that the user MUST be DIFFERENT from one created by yunohost itself";
-echo -e "$info You will not be able to create a user with the same name later on with yunohost";
-echo -e "$info I don't like using admin, hence the creation of a dedicated ssh user\n";
-read -e -p "Do you want to create a new user to connect via ssh ? (yn) : " -i "y" create_user;
+# msg319 :
+#echo -e "\n$info Default SSH user : $user\n";
+#echo -e "$info Please note that the user MUST be DIFFERENT from one created by yunohost itself";
+#echo -e "$info You will not be able to create a user with the same name later on with yunohost";
+#echo -e "$info I don't like using admin, hence the creation of a dedicated ssh user\n";
+echo -e "\n$info $(msg319) \n";
+# msg320 : Do you want to create a new user to connect via ssh ?
+read -e -p "$(msg320) (yn) : " -i "y" create_user;
 if [ $create_user == 'y' ];
-	then echo -e "\n" ; read -e -p "Indicate new username to connect via ssh : " new_user;
+	then # Indicate new username to connect via ssh
+	echo -e "\n" ; read -e -p "$(msg321) : " new_user;
 	if getent passwd $new_user > /dev/null 2>&1;
-		then echo -e "\n$info The user $new_user already exists";
-		echo -e "\n$info We don't create it and skip this part then\n";
+		then # msg322 : The user $new_user already exists
+		echo -e "\n$info $(msg322)";
+		# msg323 : We don't create it and skip this part then
+		echo -e "\n$info $(msg323) \n";
 		else adduser $new_user;
-		echo -e "\n$ok User $new_user created\n";
+		# msg324 : User $new_user created
+		echo -e "\n$ok $(msg324) \n";
 		user=$new_user;
-		read -e -p "Add user $user to sudo group ? (yn) : " -i "y" sudo_user;
+		# msg325 : Add user $user to sudo group ?
+		read -e -p "$(msg325) (yn) : " -i "y" sudo_user;
 		if [ $sudo_user == 'y' ];
 				then echo -e "\n" ; adduser $user sudo;
-				echo -e "\n$ok User \" $user \" added to sudo group\n";
-			        else echo -e "\n$ok We skip this part then\n";
+				# msg326 : User $user added to sudo group
+				echo -e "\n$ok $(msg326) \n";
+			        else echo -e "\n$ok $(msgSkip) \n";
 		fi;
 
 	fi;
@@ -115,74 +165,92 @@ fi;
 
 
 # Change of standard SSH port
-echo -e "\n$info Default SSH port : 22\n";
-read -e -p "Do you want to change the default port ? (yn) : " -i "y" port;
+# msg327 : Default SSH port : 22
+echo -e "\n$info $(msg327) \n";
+# msg328 : Do you want to change the default port ?
+read -e -p "$(msg328) (yn) : " -i "y" port;
 if [ $port == 'y' ];
-	then read -e -p "Indicate new SSH port : " -i "4242" port;
+	then # msg329 : Indicate new SSH port
+	echo -e "\n"; read -e -p "$(msg329) : " -i "4242" port;
 	# Check port availability
 	echo -e "\n" ; yunohost app checkport $port;
 	if [[ ! $? -eq 0 ]];
-		then echo -e "\n$failed The port $port is already used";
-		echo -e "\n$info We don't change the default SSH port and skip this part then\n";
-	        read -e -p "Hit ENTER to pursue...  ";
+		then # msg330 : The port $port is already used
+		echo -e "\n$failed $(msg330)";
+		# msg331 : We don't change the default SSH port and skip this part then
+		echo -e "\n$info $(msg331) \n";
+	        read -e -p "$(msgHitEnterNext) ";
 		else
 		# Open port in firewall
 		echo -e "\n" ; yunohost firewall allow TCP $port;
 		sed -i "s/Port 22/Port $port/g" /etc/ssh/sshd_config;
-		echo -e "\n$ok SSH port changed to $port in sshd_config\n";
+		# msg 332 : SSH port changed to $port in sshd_config
+		echo -e "\n$ok $(msg332) \n";
 	fi;
-	else echo -e "\n$info We skip this part then\n";
+	else echo -e "\n$info $(msgSkip) \n";
 fi;
 
 
 # We limit the connection to a single user
-echo -e "\n$info Limit connections to a single user\n";
-read -e -p "Do you want SSH to ONLY accept connections from user \" $user \" on port $port ? (yn) : " -i "y" allow_user;
+# msg333 : Limit connections to a single user
+echo -e "\n$info $(msg333) \n";
+#  msg334 : Do you want SSH to ONLY accept connections from user $user on port $port ?
+read -e -p "$(msg334) (yn) : " -i "y" allow_user;
 if [ $allow_user == 'y' ];
-        then echo -e "\n$ok Only allow user \" $user \" to connect remotely from port $port";
+        then # msg335 : Only user $user is now allowed to connect remotely from port $port
+	echo -e "\n$ok $(msg335)";
 	echo -e "AllowUsers $user" >> /etc/ssh/sshd_config;
         sed -i "s/PermitRootLogin yes/PermitRootLogin no/g" /etc/ssh/sshd_config;
-	else echo -e "\n$info We skip this part then\n";
-	echo -e "$warning As you said NO to previous question, SSH is configured to allow root to connect on port $port";
-	echo -e "$warning This should NOT be the case and you will have to manually correct this !\n";
+	else echo -e "\n$info $(msgSkip) \n";
+	# msg336 : As you said NO to previous question, SSH is configured to allow root to connect on port $port";
+	#        echo -e "$warning This should NOT be the case and you will have to manually correct this !
+	echo -e "$warning $(msg336) \n";
 fi;
 
 # We restart SSH service
-echo -e "\n--- Restarting service ssh\n";
+echo -e "\n--- $(msgRestart 'SSH') \n";
 service ssh restart;
 echo -e "\n";
 
 # Special .bashrc files for $user
-echo -e "\n$info Special bashrc configuration\n";
-read -e -p "Do you want GREAT colours in bash for user $user ? (yn) : " -i "y" bash;
+# msg337 : Special bashrc configuration
+echo -e "\n$info $(msg337) \n";
+# msg338 : Do you want GREAT colours in bash for user $user ?
+read -e -p "$(msg338 $user) (yn) : " -i "y" bash;
 if [ $bash == 'y' ];
 	then if [ $user == 'admin' ];
-		then echo -e "\n$failed Not possible for admin, it has to be for a different name\n";
-		else echo -e "$ok Copy of .bashrc to $user";
+		then # msg339 : Not possible for admin, it has to be for a different name
+		echo -e "\n$failed $(msg339) \n";
+		else # msg340 : Copy of .bashrc to $user
+		echo -e "$ok $(msg340 $user)";
 		cp ./$files/user.bashrc /home/$user/.bashrc;
 		chown $user:$user /home/$user/.bashrc;
 	fi;
-        else echo -e "\n$info We skip this part then\n";
+        else echo -e "\n$info $(msgSkip) \n";
 fi;
 
 # Special .bashrc for root
-echo -e "\n"; read -e -p "Do you want GREAT bash colours for ROOT ? (yn) : " -i "y" bash_root;
+# msg338 : Do you want GREAT bash colours for ROOT ?
+echo -e "\n"; read -e -p "$(msg338 'ROOT') (yn) : " -i "y" bash_root;
 if [ $bash_root == 'y' ];
-	then echo -e "$ok Copy of .bashrc to root";
+	then # msg340 : Copy of .bashrc to root
+	echo -e "$ok $(msg340 'ROOT')";
 	cp ./$files/root.bashrc /root/.bashrc;
-	else echo -e "\n$info We skip this part then\n";
+	else echo -e "\n$info $(msgSkip) \n";
 fi;
 
 # Activation of bash-completion
-echo -e "\n"; read -e -p "Do you want to activate bash-completion ? (yn) : " -i "y" bash_comp;
+# msg341 : Do you want to activate bash-completion ?
+echo -e "\n"; read -e -p "$(msg341) (yn) : " -i "y" bash_comp;
 if [ $bash_comp == 'y' ];
 	then apt-get update -qq > /dev/null 2>&1;
 	apt-get install bash-completion -y > /dev/null 2>&1;
-	echo -e "$ok bash-completion installed\n";
-	else echo -e "\n$info We skip this part then\n";
+	# msg342 : bash-completion installed
+	echo -e "$ok $(msg342) \n";
+	else echo -e "\n$info $(msgSkip) \n";
 fi;
 
 
 
-echo -e "\n$info Ok, hopefully all done Well ! \n";
+echo -e "\n$info $(msgAllDone) \n";
 

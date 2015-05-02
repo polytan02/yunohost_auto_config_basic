@@ -60,84 +60,84 @@ fi;
 
 
 # Installation of Yunohost
-echo -e "\n$script $(msg0) \n";
+echo -e "\n$script $(msg100) \n";
 
 # Update of hostname
 hostname=`cat /etc/hostname`;
-# msg1 : Current hostname
-echo -e "\n$info $(msg1) : $hostname \n";
+# msg101 : Current hostname
+echo -e "\n$info $(msg101) : $hostname \n";
 
-# msg2 : Do you want to change the hostname of this server ?
-read -e -p "$(msg2) (yn) : " -i "y" change_hostname;
+# msg102 : Do you want to change the hostname of this server ?
+read -e -p "$(msg102) (yn) : " -i "y" change_hostname;
 if [ $change_hostname == 'y' ];
-        then # msg3 : Indicate the new hostname
-		echo -e "\n" ; read -e -p "$(msg3) : " new_hostname;
+        then # msg103 : Indicate the new hostname
+		echo -e "\n" ; read -e -p "$(msg103) : " new_hostname;
         if [ ! -z $new_hostname ];
                 then echo $new_hostname > /etc/hostname
-                # msg4 : hostname updated to
-		echo -e "\n$ok $(msg4) $new_hostname \n";
-                else # msg5 The hostname seems empty, we don't change it !
-		echo -e "\n$failed $(msg5)";
-		# msg1 : current hostname
-                echo -e "\n$info $(msg1) : $hostname \n";
+                # msg104 : hostname updated to
+		echo -e "\n$ok $(msg104) $new_hostname \n";
+                else # msg105 The hostname seems empty, we don't change it !
+		echo -e "\n$failed $(msg105)";
+		# msg101 : current hostname
+                echo -e "\n$info $(msg101) : $hostname \n";
                 read -e -p "$(msgHitEnterNext) ";
         fi;
-        else # msg6 : Ok, we don't change the hostname
-	echo -e "\n$info $(msg6) \n";
+        else # msg106 : Ok, we don't change the hostname
+	echo -e "\n$info $(msg106) \n";
 fi;
 
 # Update of sources.list
 sources=conf_base/sources.list
 if [ -a "$sources" ];
-	# msg7 : Do you want to use OVH Debian mirrors ?
-	then echo -e "\n" ; read -e -p "$(msg7) (yn) : " -i "y" ovh;
+	# msg107 : Do you want to use OVH Debian mirrors ?
+	then echo -e "\n" ; read -e -p "$(msg107) (yn) : " -i "y" ovh;
 	if [ $ovh == 'y' ]
-		# msg8 : Copy apt sources.list to use ovh servers\
-        	then echo -e "\n$ok $(msg8) \n";
+		# msg108 : Copy apt sources.list to use ovh servers\
+        	then echo -e "\n$ok $(msg108) \n";
 		cp ./$sources /etc/apt/;
-	        else # msg9 : Ok, we don't change apt/sources.list
-		echo -e "\n$info $(msg9) \n";
+	        else # msg109 : Ok, we don't change apt/sources.list
+		echo -e "\n$info $(msg109) \n";
 	fi;
 fi;
 
 # Update of timezone
 timezone=$(cat /etc/timezone)
-# msg10 : Current timezone
-echo -e "\n$info $(msg10) : $timezone \n"
-# msg11 : Do you want to change your timezone ?
-read -e -p "$(msg11) (yn) : " -i "y" change_timezone
+# msg100 : Current timezone
+echo -e "\n$info $(msg110) : $timezone \n"
+# msg111 : Do you want to change your timezone ?
+read -e -p "$(msg111) (yn) : " -i "y" change_timezone
 if [ $change_timezone == 'y' ]
         then dpkg-reconfigure tzdata
-	# msg12 : timezone updated
-	echo -e "\n$ok $(msg12) \n";
-        else # msg13 : Ok, we don't change the timezone
-	echo -e "\n$info $(msg13) \n";
+	# msg112 : timezone updated
+	echo -e "\n$ok $(msg112) \n";
+        else # msg113 : Ok, we don't change the timezone
+	echo -e "\n$info $(msg113) \n";
 fi;
 
 # Update of locales
-# msg14 : Do you want to change your locale ?
-echo -e "\n" ; read -e -p "$(msg14) (yn) : " -i "y" locales
+# msg114 : Do you want to change your locale ?
+echo -e "\n" ; read -e -p "$(msg114) (yn) : " -i "y" locales
 if [ $locales == 'y' ]
         then dpkg-reconfigure locales
-	# msg15 : locales updated
-	echo -e "\n$ok $(msg15) \n";
-        else # msg16 : Ok, we don't change the locale
-	echo -e "\n$info $(msg16) \n\n";
-	# msg17 : Hit ENTER to pursue to apt-get update and YnH Installation...
-        read -e -p "$(msg17)";
+	# msg115 : locales updated
+	echo -e "\n$ok $(msg115) \n";
+        else # msg116 : Ok, we don't change the locale
+	echo -e "\n$info $(msg116) \n\n";
+	# msg117 : Hit ENTER to pursue to apt-get update and YnH Installation...
+        read -e -p "$(msg117)";
 fi;
 
 
 # Update of packages list and installation of git
-# msg18 : Update of packages list
-echo -e "\n$info $(msg18) \n";
+# msg118 : Update of packages list
+echo -e "\n$info $(msg118) \n";
 apt-get update -qq > /dev/null 2>&1;
 apt-get dist-upgrade -qq > /dev/null 2>&1;
 apt-get install git -y > /dev/null 2>&1;
 
 # Installation of Yunohost from git
-# msg19 : Installation of Yunohost v2 from git sources
-echo -e "\n$script $(msg19) \n"
+# msg119 : Installation of Yunohost v2 from git sources
+echo -e "\n$script $(msg119) \n"
 
 git clone https://github.com/YunoHost/install_script /tmp/install;
 /tmp/install/install_yunohostv2;

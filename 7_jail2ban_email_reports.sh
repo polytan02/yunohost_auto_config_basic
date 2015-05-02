@@ -76,7 +76,7 @@ sed -i "s/destemail = root@localhost/destemail = $email_fail2ban/g" $jail;
 sed -i "s/action = %(action_)s/action = %(action_mwl)s/g" $jail;
 
 # msg707 : Restarting service fail2ban
-echo -e "\n--- $(msg707) \n";
+echo -e "\n--- $(msgRestart 'Fail2Ban') \n";
 service fail2ban restart;
 
 echo -e "\n$info $(msgAllDone) \n";

@@ -37,6 +37,11 @@ msgSkip () { if [ $lang == 'fr' ]
         else echo "Ok, we skip this part then";
         fi; }
 
+msgRestart () { if [ $lang == 'fr' ]
+        then echo "Redemarrage du service $1";
+        else echo "Restarting service $1";
+        fi; }
+
 msgAllDone () { if [ $lang == 'fr' ]
         then echo "Normalement, tout s'est bien passé ! :)";
         else echo "Hopefully, all done Well ! :)";
@@ -72,7 +77,7 @@ msg706 () { if [ $lang == 'fr' ]
         else echo "Configuring jail.conf to send emails to $1";
         fi; }
 
-msg707 () { if [ $lang == 'fr' ]
-        then echo "Redemarrage du daemon Fail2Ban";
-        else echo "Restarting service Fail2Ban";
-        fi; }
+#msg707 () { if [ $lang == 'fr' ]
+#        then echo "Redemarrage du daemon Fail2Ban";
+#        else echo "Restarting service Fail2Ban";
+#        fi; }
