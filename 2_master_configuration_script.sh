@@ -7,22 +7,54 @@
 # 14/04/2015
 #
 
-# Setup of colours for error codes
-set -e
-txtgrn=$(tput setaf 2)    # Green
-txtred=$(tput setaf 1)    # Red
-txtcyn=$(tput setaf 6)    # Cyan
-txtpur=$(tput setaf 5)    # Purple
-txtrst=$(tput sgr0)       # Text reset
-failed=[${txtred}FAILED${txtrst}]
-ok=[${txtgrn}OK${txtrst}]
-info=[${txtcyn}INFO${txtrst}]
-script=[${txtpur}SCRIPT${txtrst}]
+echo -e "\nVeuillez choisir la langue (en/fr) :";
+read -e -p "Please choose the language (en/fr) : " -i "fr" lang;
+if [ $lang != "en" ];
+        then if [ $lang != "fr" ];
+                then echo -e "\nLanguage not recognised, reverting to English";
+                lang="en"
+        fi;
+fi;
+
+# We make sure the user launch the script from the bundle, or at least one folder up
+if [[ ! -e 2_master_configuration_script.sh ]];
+        then if [[ -d yunohost_auto_config_basic ]];
+                then cd yunohost_auto_config_basic || {
+                if [ $lang == "fr" ];
+                        then echo -e >&2 "\n Le repertoire du bundle existe mais je ne peux pas cd dedans.\n"; exit 1;
+                        else echo -e >&2 "\n Bundle directory exists but I can't cd there.\n"; exit 1;
+                fi; }
+        else if [ $lang == "fr" ];
+                then echo -e "\n Veuillez rentrer dans le repertoire avant de lancer le script.\n"; exit 1;
+                else echo -e "\n Please cd into the bundle before running this script.\n"; exit 1;
+             fi;
+        fi;
+fi;
+
+# We check that all necessary files are present
+for i in couleurs.sh 2_trad_msg.sh ;
+do
+        if ! [ -a "etc/$i" ];
+        then if [ $lang == "fr" ];
+                then echo -e "\n $i n'est pas present dans le sous dossier etc";
+                echo -e "\nOn arrete avant d'aller plus loin\n";
+                read -e -p "Presser ENTREE pour arreter ce script...  ";
+                else
+                echo -e "\n $i not found in subfolder etc ";
+                echo -e "\nAborting before doing anything\n";
+                read -e -p "Hit ENTER to end this script...  ";
+                fi;
+        exit;
+        fi;
+done;
+
+source etc/couleurs.sh
+source etc/2_trad_msg.sh;
 
 # Make sure only root can run our script
 if [[ $EUID -ne 0 ]];
-        then   echo -e "\n$failed This script must be run as root\n";
-        read -e -p "Hit ENTER to end this script...  ";
+        then   echo -e "\n$failed $(msgNoRoot) \n";
+        read -e -p "$(msgHitEnterEnd)";
         exit;
 fi;
 
@@ -30,67 +62,79 @@ fi;
 for i in 3_conf_base.sh 4_adjust_ssl_conf.sh 5_opendkim.sh 6_apticron_email_reports.sh 7_jail2ban_email_reports.sh 8_cleaning.sh ;
 do
         if ! [ -a "$i" ];
-	then echo -e "\n$failed $i not found in current folder";
-        echo -e "\nAborting before doing anything\n";
-	read -e -p "Hit ENTER to end this script...  ";
+	then # msg201 : $i not found in folder $files
+	echo -e "\n$failed $(msg201 $i)";
+        echo -e "\n$failed $(msgAbort) \n";
+	read -e -p "$(msgHitEnterEnd)";
 	exit;
 	else chmod +x $i;
         fi;
 done;
 
 # We run script 3_conf_base.sh
-echo -e "\n$script 3_BASE SYSTEM CONFIGURATION\n";
-read -e -p "Do you want to pursue with this part of the script ? (yn) : " -i "y" s3;
+# msg202 : 3_BASE SYSTEM CONFIGURATION
+echo -e "\n$script $(msg202) \n";
+# msgGoNext : Do you want to pursue with this part of the script ? (yn) :
+read -e -p "$(msgGoNext)" -i "y" s3;
 if [ $s3 == 'y' ];
-	then ./3_conf_base.sh;
-	else echo -e "\nSkipping base system configuration\n";
-	read -e -p "Hit ENTER to end this script...  ";
+	then ./3_conf_base.sh $lang;
+	else # msg203 : Skipping base system configuration
+	echo -e "\n$(msg203) \n";
+	read -e -p "$(msgHitEnterEnd) ";
 fi;
 
 # We run script 4_install_certssl.sh
-echo -e "\n$script 4_CONFIGURATION OF NGINX and YUNOHOST SSL\n";
-read -e -p "Do you want to pursue with this part of the script ? (yn) : " -i "y" s4;
+# msg204 : 4_CONFIGURATION OF NGINX and YUNOHOST SSL
+echo -e "\n$script $(msg204) \n";
+read -e -p "$(msgGoNext)" -i "y" s4;
 if [ $s4 == 'y' ];
-	then ./4_adjust_ssl_conf.sh;
-	else echo -e "\nSkipping SSL configuration\n";
-	read -e -p "Hit ENTER to end this script...  ";
+	then ./4_adjust_ssl_conf.sh $lang;
+	else # msg205 : Skipping SSL configuration
+	echo -e "\n$(msg205) \n";
+	read -e -p "$(msgHitEnterEnd)";
 fi;
 
 # We run script 5_opendkim.sh
-echo -e "\n$script 5_CONFIGURATION OF OpenDKIM\n";
-read -e -p "Do you want to pursue with this part of the script ? (yn) : " -i "y" s5;
+# msg206 : 5_CONFIGURATION OF OpenDKIM
+echo -e "\n$script $(msg206) \n";
+read -e -p "$(msgGoNext)" -i "y" s5;
 if [ $s5 == 'y' ];
-	then ./5_opendkim.sh;
-	else echo -e "\nSkipping OpendDKIM configuration\n";
-	read -e -p "Hit ENTER to end this script...  ";
+	then ./5_opendkim.sh $lang;
+	else # msg207 : Skipping OpendDKIM configuration
+	echo -e "\n$(msg207) \n";
+	read -e -p "$(msgHitEnterEnd)";
 fi;
 
 # We run script 6_apticron_email_reports.sh
-echo -e "\n$script 6_INSTALLATION and CONFIGURATION OF APTICRON\n";
-read -e -p "Do you want to pursue with this part of the script ? (yn) : " -i "y" s6;
+# msg208 : 6_INSTALLATION and CONFIGURATION OF APTICRON
+echo -e "\n$script $(msg208) \n";
+read -e -p "$(msgGoNext)" -i "y" s6;
 if [ $s6 == 'y' ];
-	then ./6_apticron_email_reports.sh;
-	else echo -e "\nSkipping Apticron and Jail2ban configuration\n";
-	read -e -p "Hit ENTER to end this script...  ";
+	then ./6_apticron_email_reports.sh $lang;
+	else # msg209 : Skipping Apticron configuration
+	echo -e "\n$(msg209) \n";
+	read -e -p "$(msgHitEnterEnd)";
 fi;
 
 # We run script 7_jail2ban_email_reports.sh
-echo -e "\n$script 7_CONFIGURATION OF FAIL2BAN\n";
-read -e -p "Do you want to pursue with this part of the script ? (yn) : " -i "y" s7;
+# msg210 : 7_CONFIGURATION OF FAIL2BAN
+echo -e "\n$script $(msg210) \n";
+read -e -p "$(msgGoNext)" -i "y" s7;
 if [ $s7 == 'y' ];
-	then ./7_jail2ban_email_reports.sh;
-	else echo -e "\nSkipping Apticron and Jail2ban configuration\n";
-	read -e -p "Hit ENTER to end this script...  ";
+	then ./7_jail2ban_email_reports.sh $lang;
+	else # msg211 : Skipping Jail2Ban configuration
+	echo -e "\n$(msg211) \n";
+	read -e -p "$(msgHitEnterEnd)";
 fi;
 
 # We run script 8_cleaning.sh
-echo -e "\n$script 8_APT-GET CLEANING\n";
-read -e -p "Do you want to pursue with this part of the script ? (yn) : " -i "y" s8;
+# msg212 : 8_APT-GET CLEANING
+echo -e "\n$script $(msg212) \n";
+read -e -p "$(msgGoNext)" -i "y" s8;
 if [ $s8 == 'y' ];
-	then ./8_cleaning.sh;
-	else echo -e "\nSkipping Apticron and Jail2ban configuration\n";
-	read -e -p "Hit ENTER to end this script...  ";
+	then ./8_cleaning.sh $lang;
+	else # msg213 : Skipping apt-get cleaning
+	echo -e "\n$(msg213) \n";
+	read -e -p "$(msgHitEnterEnd)";
 fi;
 
-echo -e "\n$script END OF YUNOHOST CONFIGURATION SCRIPT\n";
-echo -e "\n$info Thank you for using this !\n";

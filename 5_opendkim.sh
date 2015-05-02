@@ -131,7 +131,7 @@ if [ $key == 2 ];
 	then echo -e "\n$info OpenDKIM mail.private and mail.txt have been found in $files/$domain/ and will be used instead of generating a new key\n";
 	cp $files/$domain/mail.{txt,private} $dest/keys/$domain/;
 	echo -e "\n$ok mail.txt and mail.private have been copied to $dest/keys/$domain/";
-	else echo -e "\n$ok Generation of new OpenDKIM keys for $domain\n";
+	else echo -e "\n$ok Generation of OpenDKIM keys\n";
 	opendkim-genkey -D $dest/keys/$domain -s mail -d $domain;
 fi;
 
