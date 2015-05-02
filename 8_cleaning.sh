@@ -52,7 +52,7 @@ echo -e "\n$info $(msg801) \n";
 # msg802 : Should we make some cleaning ?
 read -e -p "$(msg802) (yn) : " -i "y" clean;
 if [ $clean == 'y' ];
-	then #Ok, here we clean
+	then # msg803 : Ok, here we clean
 	echo -e "\n$info $(msg803) \n";
 	apt-get autoremove -qq;
 	# msg804 : apt-get autoremove : Done
