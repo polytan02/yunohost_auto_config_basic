@@ -10,7 +10,7 @@ failed=[${txtred}FAILED${txtrst}];
 ok=[${txtgrn}OK${txtrst}];
 info=[${txtcyn}INFO${txtrst}];
 script=[${txtpur}SCRIPT${txtrst}];
-
+warning=[${txtred}WARNING${txtrst}]
 
 if [ $lang == "fr" ];
 	then
@@ -18,4 +18,5 @@ if [ $lang == "fr" ];
 		ok=[${txtgrn}OK${txtrst}];
 		info=[${txtcyn}INFO${txtrst}];
 		script=[${txtpur}SCRIPT${txtrst}];
+		warning=[${txtred}ATTENTION${txtrst}]
 fi;
