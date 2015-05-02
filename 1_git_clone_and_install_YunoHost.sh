@@ -74,8 +74,8 @@ if [ $change_hostname == 'y' ];
 		echo -e "\n" ; read -e -p "$(msg103) : " new_hostname;
         if [ ! -z $new_hostname ];
                 then echo $new_hostname > /etc/hostname
-                # msg104 : hostname updated to
-		echo -e "\n$ok $(msg104) $new_hostname \n";
+                # msg104 : hostname updated to $new_hostname
+		echo -e "\n$ok $(msg104) \n";
                 else # msg105 The hostname seems empty, we don't change it !
 		echo -e "\n$failed $(msg105)";
 		# msg101 : current hostname

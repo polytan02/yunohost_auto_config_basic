@@ -48,8 +48,8 @@ msgAllDone () { if [ $lang == 'fr' ]
         fi; }
 
 msg301 () { if [ $lang == 'fr' ]
-        then echo "Le dossier $2 ne contient pas $1";
-        else echo "$1 not found in folder $2";
+        then echo "Le dossier $files ne contient pas $1";
+        else echo "$1 not found in folder $files";
         fi; }
 
 msg302 () { if [ $lang == 'fr' ]

@@ -77,6 +77,6 @@ msg705 () { if [ $lang == 'fr' ]
         fi; }
 
 msg706 () { if [ $lang == 'fr' ]
-        then echo "Configuration de fail.conf pour que $1 recoive les courriels";
-        else echo "Configuring jail.conf to send emails to $1";
+        then echo "Configuration de fail.conf pour que $email_fail2ban recoive les courriels";
+        else echo "Configuring jail.conf to send emails to $email_fail2ban";
         fi; }

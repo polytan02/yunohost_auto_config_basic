@@ -54,7 +54,7 @@ files=conf_base;
 for i in root.bashrc user.bashrc sshd_config sources.list;
 do
 	if ! [ -a "./$files/$i" ];
-        then echo -e "\n$failed $(msg301 $i $files)";
+        then echo -e "\n$failed $(msg301 $i)";
         echo -e "\n$(msgAbort) \n";
         read -p "$(msgHitEnterEnd)";
 	exit;
@@ -131,11 +131,10 @@ cp ./$files/sshd_config /etc/ssh/sshd_config;
 
 # Creation of a SSH user instead of admin
 user=admin
-# msg319 :
-#echo -e "\n$info Default SSH user : $user\n";
-#echo -e "$info Please note that the user MUST be DIFFERENT from one created by yunohost itself";
-#echo -e "$info You will not be able to create a user with the same name later on with yunohost";
-#echo -e "$info I don't like using admin, hence the creation of a dedicated ssh user\n";
+# msg319 : Default SSH user : $user\n";
+#	   Please note that the user MUST be DIFFERENT from one created by yunohost itself";
+#	   You will not be able to create a user with the same name later on with yunohost";
+#	   I don't like using admin, hence the creation of a dedicated ssh user\n";
 echo -e "\n$info $(msg319) \n";
 # msg320 : Do you want to create a new user to connect via ssh ?
 read -e -p "$(msg320) (yn) : " -i "y" create_user;

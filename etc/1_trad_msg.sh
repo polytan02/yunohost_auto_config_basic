@@ -43,8 +43,8 @@ msg103 () { if [ $lang == 'fr' ]
         fi; }
 
 msg104 () { if [ $lang == 'fr' ]
-        then echo "Nom d'hote mis a jour en";
-        else echo "Hostname updated to";
+        then echo "Nom d'hote mis a jour en $new_hostname";
+        else echo "Hostname updated to $new_hostname";
         fi; }
 
 msg105 () { if [ $lang == 'fr' ]

@@ -81,17 +81,17 @@ msg607 () { if [ $lang == 'fr' ]
         fi; }
 
 msg608 () { if [ $lang == 'fr' ]
-        then echo "Configuration d'apticron pour que $1 envoie les courriels";
-        else echo "Configuring apticron to send emails from $1";
+        then echo "Configuration d'apticron pour que $email_apti_s envoie les courriels";
+        else echo "Configuring apticron to send emails from $email_apti_s";
         fi; }
 
 msg609 () { if [ $lang == 'fr' ]
-        then echo "Configuration d'apticron pour que $1 recoive les courriels";
-        else echo "Configuring apticron for $1 to receive emails";
+        then echo "Configuration d'apticron pour que $email_apti_r recoive les courriels";
+        else echo "Configuring apticron for $email_apti_r to receive emails";
         fi; }
 
 msg610 () { if [ $lang == 'fr' ]
-        then echo "Ajustement de $1";
-        else echo "Adjustment of $1";
+        then echo "Ajustement de $cron";
+        else echo "Adjustment of $cron";
         fi; }
 

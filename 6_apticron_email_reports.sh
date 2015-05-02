@@ -84,16 +84,16 @@ apt-get install -qq -y apticron > /dev/null 2>&1;
 
 # Then we configure apticron
 # msg608 : Configuring apticron to send emails from $email_apti_s
-echo -e "$ok $(msg608 $email_apti_s) ";
+echo -e "$ok $(msg608) ";
 sed -i "s/EMAIL=\"root\"/EMAIL=\"$email_apti_s\"/g" $apti;
 sed -i "s/# NOTIFY_NO_UPDATES=\"0\"/NOTIFY_NO_UPDATES=\"1\"/g" $apti;
 # msg609 : Configuring apticron to receive emails to $email_apti_r
-echo -e "$ok $(msg609 $email_apti_r) ";
+echo -e "$ok $(msg609) ";
 sed -i "s/# CUSTOM_FROM=\"\"/CUSTOM_FROM=\"$email_apti_r\"/g" $apti;
 
 # We adjust the cron
 # msg610 : Adjustment of $cron
-echo -e "$ok $(msg610 $cron)";
+echo -e "$ok $(msg610)";
 sed -i "s/\* \* \* \*/4 \* \* \*/g" $cron;
 
 echo -e "\n$info $(msgAllDone) \n";

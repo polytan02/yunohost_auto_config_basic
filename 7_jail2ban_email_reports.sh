@@ -70,8 +70,8 @@ echo -e "\n" ; read -e -p "$(msg704) : " -i "$email_default" email_fail2ban;
 echo -e "\n$ok $(msg705) : $email_fail2ban";
 
 # We edit jail.conf
-# Configuring jail.conf to send emails to $email_fail2ban
-echo -e "$ok $(msg706 $email_fail2ban)";
+# msg706 : Configuring jail.conf to send emails to $email_fail2ban
+echo -e "$ok $(msg706)";
 sed -i "s/destemail = root@localhost/destemail = $email_fail2ban/g" $jail;
 sed -i "s/action = %(action_)s/action = %(action_mwl)s/g" $jail;
 
