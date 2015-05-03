@@ -49,7 +49,7 @@ msgAllDone () { if [ $lang == 'fr' ]
 
 msg501 () { if [ $lang == 'fr' ]
         then echo "OpenDKIM est un logiciel qui authentifie les emails que vous envoyez";
-		echo -e "$info Le but est d'eviter que vos couriels soient consideres comme des POURIELS";
+		echo -e "$info Le but est d'eviter que vos courriels soient consideres comme des POURIELS";
 		echo -e "$info N'oubliez pas que cela necessite d'ajouter un champ dans votre Zone DNS.";
         else echo "OpenDKIM is a software which authenticate the emails you send.";
 		echo -e "$info This is to avoid your emails to be considered as SPAM.";
