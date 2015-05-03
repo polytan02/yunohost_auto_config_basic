@@ -1,7 +1,7 @@
 # Basic auto config files for Yunohost single domain
 
 
-This is v9.0<br>
+This is v9.1<br>
 <br>
 <br> Now available in french ! Maintenant aussi disponible en français ! 
 <br> Indiquez simplement fr lors de la demande de la langue
