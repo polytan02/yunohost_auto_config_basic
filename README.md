@@ -3,7 +3,7 @@
 
 This is v9.1<br>
 <br>
-<br> Now available in french ! Maintenant aussi disponible en français ! 
+<br> Now available in french ! Disponible en français ! 
 <br> Indiquez simplement fr lors de la demande de la langue
 <br>
 <br> 
