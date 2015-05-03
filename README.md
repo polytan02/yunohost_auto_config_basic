@@ -11,7 +11,7 @@ This is v9.1<br>
 
 
 To copy these files on your server, simply do :<br\>
-apt-get update<br>
+<br>apt-get update<br>
 apt-get install git<br>
 git clone https://github.com/polytan02/yunohost_auto_config_basic <br>
 cd yunohost_auto_config_basic/<br>
