@@ -6,7 +6,9 @@ This is v9.1<br>
 <br> Now available in french ! Disponible en français ! 
 <br> Indiquez simplement fr lors de la demande de la langue
 <br>
-<br> 
+<br> Maintenant compatible Debian Jessie ! (en plus de Wheezy)
+<br>
+<br> Now compatible with Debian Jessie ! (on top of Wheezy)
 
 
 
@@ -19,7 +21,7 @@ cd yunohost_auto_config_basic/<br>
 <br>
 If you want to install Yunohost on a fresh Debian 7, start from script 1 and then run script 2.
 <br><br>
-If you already installed a fresh Yunohost on a fresh Debian 7 then you can start from the master script (number 2)<br>
+If you already installed a fresh Yunohost on a fresh Debian 7 (Wheezy) or 8 (Jessie) then you can start from the master script (number 2)<br>
 <br><br>
 
 If you choose to run the SSL script, note the following : <br\>
