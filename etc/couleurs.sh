@@ -1,5 +1,5 @@
 # Setup of colours for error codes
-set -e
+#set -e
 
 txtgrn=`tput setaf 2`;
 txtred=`tput setaf 1`;
