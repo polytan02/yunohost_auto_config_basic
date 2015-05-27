@@ -38,7 +38,7 @@ do
         fi;
 done;
 
-source etc/couleurs.sh
+source etc/couleurs.sh;
 source etc/3_trad_msg.sh;
 
 # Make sure only root can run our script
@@ -92,6 +92,12 @@ if [ $ovh == 'y' ];
 	then # msg309 : Copy apt sources.list to use ovh servers
 	echo -e "\n$ok $(msg309)";
 	cp ./$sources /etc/apt/;
+	# We check Debian version to update the sources.list accordingly
+	debver=$(sed 's/\..*//' /etc/debian_version)
+	if [ $debver == 8 ];
+		then sed -i 's/wheezy/jessie/g' /etc/apt/sources.list
+	fi;
+	# We add yunohost repository
 	echo "deb http://repo.yunohost.org/ megusta main" >> /etc/apt/sources.list;
 	else # msg310 : Ok, we don't change apt/sources.list
 	echo -e "\n$info $(msg310) \n";

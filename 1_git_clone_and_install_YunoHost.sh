@@ -48,7 +48,7 @@ do
 done;
 
 
-source etc/couleurs.sh
+source etc/couleurs.sh;
 source etc/1_trad_msg.sh;
 
 # Make sure only root can run our script
@@ -95,6 +95,11 @@ if [ -a "$sources" ];
 		# msg108 : Copy apt sources.list to use ovh servers\
         	then echo -e "\n$ok $(msg108) \n";
 		cp ./$sources /etc/apt/;
+		# We check Debian version to adjust the sources.list accordingly
+		debver=$(sed 's/\..*//' /etc/debian_version)
+		if [ $debver == 8 ];
+			then sed -i 's/wheezy/jessie/g' /etc/apt/sources.list
+		fi;
 	        else # msg109 : Ok, we don't change apt/sources.list
 		echo -e "\n$info $(msg109) \n";
 	fi;
@@ -131,9 +136,12 @@ fi;
 # Update of packages list and installation of git
 # msg118 : Update of packages list
 echo -e "\n$info $(msg118) \n";
-apt-get update -qq > /dev/null 2>&1;
-apt-get dist-upgrade -qq > /dev/null 2>&1;
-apt-get install git -y > /dev/null 2>&1;
+apt-get update
+# On some systems there may be apache, which would fail the install, so we remove it. Same for bind9
+apt-get remove apache2 bind9 -y
+apt-get dist-upgrade
+# Base kit to be installed
+apt-get install git nano dnsmasq -y
 
 # Installation of Yunohost from git
 # msg119 : Installation of Yunohost v2 from git sources
