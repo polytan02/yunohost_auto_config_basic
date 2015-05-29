@@ -97,7 +97,7 @@ if [ $ovh == 'y' ];
 	if [ $debver == 8 ];
 		then sed -i 's/wheezy/jessie/g' /etc/apt/sources.list
 	fi;
-	# We add yunohost repository
+	# We add yunohost megusta repository (=stable v2)
 	echo "deb http://repo.yunohost.org/ megusta main" >> /etc/apt/sources.list;
 	else # msg310 : Ok, we don't change apt/sources.list
 	echo -e "\n$info $(msg310) \n";
