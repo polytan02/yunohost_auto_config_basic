@@ -134,8 +134,8 @@ mkdir -p $dest/keys/$domain;
 # msg512 : Update of TrustedHosts
 echo -e "$ok $(msg512)";
 
-if [ -z $dest/TrustedHosts ];
-	then cp ./$files/TrustedHosts >> $dest/TrustedHosts;
+if [ ! -f "$dest/TrustedHosts" ];
+	then cp ./$files/TrustedHosts $dest/TrustedHosts;
 	echo "*.$domain" >> $dest/TrustedHosts;
 	else echo "*.$domain" >> $dest/TrustedHosts;
 fi;
