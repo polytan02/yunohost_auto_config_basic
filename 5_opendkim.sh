@@ -162,7 +162,7 @@ do
 	if [ -a "./$files/$domain/$i" ];
         then key=$((key+1))
 	echo -e "$ok $(msg516 $i)";
-	else echo -e "$info $(msg516 $i)";
+	else echo -e "$info $(msg517 $i)";
         fi;
 done;
 
