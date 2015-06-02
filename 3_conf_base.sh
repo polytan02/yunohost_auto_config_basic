@@ -176,7 +176,7 @@ echo -e "\n$info $(msg327) \n";
 read -e -p "$(msg328) (yn) : " -i "y" port;
 if [ $port == 'y' ];
 	then # msg329 : Indicate new SSH port
-	echo -e "\n"; read -e -p "$(msg329) : " -i "4242" port;
+	echo -e "\n"; read -e -p "$(msg329) : " -i "22" port;
 	# Check port availability
 	echo -e "\n" ; yunohost app checkport $port;
 	if [[ ! $? -eq 0 ]];
