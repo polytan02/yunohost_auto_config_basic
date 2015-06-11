@@ -90,7 +90,8 @@ fi;
 sources=conf_base/sources.list
 if [ -a "$sources" ];
 	# msg107 : Do you want to use OVH Debian mirrors ?
-	then echo -e "\n" ; read -e -p "$(msg107) (yn) : " -i "y" ovh;
+	then echo -e "\n$info $(msg1071)" ;
+	read -e -p "$(msg1072) (yn) : " -i "y" ovh;
 	if [ $ovh == 'y' ]
 		# msg108 : Copy apt sources.list to use ovh servers\
         	then echo -e "\n$ok $(msg108) \n";

@@ -57,7 +57,14 @@ msg106 () { if [ $lang == 'fr' ]
         else echo "Ok, we don't change the hostname";
         fi; }
 
-msg107 () { if [ $lang == 'fr' ]
+msg1071 () { if [ $lang == 'fr' ]
+        then echo "Attention, option incompatible avec Raspbian (la plupart des raspberry pi l'utilise)";
+		echo -e "Ne pas utiliser les miroirs OVH dans ce cas !";
+        else echo "Be careful, this option is not compatible with Raspbien (most of raspberry pi use it)";
+		echo -e "Don't use OVH mirrors in this case !";
+        fi; }
+
+msg1072 () { if [ $lang == 'fr' ]
         then echo "Utiliser les miroirs Debian fournis par OVH ?";
         else echo "Do you want to use OVH Debian mirrors ?";
         fi; }
