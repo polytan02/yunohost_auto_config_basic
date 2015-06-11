@@ -59,9 +59,9 @@ msg106 () { if [ $lang == 'fr' ]
 
 msg1071 () { if [ $lang == 'fr' ]
         then echo "Attention, option incompatible avec Raspbian (la plupart des raspberry pi l'utilise)";
-		echo -e "Ne pas utiliser les miroirs OVH dans ce cas !";
+		echo -e "$info Ne pas utiliser les miroirs OVH dans ce cas !";
         else echo "Be careful, this option is not compatible with Raspbien (most of raspberry pi use it)";
-		echo -e "Don't use OVH mirrors in this case !";
+		echo -e "$info Don't use OVH mirrors in this case !";
         fi; }
 
 msg1072 () { if [ $lang == 'fr' ]
