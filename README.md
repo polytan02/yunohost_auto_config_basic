@@ -12,7 +12,7 @@ This is v10.0
 
 
 ## Installation
-To copy these files on your server, simply do :<br/>
+To copy these files on your server, simply do :
 ```apt-get update
 apt-get install git
 git clone https://github.com/polytan02/yunohost_auto_config_basic
