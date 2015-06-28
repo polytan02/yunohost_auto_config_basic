@@ -22,7 +22,7 @@ To copy these files on your server, simply do:
 
 ``cd yunohost_auto_config_basic/``
  
-## Wgat script to use ?
+## What script to use ?
 * If you want to install Yunohost on a fresh Debian, start from script 1 and then run script 2.
 
 * If you already installed a fresh Yunohost on a fresh then you can start from the master script (number 2) 
@@ -61,6 +61,7 @@ DOMAIN.TLD has to be an existing domain configured by yunohost.
 * Uses of OVH mirror servers (Don't use if you use Raspbian)
 * Adjusts your timezone
 * Adds a user named to your choice to connect via ssh which is not admin
+
 ==> Don't forget that this user name will not be able to be used by yunohost in the web interface
 * Adds of bash-completion
 * Adds a specific bashrc for root and the user created to have great colours
@@ -73,6 +74,7 @@ DOMAIN.TLD has to be an existing domain configured by yunohost.
 * Gives the right permissions
 * Please note that the files MUST be in PEM format
 * Please note that the files MUST be name key.pem and crt.pem and placed in the folder conf_ssl
+
    ==> This script can be re-runned multiple times to add other domains
   
 5 - opendkim
@@ -80,6 +82,7 @@ DOMAIN.TLD has to be an existing domain configured by yunohost.
 * Configures opendkim with your domain name
 * Indicates the DKIM key to put in your DNS
 * Indicates the SPF key to put in your DNS
+
    ==> This script can be re-runned multiple times to add other domains
   
 6 - Apticron.sh
