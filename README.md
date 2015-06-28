@@ -62,7 +62,8 @@ DOMAIN.TLD has to be an existing domain configured by yunohost.
 * Adjusts your timezone
 * Adds a user named to your choice to connect via ssh which is not admin
 
-==> Don't forget that this user name will not be able to be used by yunohost in the web interface
+  ==> Don't forget that this user name will not be able to be used by yunohost in the web interface
+
 * Adds of bash-completion
 * Adds a specific bashrc for root and the user created to have great colours
 * Updates sshd_config to have a specific port (to your liking)
