@@ -199,7 +199,7 @@ echo -e "\n$info $(msg523) \n";
 # msg524 : You can also add a SPF key in your DNS zone
 echo -e "\n$warning $(msg524) :\n";
 
-echo -e "$domain 300 TXT \"v=spf1 a:$domain mx ?all\"";
+echo -e "$domain 300 TXT \"v=spf1 a:$domain ip4:<server's IPv4> ip6:<server's IPv6> mx ?all\"";
 
 # msg525 : Please remember that DNS propagation can take up to 24h...
 #	   Don't forget to update your DNS accordingly !
