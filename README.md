@@ -12,11 +12,15 @@ This is v10.0
 
 
 ## Installation
-To copy these files on your server, simply do :
-apt-get update
-apt-get install git
-git clone https://github.com/polytan02/yunohost_auto_config_basic
-cd yunohost_auto_config_basic/
+To copy these files on your server, simply do:
+
+``apt-get update``
+
+``apt-get install git``
+
+``git clone https://github.com/polytan02/yunohost_auto_config_basic``
+
+``cd yunohost_auto_config_basic/``
  
 ## Wgat script to use ?
 * If you want to install Yunohost on a fresh Debian, start from script 1 and then run script 2.
