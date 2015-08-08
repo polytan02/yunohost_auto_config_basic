@@ -51,7 +51,7 @@ if [[ $EUID -ne 0 ]];
 fi;
 
 work=/etc/yunohost/certs
-self=self_generated
+self=yunohost_self_signed
 files=conf_ssl
 current_host=`cat /etc/yunohost/current_host`
 
