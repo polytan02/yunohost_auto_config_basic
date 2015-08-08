@@ -140,8 +140,8 @@ msg418 () { if [ $lang == 'fr' ]
         fi; }
 
 msg419 () { if [ $lang == 'fr' ]
-        then echo "Sauvegarde du dossier $work dans le sous-dossier backup_ssl_certs";
-        else echo "Backup of folder $work in subfolder backup_ssl_certs";
+        then echo "Sauvegarde du dossier $work dans le sous-dossier backup_ssl_certs/$1";
+        else echo "Backup of folder $work in subfolder backup_ssl_certs/$1";
         fi; }
 
 msg420 () { if [ $lang == 'fr' ]

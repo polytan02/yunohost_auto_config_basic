@@ -54,7 +54,7 @@ work=/etc/yunohost/certs
 self=yunohost_self_signed
 files=conf_ssl
 current_host=`cat /etc/yunohost/current_host`
-
+currentdate=`date +%Y%m%d-%H%M-%S`
 
 # Installation of ssl certificates
 # msg401 : Do you want to adjust ssl parameters for nginx and yunohost ?
@@ -148,9 +148,9 @@ done
 
 # Local backup of yunohost self generated ssl certificates
 # msg419 : Backup of folder $work in current location in folder backup_ssl_certs
-echo -e "$ok $(msg419)"
-mkdir -p backup_ssl_certs
-cp -a $work/* ./backup_ssl_certs/
+echo -e "$ok $(msg419 $currentdate)"
+mkdir -p backup_ssl_certs/$currentdate
+cp -a $work/* ./backup_ssl_certs/$currentdate/
 
 # Backup of self generated files as per Yunohost documentation
 # msg420 : Backup of files as per Yunohost documentation in $work/$domain/$self
