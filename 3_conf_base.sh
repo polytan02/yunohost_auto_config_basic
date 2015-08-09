@@ -132,9 +132,15 @@ fi;
 
 
 # SSH configuration with standard Yunohost file with root allowed to connect
-# msg318 : Copy of sshd config in /etc
-echo -e "\n\n$ok $(msg318) ";
-cp ./$files/sshd_config /etc/ssh/sshd_config;
+# msg3181 : Copy of a basic sshd config in /etc/ssh ?
+echo -e "\n"; read -e -p "$(msg3181) (yn) : " -i "y" copysshd;
+if [ $copysshd == 'y' ];
+	then # msg3182 : Copy of sshd_config to /etc/ssh
+	echo -e "$ok $(msg3182)";
+	cp ./$files/sshd_config /etc/ssh/sshd_config;
+	else echo -e "\n$info $(msgSkip) \n";
+fi;
+
 
 # Creation of a SSH user instead of admin
 user=admin
@@ -189,7 +195,8 @@ if [ $port == 'y' ];
 		else
 		# Open port in firewall
 		echo -e "\n" ; yunohost firewall allow TCP $port;
-		sed -i "s/Port 22/Port $port/g" /etc/ssh/sshd_config;
+		#sed -i "s/Port 22/Port $port/g" /etc/ssh/sshd_config;
+		sed -i "s|^.*\bPort \b.*$|Port $port|" /etc/ssh/sshd_config;
 		# msg 332 : SSH port changed to $port in sshd_config
 		echo -e "\n$ok $(msg332) \n";
 	fi;

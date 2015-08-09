@@ -139,9 +139,14 @@ msg317 () { if [ $lang == 'fr' ]
         else echo "Ok, we don't change the locale";
         fi; }
 
-msg318 () { if [ $lang == 'fr' ]
-        then echo "Copie de sshd_config in /etc";
-        else echo "Copy of sshd_config in /etc";
+msg3181 () { if [ $lang == 'fr' ]
+        then echo "Copie d'un sshd_config basique dans /etc/ssh ?";
+        else echo "Copy of a basic sshd_config in /etc/ssh ?";
+        fi; }
+
+msg3182 () { if [ $lang == 'fr' ]
+        then echo "sshd_config basique copié dans /etc/ssh";
+        else echo "basic sshd_config copied in /etc/ssh";
         fi; }
 
 msg319 () { if [ $lang == 'fr' ]
