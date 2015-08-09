@@ -81,6 +81,7 @@ DOMAIN.TLD has to be an existing domain configured by yunohost.
 * Please note that the files MUST be name key.pem and crt.pem and placed in the folder conf_ssl
 
    ==> This script can be re-runned multiple times to add other domains
+   ==> A backup of the previous ssl keys is made each time and can be found in backup_ssl. This folder is located where the scripts are placed.
   
 5 - opendkim
 * Installs opendkim
