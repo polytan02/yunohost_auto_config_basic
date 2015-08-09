@@ -1,7 +1,7 @@
 # Basic auto config files for Yunohost
 
 
-This is v10.0 
+This is v11.0
 
 ## Latest news 
 * Now available in french ! Disponible en français ! 
@@ -64,10 +64,14 @@ DOMAIN.TLD has to be an existing domain configured by yunohost.
 
   ==> Don't forget that this user name will not be able to be used by yunohost in the web interface
 
-* Adds of bash-completion
-* Adds a specific bashrc for root and the user created to have great colours
 * Updates sshd_config to have a specific port (to your liking)
 * Only allows the user to connect from ssh
+* Adds of bash-completion
+* Adds a specific bashrc for root and the user created to have great colours
+* Installs screen
+* Configures screen for the new user and root
+* Installs tmux
+* Configures tmux for the new user and root
   
 4 - installation of your ssl certificates
 * activates dhparam for nginx
