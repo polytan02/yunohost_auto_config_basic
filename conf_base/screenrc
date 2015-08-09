@@ -1,0 +1,64 @@
+# Disable the display of license information when screen starts up
+startup_message off
+
+# The size, in lines, of the scrollback buffer
+defscrollback 25000
+
+# if we accidentally hangup, don't be all attached when we come back.
+autodetach on
+
+# The command to be used to create a new shell (overrides $SHELL)
+shell bash
+
+# No visual bell
+vbell off
+
+# Clear screen after leaving text editor
+altscreen on
+
+# Customize the hardstatus line, reserving the last line of the
+# display for it even if the terminal supports it. The string that we
+# use makes screen show the hostname, time and current windows, using
+# red background for the one that is marked as active. This command is
+# a slightly modified version of that in Rafael Magana's screenrc:
+# https://github.com/rafmagana/screenrc
+#
+# %{gk} sets text color to green and background to black
+# %H is the hostname of the system
+# %= pads the string to the display's width (like TeX's hfill)
+# %{wk} sets text color to white and background to black
+# The part to the next '%?' is displayed only if a '%' escape inside
+# the part expands to a non empty string
+# %-Lw is the current window
+# %{wr} sets text color to white and background to red
+# %n is the window number
+# %f is the flags of the window
+# %t is the window title
+# (%u) is all other users on this window
+# %+Lw is the window starting after the current one
+# %{g} sets text color to green
+# %{B} sets the 'blinking' attribute
+# %Y-%m-%d are the full year, month and day numbers
+# %{w} sets text color to white
+# %c is the current time HH:MM in 24h format
+#
+# The whitespace after the second %{wk} is required to disable the red
+# background even if there is not anything else to display (i.e., when
+# the last window is also the active one).
+#
+hardstatus alwayslastline
+hardstatus string '%{gk}[ %H ][%= %{wk}%?%-Lw%?%{wr}%n*%f%t%?(%u)%?%{wk} %?%+Lw%?%= %{g}][%{B}%d-%M-%Y %{w}%c %{g}]'
+
+# Enable dynamic windows titles. The "$ " part must match the end of
+# our shell prompt. We must modify .bashrc so that our shell sends a
+# null title-escape-sequence when $TERM is 'screen'. Screen uses this
+# escape sequence to identify the command being run and replace the
+# title of our current window.  "|bash", on the other hand, defines
+# the default name for the shell window. For more details, see:
+#
+# [1] http://retout.co.uk/blog/2007/08/23/automagic_screen_window_titles
+# [2] http://superuser.com/a/244397/147949
+#
+#shelltitle "$ |bash"
+
+
