@@ -316,6 +316,8 @@ fi;
 # Special .tmux.conf files for $user
 # msg337 : Special .tmux.conf configuration
 echo -e "\n$info $(msg337 '.tmux.conf') \n";
+# msg344 : warning for tmux
+echo -e "\n$warning $(msg344)\n";
 # msg338 : Do you want GREAT colours in tmux for user $user ?
 read -e -p "$(msg338 'tmux' $user) (yn) : " -i "y" coluser;
 if [ $coluser == 'y' ];

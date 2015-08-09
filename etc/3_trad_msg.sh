@@ -280,3 +280,15 @@ msg343 () { if [ $lang == 'fr' ]
         else echo "Do you want to install $1 ?";
         fi; }
 
+msg344 () { if [ $lang == 'fr' ]
+        then echo "tmux est configuré par défaut pour utiliser le raccourcis C-a";
+		echo -e "$warning au lieu du standard de tmux C-b";
+		echo -e "$warning Ce choix est fait pour être similaire à screen\n";
+		echo -e "$warning N'hésitez pas à éditer ~/.tmux.conf au besoin";
+		echo -e "$warning D'autres raccourcis ont été changés tel que le split \n";
+        else echo "tmux is configured by default to use C-a";
+		echo -e "$warning instead of the standard C-b bindkey";
+		echo -e "$warning This choice has been made to be in line with screen\n";
+		echo -e "$warning Don't hesitate to edit ~/.tmux.conf if needed";
+		echo -e "$warning Others shortcuts have been modified too such as the split\n";
+        fi; }
