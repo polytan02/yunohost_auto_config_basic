@@ -23,10 +23,15 @@ To copy these files on your server, simply do:
 ``cd yunohost_auto_config_basic/``
  
 ## What script to use ?
-* If you want to install Yunohost on a fresh Debian, start from script 1 and then run script 2.
+* If you want to install Yunohost on a fresh Debian, start from script 1 and then run script 2 :
 
-* If you already installed a fresh Yunohost on a fresh then you can start from the master script (number 2) 
-  
+``./1_git_clone_and_install_YunoHost.sh``
+then
+``./2_master_configuration_script.sh``
+
+* If you already installed a fresh Yunohost on a fresh then you can start from the master script (number 2) :
+
+``./2_master_configuration_script.sh``
 
 ## SSL and HDparam
 If you choose to run the SSL script (number 4), note the following : 
