@@ -131,6 +131,8 @@ if [ $locales == 'y' ]
 fi;
 
 
+################## SSH ######################
+#
 # SSH configuration with standard Yunohost file with root allowed to connect
 # msg3181 : Copy of a basic sshd config in /etc/ssh ?
 echo -e "\n"; read -e -p "$(msg3181) (yn) : " -i "y" copysshd;
