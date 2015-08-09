@@ -218,17 +218,21 @@ echo -e "\n--- $(msgRestart 'SSH') \n";
 service ssh restart;
 echo -e "\n";
 
+
+
+################## bashrc ######################
+#
 # Special .bashrc files for $user
 # msg337 : Special bashrc configuration
-echo -e "\n$info $(msg337) \n";
+echo -e "\n$info $(msg337 'bashrc') \n";
 # msg338 : Do you want GREAT colours in bash for user $user ?
-read -e -p "$(msg338 $user) (yn) : " -i "y" bash;
-if [ $bash == 'y' ];
+read -e -p "$(msg338 'bash' $user) (yn) : " -i "y" coluser;
+if [ $coluser == 'y' ];
 	then if [ $user == 'admin' ];
 		then # msg339 : Not possible for admin, it has to be for a different name
 		echo -e "\n$failed $(msg339) \n";
 		else # msg340 : Copy of .bashrc to $user
-		echo -e "$ok $(msg340 $user)";
+		echo -e "$ok $(msg340 '.bashrc' $user)";
 		cp ./$files/user.bashrc /home/$user/.bashrc;
 		chown $user:$user /home/$user/.bashrc;
 	fi;
@@ -237,10 +241,10 @@ fi;
 
 # Special .bashrc for root
 # msg338 : Do you want GREAT bash colours for ROOT ?
-echo -e "\n"; read -e -p "$(msg338 'ROOT') (yn) : " -i "y" bash_root;
-if [ $bash_root == 'y' ];
+echo -e "\n"; read -e -p "$(msg338 'bash' 'ROOT') (yn) : " -i "y" colroot;
+if [ $colroot == 'y' ];
 	then # msg340 : Copy of .bashrc to root
-	echo -e "$ok $(msg340 'ROOT')";
+	echo -e "$ok $(msg340 '.bashrc' 'ROOT')";
 	cp ./$files/root.bashrc /root/.bashrc;
 	else echo -e "\n$info $(msgSkip) \n";
 fi;
@@ -252,7 +256,87 @@ if [ $bash_comp == 'y' ];
 	then apt-get update -qq > /dev/null 2>&1;
 	apt-get install bash-completion -y > /dev/null 2>&1;
 	# msg342 : bash-completion installed
-	echo -e "$ok $(msg342) \n";
+	echo -e "$ok $(msg342 'bash-completion') \n";
+	else echo -e "\n$info $(msgSkip) \n";
+fi;
+
+################## screen ######################
+#
+# Installation of screen
+# msg343 : Do you want to install screen ?
+echo -e "\n"; read -e -p "$(msg343 'screen') (yn) : " -i "y" inst;
+if [ $inst == 'y' ];
+	then apt-get update -qq > /dev/null 2>&1;
+	apt-get install screen -y > /dev/null 2>&1;
+	# msg342 : screen installed
+	echo -e "$ok $(msg342 'screen') \n";
+	else echo -e "\n$info $(msgSkip) \n";
+fi;
+
+# Special .screenrc files for $user
+# msg337 : Special .screenrc configuration
+echo -e "\n$info $(msg337 '.screenrc') \n";
+# msg338 : Do you want GREAT colours in screen for user $user ?
+read -e -p "$(msg338 'screen' $user) (yn) : " -i "y" coluser;
+if [ $coluser == 'y' ];
+	then if [ $user == 'admin' ];
+		then # msg339 : Not possible for admin, it has to be for a different name
+		echo -e "\n$failed $(msg339) \n";
+		else # msg340 : Copy of .screenrc to $user
+		echo -e "$ok $(msg340 '.screenrc' $user)";
+		cp ./$files/screenrc /home/$user/.screenrc;
+		chown $user:$user /home/$user/.screenrc;
+	fi;
+        else echo -e "\n$info $(msgSkip) \n";
+fi;
+
+# Special .screenrc for root
+# msg338 : Do you want GREAT screen colours for ROOT ?
+echo -e "\n"; read -e -p "$(msg338 'screen' 'ROOT') (yn) : " -i "y" colroot;
+if [ $colroot == 'y' ];
+	then # msg340 : Copy of .screenrc to root
+	echo -e "$ok $(msg340 '.screenrc' 'ROOT')";
+	cp ./$files/screenrc /root/.screenrc;
+	else echo -e "\n$info $(msgSkip) \n";
+fi;
+
+################## tmux ######################
+#
+# Installation of tmux
+# msg343 : Do you want to install tmux ?
+echo -e "\n"; read -e -p "$(msg343 'tmux') (yn) : " -i "y" inst;
+if [ $inst == 'y' ];
+	then apt-get update -qq > /dev/null 2>&1;
+	apt-get install tmux -y > /dev/null 2>&1;
+	# msg342 : tmux installed
+	echo -e "$ok $(msg342 'tmux') \n";
+	else echo -e "\n$info $(msgSkip) \n";
+fi;
+
+# Special .tmux.conf files for $user
+# msg337 : Special .tmux.conf configuration
+echo -e "\n$info $(msg337 '.tmux.conf') \n";
+# msg338 : Do you want GREAT colours in tmux for user $user ?
+read -e -p "$(msg338 'tmux' $user) (yn) : " -i "y" coluser;
+if [ $coluser == 'y' ];
+	then if [ $user == 'admin' ];
+		then # msg339 : Not possible for admin, it has to be for a different name
+		echo -e "\n$failed $(msg339) \n";
+		else # msg340 : Copy of .tmux.conf to $user
+		echo -e "$ok $(msg340 '.tmux.conf' $user)";
+		cp ./$files/tmux.conf /home/$user/.tmux.conf;
+		chown $user:$user /home/$user/.tmux.conf;
+	fi;
+        else echo -e "\n$info $(msgSkip) \n";
+fi;
+
+# Special .tmux.conf for root
+# msg338 : Do you want GREAT tmux colours for ROOT ?
+echo -e "\n"; read -e -p "$(msg338 'tmux' 'ROOT') (yn) : " -i "y" colroot;
+if [ $colroot == 'y' ];
+	then # msg340 : Copy of .tmux.conf to root
+	echo -e "$ok $(msg340 '.tmux.conf' 'ROOT')";
+	cp ./$files/tmux.conf /root/.tmux.conf;
 	else echo -e "\n$info $(msgSkip) \n";
 fi;
 

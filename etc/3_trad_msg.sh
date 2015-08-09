@@ -246,13 +246,13 @@ msg336 () { if [ $lang == 'fr' ]
         fi; }
 
 msg337 () { if [ $lang == 'fr' ]
-        then echo "Configuration speciale du bashrc";
-        else echo "Special bashrc configuration";
+        then echo "Configuration speciale du $1";
+        else echo "Special $1 configuration";
         fi; }
 
 msg338 () { if [ $lang == 'fr' ]
-        then echo "Voulez vous de SUPERBES couleurs dans bash pour $1 ?";
-        else echo "Do you want GREAT colours in bash for user $1 ?";
+        then echo "Voulez vous de SUPERBES couleurs dans $1 pour $2 ?";
+        else echo "Do you want GREAT colours in $1 for user $2 ?";
         fi; }
 
 msg339 () { if [ $lang == 'fr' ]
@@ -261,8 +261,8 @@ msg339 () { if [ $lang == 'fr' ]
         fi; }
 
 msg340 () { if [ $lang == 'fr' ]
-        then echo "Copie de .bashrc pour $1";
-        else echo "Copy of .bashrc for $1";
+        then echo "Copie de $1 pour $2";
+        else echo "Copy of $1 for $2";
         fi; }
 
 msg341 () { if [ $lang == 'fr' ]
@@ -271,8 +271,12 @@ msg341 () { if [ $lang == 'fr' ]
         fi; }
 
 msg342 () { if [ $lang == 'fr' ]
-        then echo "bash-completion installe";
-        else echo "bash-completion installed";
+        then echo "$1 installe";
+        else echo "$1 installed";
         fi; }
 
+msg343 () { if [ $lang == 'fr' ]
+        then echo "Voulez-vous installer $1 ?";
+        else echo "Do you want to install $1 ?";
+        fi; }
 
