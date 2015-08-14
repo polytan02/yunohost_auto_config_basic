@@ -48,7 +48,7 @@ if [[ $EUID -ne 0 ]];
         exit;
 fi;
 
-files=conf_base;
+files=conf_colours;
 # We check that all necessary files are present
 # msg801 : $i not found in folder $files
 for i in root.bashrc user.bashrc tmux.conf screenrc;
