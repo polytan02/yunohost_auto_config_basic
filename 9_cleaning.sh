@@ -38,7 +38,7 @@ do
 done;
 
 source etc/couleurs.sh
-source etc/8_trad_msg.sh;
+source etc/9_trad_msg.sh;
 
 # Make sure only root can run our script
 if [[ $EUID -ne 0 ]];
@@ -47,21 +47,21 @@ if [[ $EUID -ne 0 ]];
         exit;
 fi;
 
-# msg801 : Cleaning with apt-get autoremove and autoclean
-echo -e "\n$info $(msg801) \n";
-# msg802 : Should we make some cleaning ?
-read -e -p "$(msg802) (yn) : " -i "y" clean;
+# msg901 : Cleaning with apt-get autoremove and autoclean
+echo -e "\n$info $(msg901) \n";
+# msg902 : Should we make some cleaning ?
+read -e -p "$(msg902) (yn) : " -i "y" clean;
 if [ $clean == 'y' ];
-	then # msg803 : Ok, here we clean
-	echo -e "\n$info $(msg803) \n";
+	then # msg903 : Ok, here we clean
+	echo -e "\n$info $(msg903) \n";
 	apt-get autoremove -qq;
-	# msg804 : apt-get autoremove : Done
-	echo -e "\n$ok $(msg804)";
+	# msg904 : apt-get autoremove : Done
+	echo -e "\n$ok $(msg904)";
 	apt-get autoclean -qq;
-	# msg805 : apt-get autoclean : Done
-	echo -e "\n$ok $(msg805)";
-	else # msg806 : Ok, we don't clean today...
-	echo -e "\n$info $(msg806) ";
+	# msg905 : apt-get autoclean : Done
+	echo -e "\n$ok $(msg905)";
+	else # msg906 : Ok, we don't clean today...
+	echo -e "\n$info $(msg906) ";
 	exit;
 fi;
 

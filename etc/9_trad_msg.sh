@@ -37,32 +37,32 @@ msgAllDone () { if [ $lang == 'fr' ]
         else echo "Hopefully, all done Well ! :)";
         fi; }
 
-msg801 () { if [ $lang == 'fr' ]
+msg901 () { if [ $lang == 'fr' ]
         then echo "Nettoyage avec apt-get autoremove et autoclean";
         else echo "Cleaning with apt-get autoremove and autoclean";
         fi; }
 
-msg802 () { if [ $lang == 'fr' ]
+msg902 () { if [ $lang == 'fr' ]
         then echo "Est-il temps de faire le menage ?";
         else echo "Should we make some cleaning ?";
         fi; }
 
-msg803 () { if [ $lang == 'fr' ]
+msg903 () { if [ $lang == 'fr' ]
         then echo "Ok, on nettoie !";
         else echo "Ok, here we clean !";
         fi; }
 
-msg804 () { if [ $lang == 'fr' ]
+msg904 () { if [ $lang == 'fr' ]
         then echo "apt-get autoremove : Fait";
         else echo "apt-get autoremove : Done";
         fi; }
 
-msg805 () { if [ $lang == 'fr' ]
+msg905 () { if [ $lang == 'fr' ]
         then echo "apt-get autoclean : Fait";
         else echo "apt-get autoclean : Done";
         fi; }
 
-msg806 () { if [ $lang == 'fr' ]
+msg906 () { if [ $lang == 'fr' ]
         then echo "Tres bien, pas de menage aujourd'hui.... ";
         else echo "Ok, we don't clean today... ";
         fi; }
