@@ -60,7 +60,7 @@ fi;
 
 # We check that all necessary files are present
 # msg201 : $i not found in folder $files
-for i in 3_conf_base.sh 4_adjust_ssl_conf.sh 5_opendkim.sh 6_apticron_email_reports.sh 7_jail2ban_email_reports.sh 8_great_colours_bash_screen_tmux 9_cleaning.sh ;
+for i in 3_conf_base.sh 4_adjust_ssl_conf.sh 5_opendkim.sh 6_apticron_email_reports.sh 7_jail2ban_email_reports.sh 8_great_colours_bash_screen_tmux.sh 9_cleaning.sh ;
 do
         if ! [ -a "$i" ];
 	then echo -e "\n$failed $(msg201 $i)";
