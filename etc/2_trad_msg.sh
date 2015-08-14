@@ -88,11 +88,21 @@ msg211 () { if [ $lang == 'fr' ]
         fi; }
 
 msg212 () { if [ $lang == 'fr' ]
+        then echo "8_SUPERBES COULEURS dans BASH SCREEN TMUX";
+        else echo "8_GREAT COLOURS in BASH SCREEN TMUX";
+        fi; }
+
+msg213 () { if [ $lang == 'fr' ]
+        then echo "Ok, on n'ajoute pas de SUPERBES couleurs shell";
+        else echo "Ok, We don't add GREAT shell colours";
+        fi; }
+
+msg214 () { if [ $lang == 'fr' ]
         then echo "8_NETTOYAGE APT-GET";
         else echo "8_APT-GET CLEANING";
         fi; }
 
-msg213 () { if [ $lang == 'fr' ]
+msg215 () { if [ $lang == 'fr' ]
         then echo "Ok, Pas de nettoyage apt-get";
         else echo "Ok, Skipping apt-get cleaning";
         fi; }
