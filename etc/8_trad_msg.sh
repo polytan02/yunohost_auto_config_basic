@@ -85,11 +85,11 @@ msg807 () { if [ $lang == 'fr' ]
 msg808 () { if [ $lang == 'fr' ]
         then echo "Vous n'avez pas créé l'utilisateur $1";
 		echo -e "$warning Ce script ne pourra ajuster bash, screen et tmux que pour ROOT";
-		echo -e "$warning Nous utiliserons le nom standard "\admin"\ à la place de l'utilisateur standard";
+		echo -e "$warning Nous utiliserons le nom standard \"admin\" à la place de l'utilisateur standard";
 		echo -e "$warning Mais the script n'ajustera rien pour cet utilisateur";
         else echo "You have not created $1";
 		echo -e "$warning This script will only be able to adjust bash, screen and tmux for ROOT";";
-	        echo -e "$warning We will use the genetric "\admin"\ name for the standard user";
+	        echo -e "$warning We will use the genetric \"admin\" name for the standard user";
 		echo -e "$warning But the script will not do anything for this user";
         fi; }
 
