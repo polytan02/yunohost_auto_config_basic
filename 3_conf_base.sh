@@ -51,7 +51,7 @@ fi;
 files=conf_base;
 # We check that all necessary files are present
 # msg301 : $i not found in folder $files
-for i in root.bashrc user.bashrc sshd_config sources.list;
+for i in sshd_config sources.list;
 do
 	if ! [ -a "./$files/$i" ];
         then echo -e "\n$failed $(msg301 $i)";
