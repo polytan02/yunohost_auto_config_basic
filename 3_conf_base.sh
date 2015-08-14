@@ -135,7 +135,7 @@ fi;
 #
 # SSH configuration with standard Yunohost file with root allowed to connect
 # msg3181 : Copy of a basic sshd config in /etc/ssh ?
-echo -e "\n"; read -e -p "$(msg3181) (yn) : " -i "y" copysshd;
+echo -e "\n"; read -e -p "$(msg3181) (yn) : " -i "n" copysshd;
 if [ $copysshd == 'y' ];
 	then # msg3182 : Copy of sshd_config to /etc/ssh
 	echo -e "$ok $(msg3182)";
