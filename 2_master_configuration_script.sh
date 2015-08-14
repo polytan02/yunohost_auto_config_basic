@@ -141,9 +141,9 @@ fi;
 # We run script 9_cleaning.sh
 # msg214 : 9_APT-GET CLEANING
 echo -e "\n$script $(msg214) \n";
-read -e -p "$(msgGoNext)" -i "y" s8;
-if [ $s8 == 'y' ];
-	then ./8_cleaning.sh $lang;
+read -e -p "$(msgGoNext)" -i "y" s9;
+if [ $s9 == 'y' ];
+	then ./9_cleaning.sh $lang;
 	else # msg215 : Skipping apt-get cleaning
 	echo -e "\n$(msg215) \n";
 	read -e -p "$(msgHitEnterEnd)";

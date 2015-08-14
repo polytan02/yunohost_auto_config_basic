@@ -98,8 +98,8 @@ msg213 () { if [ $lang == 'fr' ]
         fi; }
 
 msg214 () { if [ $lang == 'fr' ]
-        then echo "8_NETTOYAGE APT-GET";
-        else echo "8_APT-GET CLEANING";
+        then echo "9_NETTOYAGE APT-GET";
+        else echo "9_APT-GET CLEANING";
         fi; }
 
 msg215 () { if [ $lang == 'fr' ]

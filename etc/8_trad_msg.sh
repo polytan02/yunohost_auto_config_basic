@@ -68,7 +68,7 @@ msg804 () { if [ $lang == 'fr' ]
         fi; }
 
 msg805 () { if [ $lang == 'fr' ]
-        then echo "Utilisateur $1 cree";
+        then echo "Utilisateur $1 créé";
         else echo "User $1 created";
         fi; }
 
@@ -87,10 +87,12 @@ msg808 () { if [ $lang == 'fr' ]
 		echo -e "$warning Ce script ne pourra ajuster bash, screen et tmux que pour ROOT";
 		echo -e "$warning Nous utiliserons le nom standard ADMIN à la place de l'utilisateur standard";
 		echo -e "$warning Mais the script n'ajustera rien pour cet utilisateur";
+		echo -e "$info Les changements validés pour ROOT seront appliqués";
         else echo "You have not created $1";
 		echo -e "$warning This script will only be able to adjust bash, screen and tmux for ROOT";
 	        echo -e "$warning We will use the genetric ADMIN name for the standard user";
 		echo -e "$warning But the script will not do anything for this user";
+		echo -e "$info The changes for ROOT will be applied";
         fi; }
 
 msg809 () { if [ $lang == 'fr' ]
@@ -104,7 +106,7 @@ msg810 () { if [ $lang == 'fr' ]
         fi; }
 
 msg811 () { if [ $lang == 'fr' ]
-        then echo "$1 installe";
+        then echo "$1 installé";
         else echo "$1 installed";
         fi; }
 
