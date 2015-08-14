@@ -3,7 +3,7 @@
 # This file contains the traductions for script 3
 #
 # polytan02@mcgva.org
-# 02/05/2015
+# 14/08/2015
 #
 #
 

@@ -5,7 +5,7 @@
 # It also specifies to use ovh mirrors, locale, timezone and hostname
 #
 # polytan02@mcgva.org
-# 02/05/2015
+# 14/08/2015
 #
 
 # We setup $lang if parameter not given at startup
