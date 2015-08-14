@@ -21,7 +21,7 @@ if [ -z $1 ];
 fi;
 
 # We check that all necessary files are present
-for i in couleurs.sh 8_trad_msg.sh ;
+for i in couleurs.sh 9_trad_msg.sh ;
 do
         if ! [ -a "etc/$i" ];
         then if [ $lang == "fr" ];
