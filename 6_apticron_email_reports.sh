@@ -78,7 +78,7 @@ echo -e "$ok $(msg606) : $email_apti_r\n";
 
 # We start by installing the right software;
 # msg607 : Installation of apticron software
-echo -e "$ok $(msg607) \n";
+echo -e "$info $(msg607) ...";
 apt-get update -qq > /dev/null 2>&1;
 apt-get install -qq -y apticron > /dev/null 2>&1;
 
