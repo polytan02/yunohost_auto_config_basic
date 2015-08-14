@@ -68,7 +68,7 @@ user=admin
 echo -e "\n" ; read -e -p "$(msg802) : " new_user;
 if getent passwd $new_user > /dev/null 2>&1;
 	then # msg803 : The user $new_user exists, we will use this name
-	echo -e "\n$info $(msg803 $new_user)";
+	echo -e "\n$ok $(msg803 $new_user)\n";
 	user=$new_user;
 	else # msg804 The shell user $new_user doesn't exist, do you want to create it ?
 	echo -e "\n"; read -e -p "$(msg804 $new_user) (yn) " -i "n" create_user;
@@ -96,7 +96,7 @@ fi;
 ################## bashrc ######################
 #
 # msg809 : Special bashrc configuration
-echo -e "\n$info $(msg809 'bash') \n";
+echo -e "\n$info $(msg809 'bash')";
 
 # Activation of bash-completion
 # msg810 : Do you want to install bash-completion ?
