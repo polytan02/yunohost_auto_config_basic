@@ -1,7 +1,7 @@
 # Basic auto config files for Yunohost
 
 
-This is v11.0
+This is v12.0
 
 ## Latest news 
 * Now available in french ! Disponible en français ! 
@@ -71,12 +71,6 @@ DOMAIN.TLD has to be an existing domain configured by yunohost.
 
 * Updates sshd_config to have a specific port (to your liking)
 * Only allows the user to connect from ssh
-* Adds of bash-completion
-* Adds a specific bashrc for root and the user created to have great colours
-* Installs screen
-* Configures screen for the new user and root
-* Installs tmux
-* Configures tmux for the new user and root
   
 4 - installation of your ssl certificates
 * activates dhparam for nginx
@@ -105,6 +99,14 @@ DOMAIN.TLD has to be an existing domain configured by yunohost.
 7 - Jail2Ban
 * We simply activate emails to be sent once an IP has been blocked
  
-8 - Cleaning
+8 - Great colours in bash, screen and tmux
+* Adds of bash-completion
+* Adds a specific bashrc for root and the user created to have great colours
+* Installs screen
+* Configures screen for the new user and root
+* Installs tmux
+* Configures tmux for the new user and root
+
+9 - Cleaning
 * Simple script to launch apt-get autoremove and apt-get autoclean 
 
