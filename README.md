@@ -33,6 +33,10 @@ then
 
 ``./2_master_configuration_script.sh``
 
+* This being said, each script is independant, so feel free to just run the one you want, for example :
+
+``./8_great_colours_bash_gnuscreen_tmux.sh``
+
 ## SSL and HDparam
 If you choose to run the SSL script (number 4), note the following : 
 * Place your ssl private key in PEM format in subfolder "conf_ssl/DOMAIN.TLD/"  
