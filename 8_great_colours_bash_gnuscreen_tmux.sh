@@ -120,6 +120,7 @@ if [ $coluser == 'y' ];
 		echo -e "$ok $(msg814 '.bashrc' $user)";
 		cp ./$files/user.bashrc /home/$user/.bashrc;
 		chown $user:$user /home/$user/.bashrc;
+		source ~/.bashrc;
 	fi;
         else echo -e "\n$info $(msgSkip) \n";
 fi;
