@@ -18,15 +18,13 @@
 
 # We setup $lang if parameter not given at startup
 if [ -z $1 ];
-        then echo -e "\nVeuillez choisir la langue (en/fr) :";
-        read -e -p "Please choose the language (en/fr) : " -i "fr" lang;
-        if [ $lang != "en" ];
-                then if [ $lang != "fr" ];
-                        then echo -e "\nLanguage not recognised, reverting to English";
-                        lang="en"
-                fi;
-        fi;
-        else lang="$1";
+        then echo -e "\nYou must indicate as a parameter the language to be used : en or fr";
+	exit;
+        else if [ $1 == 'en' -o $1 == 'fr' ];
+		then lang="$1";
+		else  echo -e "\nYou must indicate as a parameter the language to be used : en or fr";
+		exit;
+	fi;
 fi;
 
 # We check that all necessary files are present
@@ -62,24 +60,11 @@ fi;
 
 echo -e "\n$info $(msg501) \n";
 
-# msg502 : Do you want to install opendkim ?
-read -e -p "$(msg502) (yn) : " -i "y" dkim;
-if ! [ $dkim == 'y' ];
-	then echo -e "\n$info $(msgSkip) \n";
-        read -p "$(msgHitEnterEnd) ";
-	exit;
-fi;
-
-
 # We check the name of the server sending emails
-current_host=`cat /etc/yunohost/current_host`
-# msg503 : Indicate the domain name sending emails on this server
-echo -e "\n"; read -e -p "$(msg503) : " -i "$current_host" domain;
-if [ -z $domain ] ;
-	then # msg504 : You must indicate a domain name for OpenDKIM to be configuredYou must indicate a domain name for OpenDKIM to be configured
-	echo -e "\n$failed $(msg504) \n";
-        read -p "$(msgHitEnterEnd) ";
+if [ -z $2 ];
+        then echo -e "\nYou must indicate the domain name as a parameter";
 	exit;
+        else domain="$2";
 fi;
 
 files=conf_opendkim;
