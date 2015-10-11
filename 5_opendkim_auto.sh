@@ -65,6 +65,7 @@ if [ -z $2 ];
         then echo -e "\nYou must indicate the domain name as a parameter";
 	exit;
         else domain="$2";
+	echo -e "\n$ok $(msg506) : $domain"
 fi;
 
 files=conf_opendkim;
