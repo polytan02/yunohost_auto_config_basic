@@ -149,6 +149,6 @@ apt-get install git nano dnsmasq -y
 echo -e "\n$script $(msg119) \n"
 
 git clone https://github.com/YunoHost/install_script /tmp/install;
-/tmp/install/install_yunohostv2;
+/tmp/install/install_yunohost;
 
 
