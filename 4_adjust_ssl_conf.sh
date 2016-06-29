@@ -140,7 +140,7 @@ echo -e "$ok $(msg416)";
 echo -e "$ok $(msg417)"
 getent group sslcert  || groupadd sslcert
 # msg418 : Added to sslcert group : $1
-for g in amavis dovecot mail metronome mysql openldap postfix postgrey root vmail www-data
+for g in amavis dovecot mail metronome mysql openldap postfix root vmail www-data
 do
 	usermod -G sslcert $g
 	echo -e "$(msg418 $g)"
