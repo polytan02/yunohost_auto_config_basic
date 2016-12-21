@@ -97,7 +97,7 @@ fi;
 # We run script 5_opendkim.sh
 # msg206 : 5_CONFIGURATION OF OpenDKIM
 echo -e "\n$script $(msg206) \n";
-read -e -p "$(msgGoNext)" -i "y" s5;
+read -e -p "$(msgGoNext)" -i "n" s5;
 if [ $s5 == 'y' ];
 	then ./5_opendkim.sh $lang;
 	else # msg207 : Skipping OpendDKIM configuration
