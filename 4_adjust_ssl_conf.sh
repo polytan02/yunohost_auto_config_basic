@@ -119,7 +119,7 @@ fi;
 echo -e "\n\n$script $(msg413)";
 # msg414 : Don't forget to place key.pem and crt.pem in subfolder conf_ssl/$domain/
 echo -e "\n$info $(msg414) \n";
-read -e -p "$(msgGoNext)" -i "y" ssl;
+read -e -p "$(msgGoNext)" -i "n" ssl;
 if ! [ $ssl == 'y' ]; then exit; fi;
 
 # We check that all necessary files are present
